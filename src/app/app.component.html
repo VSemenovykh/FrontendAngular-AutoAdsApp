@@ -1,0 +1,22 @@
+<div id="app">
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <a href="#" class="navbar-brand">Auto Ads</a>
+    <ul class="navbar-nav mr-auto" routerLinkActive="active">
+      <li class="nav-item">
+        <a style="margin-left:10px" href="/home" class="nav-link" routerLink="home">Home </a>
+      </li>
+      <li class="nav-item">
+        <a style="margin-left:15px" href="/cars" class="nav-link" routerLink="cars">List cars</a>
+      </li>
+      <li class="nav-item">
+        <a style="margin-left:25px" href="/add" class="nav-link" routerLink="add">Add auto</a>
+      </li>
+      <li class="nav-item">
+        <a style="margin-left:25px" href="/search-car" class="nav-link" routerLink="search-car">Search car</a>
+      </li>
+    </ul>
+  </nav>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</div>
