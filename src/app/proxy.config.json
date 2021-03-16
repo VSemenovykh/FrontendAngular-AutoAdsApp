@@ -1,0 +1,6 @@
+{
+  "/auto-all/*": {
+    "target": "http://localhost:8080/auto-portal",
+    "secure": false
+  }
+}
