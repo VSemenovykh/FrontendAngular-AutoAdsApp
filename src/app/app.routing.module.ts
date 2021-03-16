@@ -23,6 +23,12 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
 
   { path: '', redirectTo: 'home', pathMatch: 'full' }
+  { path: 'add',
+    component: AddAutoComponent },
+  { path: 'update/:id',
+    component: EditAutoComponent },
+  { path: '**',
+    redirectTo: '/cars' }
 ];
 
 @NgModule({

@@ -12,4 +12,15 @@ export class AutoJoin {
    transmissionType: string = null;
    driveType: string = null;
    bodyStyleType: string = null;
+   id: number;
+   nameBrand: string;
+   nameModel: string;
+   year: string;
+   color: string;
+   price: string;
+   motorType: string;
+   volume: string;
+   transmissionType: string;
+   driveType: string;
+   bodyStyleType: string;
 }

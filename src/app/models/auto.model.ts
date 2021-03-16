@@ -6,5 +6,7 @@ export class Auto {
   idMotor: string;
   transmissionType: string;
   driveType: string;
+  driveType: string;
+  transmissionType: string;
   bodyStyleType: string;
 }

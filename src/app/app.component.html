@@ -19,4 +19,15 @@
   <div class="container">
     <router-outlet></router-outlet>
   </div>
+<div class="container-fluid">
+  <div class="col-md-offset-1">
+    <h1>
+   <!--   Welcome to {{title}}! -->
+    </h1>
+  </div>
+
+  <a routerLink="/cars"> List cars</a>
+  <a style="margin-left:10px" routerLink="/add">Add Auto</a>
+  <br/>
+  <router-outlet></router-outlet>
 </div>

@@ -14,6 +14,7 @@ export class AutoService {
   constructor(private http: HttpClient) {}
 
   private autoUrl = 'http://localhost:8080/app';
+  private autoUrl = 'http://localhost:8080/auto-all';
 
   public getAllAuto(): Observable<any> {
     return this.http.get(this.autoUrl);

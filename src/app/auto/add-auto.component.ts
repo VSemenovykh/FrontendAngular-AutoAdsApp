@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Auto } from '../models/auto.model';
 import { AutoService } from '../_services/auto.service';
 import {FormBuilder} from "@angular/forms";
+import { Auto } from '../models/auto.model';
+import { AutoService } from './auto.service';
 
 @Component({
   selector: 'app-add-auto',
@@ -10,6 +12,9 @@ import {FormBuilder} from "@angular/forms";
   styleUrls: ['add-auto.component.css']
 })
 
+=======
+   styleUrls: ['auto.component.css']
+})
 export class AddAutoComponent {
 
   auto: Auto = new Auto();
@@ -77,5 +82,13 @@ export class AddAutoComponent {
       .subscribe( data => {
         this.router.navigate(['/cars']);
       });
+  constructor(private router: Router, private autoService: AutoService) {
+  }
+
+  createAuto(): void {
+      this.autoService.createAuto(this.auto)
+       .subscribe( data => {
+         alert('Auto created successfully.');
+     });
   }
 }

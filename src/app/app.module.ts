@@ -13,7 +13,11 @@ import {EditAutoComponent} from './auto/edit-auto.component';
 import { HomeComponent } from './home/home.component';
 import {SearchCarComponent} from './auto/search-car.component'
 import {SearchCarService} from './_services/search-car.service';
-
+import {AutoService} from './auto/auto.service';
+import {HttpClientModule} from '@angular/common/http';
+import {AddAutoComponent} from './auto/add-auto.component';
+import {EditAutoComponent} from './auto/edit-auto.component';
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +26,7 @@ import {SearchCarService} from './_services/search-car.service';
     EditAutoComponent,
     HomeComponent,
     SearchCarComponent
+    EditAutoComponent
   ],
   imports: [
     BrowserModule,
@@ -31,6 +36,7 @@ import {SearchCarService} from './_services/search-car.service';
     ReactiveFormsModule
   ],
   providers: [AutoService, SearchCarService],
+  providers: [AutoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
