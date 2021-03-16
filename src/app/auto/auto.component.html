@@ -1,0 +1,38 @@
+<div class="col-md-6">
+<h2> Auto Details</h2>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>№</th>
+    <th>Brand</th>
+    <th>Model</th>
+    <th>Year</th>
+    <th>Color</th>
+    <th>Price</th>
+    <th>Motor type</th>
+    <th>Volume</th>
+    <th>Drive type</th>
+    <th>transmission type</th>
+    <th>Body style</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let car of cars; let i = index">
+    <td>{{i+1}}</td>
+    <td>{{car.nameBrand}}</td>
+    <td>{{car.nameModel}}</td>
+    <td>{{car.year}}</td>
+    <td>{{car.color}}</td>
+    <td>{{car.price}}</td>
+    <td>{{car.motorType}}</td>
+    <td>{{car.volume}}</td>
+    <td>{{car.driveType}}</td>
+    <td>{{car.transmissionType}}</td>
+    <td>{{car.bodyStyleType}}</td>
+    <td><button class="btn btn-success" (click)=deleteAuto(car) > Delete Auto </button></td>
+    <td><button class="btn btn-danger"  (click)=goToUpdate(car.id)> Update Auto </button></td>
+  </tr>
+  </tbody>
+</table>
+</div>
+
