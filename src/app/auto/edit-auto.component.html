@@ -1,0 +1,32 @@
+<h2 class="text-center">Update Auto</h2>
+<form>
+  <div class="form-group">
+    <label for="idBrand">Id brand:</label>
+    <input [(ngModel)]="auto.idBrand" placeholder="IdBrand" name="idBrand" class="form-control" id="idBrand">
+  </div>
+  <div class="form-group">
+    <label for="idMotor">Id motor:</label>
+    <input [(ngModel)]="auto.idMotor" placeholder="IdMotor" name="idMotor" class="form-control" id="idMotor">
+  </div>
+  <div class="form-group">
+    <label for="color">Color:</label>
+    <input [(ngModel)]="auto.color" placeholder="Color" name="color" class="form-control" id="color">
+  </div>
+  <div class="form-group">
+    <label for="price">Price:</label>
+    <input [(ngModel)]="auto.price" placeholder="Price" name="price" class="form-control" id="price">
+  </div>
+  <div class="form-group">
+    <label for="driveType">Drive type:</label>
+    <input [(ngModel)]="auto.driveType" placeholder="Drive" name="driveType" class="form-control" id="driveType">
+  </div>
+  <div class="form-group">
+    <label for="transmissionType">Transmission type:</label>
+    <input [(ngModel)]="auto.transmissionType" placeholder="Transmission" name="transmissionType" class="form-control" id="transmissionType">
+  </div>
+  <div class="form-group">
+    <label for="bodyStyleType">Body style:</label>
+    <input [(ngModel)]="auto.bodyStyleType" placeholder="Body style" name="bodyStyleType" class="form-control" id="bodyStyleType">
+  </div>
+  <button class="btn btn-success" (click)="updateAuto(auto)">Update</button>
+</form>
