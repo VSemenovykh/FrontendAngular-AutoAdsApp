@@ -4,6 +4,7 @@ import {FormBuilder, FormControl} from "@angular/forms";
 import {AutoJoin} from "../models/autojoin.model";
 import { SearchCarService } from '../_services/search-car.service';
 import {Auto} from "../models/auto.model";
+import {Autosearch} from "../models/autosearch.model";
 import { AutoService } from '../_services/auto.service';
 
 interface Model {
@@ -24,13 +25,9 @@ interface ModelGroup {
 })
 export class SearchCarComponent implements OnInit{
 
-  cars:  Array<AutoJoin>;
+  cars: Array<AutoJoin>;
 
-  auto: Auto = new Auto;
-
-  autoJoin: AutoJoin = new AutoJoin();
-
-  foundCars: AutoJoin[] = new Array();
+  autoSearch: Autosearch = new Autosearch();
 
   brands = [
     {id: 0, name: '---'},
@@ -46,8 +43,8 @@ export class SearchCarComponent implements OnInit{
         {id: 0, name: '---'},
         {id: 1, name: 'I8'},
         {id: 2, name: 'M3'},
-        {id: 3, name: 'M6'},
-        {id: 4, name: 'M5'},
+        {id: 3, name: 'M5'},
+        {id: 4, name: 'M6'},
         {id: 5, name: 'M8'},
         {id: 6, name: 'X1'},
         {id: 7, name: 'X2'},
@@ -56,16 +53,42 @@ export class SearchCarComponent implements OnInit{
         {id: 10, name: 'X5'}
       ]
     },
-  {
-    name: 'Mercedes-Benz',
-    model: [
-    {id: 0, name: '---'},
-    {id: 1, name: 'GLE AMG'}
-    ]
-  }
+    {
+      name: 'Mercedes-Benz',
+      model: [
+        {id: 0, name: '---'},
+        {id: 1, name: 'GLE AMG'}
+      ]
+    }
   ];
 
-  years = [
+  startYears = [
+    {id: 0,  name: '---'},
+    {id: 1,  name: "2000"},
+    {id: 2,  name: "2001"},
+    {id: 3,  name: "2002"},
+    {id: 4,  name: "2003"},
+    {id: 5,  name: "2004"},
+    {id: 6,  name: "2005"},
+    {id: 7,  name: "2006"},
+    {id: 8,  name: "2007"},
+    {id: 9,  name: "2008"},
+    {id: 10, name: "2009"},
+    {id: 11, name: "2010"},
+    {id: 12, name: "2011"},
+    {id: 13, name: "2012"},
+    {id: 14, name: "2013"},
+    {id: 15, name: "2014"},
+    {id: 16, name: "2015"},
+    {id: 17, name: "2016"},
+    {id: 18, name: "2017"},
+    {id: 29, name: "2018"},
+    {id: 20, name: "2019"},
+    {id: 21, name: "2020"},
+    {id: 22, name: "2021"}
+  ];
+
+  endYears = [
     {id: 0,  name: '---'},
     {id: 1,  name: "2000"},
     {id: 2,  name: "2001"},
@@ -124,7 +147,7 @@ export class SearchCarComponent implements OnInit{
     {id: 2, name: "automatic"},
     {id: 3, name: "manual"},
     {id: 4, name: "cvt"}
-    ];
+  ];
 
   bodyStyles = [
     {id: 0, name: '---'},
@@ -143,7 +166,32 @@ export class SearchCarComponent implements OnInit{
     {id: 3, name: "gasoline"}
   ];
 
-  volumes = [
+  startVolumes = [
+    {id: 0,  name: "---"},
+    {id: 2,  name: "0.2"},
+    {id: 3,  name: "0.4"},
+    {id: 4,  name: "0.6"},
+    {id: 5,  name: "0.8"},
+    {id: 6,  name: "1.0"},
+    {id: 7,  name: "1.2"},
+    {id: 8,  name: "1.4"},
+    {id: 9,  name: "1.6"},
+    {id: 10, name: "1.8"},
+    {id: 11, name: "2.0"},
+    {id: 12, name: "2.2"},
+    {id: 13, name: "2.4"},
+    {id: 14, name: "2.6"},
+    {id: 15, name: "2.7"},
+    {id: 16, name: "2.8"},
+    {id: 17, name: "3.0"},
+    {id: 18, name: "3.2"},
+    {id: 19, name: "4.0"},
+    {id: 20, name: "5.0"},
+    {id: 21, name: "5.5"},
+
+  ];
+
+  endVolumes = [
     {id: 0,  name: "---"},
     {id: 2,  name: "0.2"},
     {id: 3,  name: "0.4"},
@@ -174,13 +222,15 @@ export class SearchCarComponent implements OnInit{
 
   searchForm = this.fb.group({
     brandType: '---',
-    year: '---',
+    startYear: '---',
+    endYear: '---',
     color: '---',
     drive: '---',
     transmission: '---',
     bodyStyle: '---',
     motorType: '---',
-    volume: '---'
+    startVolume: '---',
+    endVolume: '---'
   })
 
 
@@ -189,64 +239,69 @@ export class SearchCarComponent implements OnInit{
   }
 
   onSubmit(){
-    console.log(this.modelControl.value);
-    this.autoJoin.nameBrand = this.searchForm.controls["brandType"].value;
-    if(this.autoJoin.nameBrand == "---"){
-      this.autoJoin.nameBrand = null;
+    const objAutoSearch = this.autoSearch;
+    objAutoSearch.nameBrand = this.searchForm.controls["brandType"].value;
+    if(objAutoSearch.nameBrand == "---"){
+      objAutoSearch.nameBrand = null;
     }
 
-    this.autoJoin.year = this.searchForm.controls["year"].value;
-    if(this.autoJoin.year == "---"){
-      this.autoJoin.year = null;
+    objAutoSearch.startYear = this.searchForm.controls["startYear"].value;
+    if(objAutoSearch.startYear == "---"){
+      objAutoSearch.startYear = null;
     }
 
-    this.autoJoin.motorType = this.searchForm.controls["motorType"].value;
-    if(this.autoJoin.motorType == "---"){
-      this.autoJoin.motorType = null;
+    objAutoSearch.endYear = this.searchForm.controls["endYear"].value;
+    if(objAutoSearch.endYear == "---"){
+      objAutoSearch.endYear = null;
     }
 
-    this.autoJoin.volume = this.searchForm.controls["volume"].value;
-    if(this.autoJoin.volume == "---"){
-      this.autoJoin.volume = null;
+    objAutoSearch.motorType = this.searchForm.controls["motorType"].value;
+    if(objAutoSearch.motorType == "---"){
+      objAutoSearch.motorType = null;
     }
 
-    this.autoJoin.nameModel = this.modelControl.value;
-    if(this.autoJoin.nameModel == "---"){
-      this.autoJoin.nameModel = null;
+    objAutoSearch.startVolume = this.searchForm.controls["startVolume"].value;
+    if(objAutoSearch.startVolume == "---"){
+      objAutoSearch.startVolume = null;
     }
 
-    this.autoJoin.color = this.searchForm.controls["color"].value;
-    if(this.autoJoin.color == "---"){
-      this.autoJoin.color = null;
+    objAutoSearch.endVolume = this.searchForm.controls["endVolume"].value;
+    if(objAutoSearch.endVolume == "---"){
+      objAutoSearch.endVolume = null;
     }
 
-    this.autoJoin.driveType = this.searchForm.controls["drive"].value;
-    if(this.autoJoin.driveType == "---" ){
-      this.autoJoin.driveType = null;
+    objAutoSearch.nameModel = this.modelControl.value;
+    if( objAutoSearch.nameModel == "---"){
+      objAutoSearch.nameModel = null;
     }
 
-    this.autoJoin.transmissionType = this.searchForm.controls["transmission"].value;
-    if(this.autoJoin.transmissionType == "---"){
-      this.autoJoin.transmissionType = null;
+    objAutoSearch.color = this.searchForm.controls["color"].value;
+    if( objAutoSearch.color == "---"){
+      objAutoSearch.color = null;
     }
 
-    this.autoJoin.bodyStyleType = this.searchForm.controls["bodyStyle"].value;
-    if(this.autoJoin.bodyStyleType == "---"){
-      this.autoJoin.bodyStyleType = null;
+    objAutoSearch.driveType = this.searchForm.controls["drive"].value;
+    if(objAutoSearch.driveType  == "---" ){
+      objAutoSearch.driveType  = null;
     }
 
-    this.findCarByDiffCriteria(this.autoJoin);
+    objAutoSearch.transmissionType = this.searchForm.controls["transmission"].value;
+    if( objAutoSearch.transmissionType == "---"){
+      objAutoSearch.transmissionType = null;
+    }
+
+    objAutoSearch.bodyStyleType = this.searchForm.controls["bodyStyle"].value;
+    if(objAutoSearch.bodyStyleType == "---"){
+      objAutoSearch.bodyStyleType = null;
+    }
+
+    console.log(objAutoSearch);
+    this.findCarByDiffCriteria(objAutoSearch);
 
   }
 
-  getAllAuto(): void{
-    this.autoService.getAllAuto().subscribe( (data: AutoJoin[]) => {
-      this.cars = data;
-    });
-  }
-
-  findCarByDiffCriteria(cars: AutoJoin): void{
-    this.searchCarService.getSearchAuto(cars).
+  findCarByDiffCriteria(data: any): void{
+    this.searchCarService.getSearchAuto(data).
     subscribe(data =>{
       this.cars = data;
     });

@@ -14,7 +14,7 @@ export class SearchCarService {
 
   private searchUrl = 'http://localhost:8080/api/search';
 
-  public getSearchAuto(cars: AutoJoin): Observable<any>{
-    return this.http.post(this.searchUrl, cars);
+  public getSearchAuto(inData: any): Observable<any>{
+    return this.http.post(this.searchUrl, inData);
   }
 }

@@ -11,8 +11,6 @@ import {FormBuilder} from "@angular/forms";
 })
 export class EditAutoComponent implements OnInit {
 
-  auto: Auto = new Auto();
-
   colors = [
     { id: 1,  name: "White" },
     { id: 2,  name: "Silver" },
@@ -54,6 +52,10 @@ export class EditAutoComponent implements OnInit {
     {id: 6, name: "wagon"},
   ];
 
+  auto: Auto = new Auto();
+
+  isData: boolean = true;
+
   constructor(private route: ActivatedRoute, private router: Router, private autoService: AutoService, public fb: FormBuilder) {
 
   }
@@ -73,18 +75,30 @@ export class EditAutoComponent implements OnInit {
   }
 
   onSubmit(){
-    this.auto.color = this.updateForm.controls["color"].value;
-    this.auto.driveType = this.updateForm.controls["drive"].value;
-    this.auto.transmissionType = this.updateForm.controls["transmission"].value;
-    this.auto.bodyStyleType = this.updateForm.controls["bodyStyle"].value;
+    const obj = this.auto;
+    obj.color = this.updateForm.controls["color"].value;
+    obj.driveType = this.updateForm.controls["drive"].value;
+    obj.transmissionType = this.updateForm.controls["transmission"].value;
+    obj.bodyStyleType = this.updateForm.controls["bodyStyle"].value;
 
-    this.updateAuto(this.auto);
+    if((obj.idBrand == null) || (obj.idMotor == null) || (obj.color == null) || (obj.price == null) || (obj.driveType == null)
+      ||(obj.driveType == null) || (obj.transmissionType == null) || (obj.bodyStyleType == null)){
+      this.isData = false;
+
+    }else {
+      console.log(this.isData);
+      this.updateAuto(this.auto);
+    }
   }
 
   updateAuto(auto: Auto): void {
+    console.log(Number(this.auto.id));
     this.autoService.updateAuto(Number(this.auto.id), auto)
-     .subscribe( data => {
-       this.router.navigate(['/cars']);
-     });
+      .subscribe( data => {
+        this.router.navigate(['/cars']);
+        if(data==null){
+          this.isData = false;
+        }
+      });
   }
 }

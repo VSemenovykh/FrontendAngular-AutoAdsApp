@@ -13,6 +13,8 @@ import {EditAutoComponent} from './auto/edit-auto.component';
 import { HomeComponent } from './home/home.component';
 import {SearchCarComponent} from './auto/search-car.component'
 import {SearchCarService} from './_services/search-car.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import {SearchCarService} from './_services/search-car.service';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatIconModule
   ],
   providers: [AutoService, SearchCarService],
   bootstrap: [AppComponent]

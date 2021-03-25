@@ -4,7 +4,7 @@ export class Auto {
   color: string;
   price: string;
   idMotor: string;
-  transmissionType: string;
   driveType: string;
+  transmissionType: string;
   bodyStyleType: string;
 }

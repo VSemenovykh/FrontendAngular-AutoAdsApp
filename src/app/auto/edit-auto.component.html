@@ -1,4 +1,4 @@
-<h2>Update Auto</h2>
+<h2>Update auto</h2>
 <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
   <table>
     <tr>
@@ -81,11 +81,16 @@
     <tr>
       <td>Body style:</td>
       <td><select formControlName="bodyStyle">
-              <option [ngValue]="null" disabled>Select body style</option>
-              <option *ngFor="let bodyStyle of bodyStyles" [ngValue]="bodyStyle.name">{{bodyStyle.name}}</option>
-          </select>
+        <option [ngValue]="null" disabled>Select body style</option>
+        <option *ngFor="let bodyStyle of bodyStyles" [ngValue]="bodyStyle.name">{{bodyStyle.name}}</option>
+      </select>
       </td>
     </tr>
   </table>
   <button class="btn btn-success">Update</button>
-</form>
+  </form>
+  <ng-template [ngIf]="!isData">
+    <p class="text-danger" layout-align="center center" >You did not fill in all fields </p>
+    <p class="text-danger" layout-align="center center" >Please,fill in all fields</p>
+  </ng-template>
+

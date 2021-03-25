@@ -1,4 +1,4 @@
-<h2 >Add Auto</h2>
+<h2 >Add auto</h2>
 <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
   <table>
     <tr>
@@ -36,7 +36,7 @@
     <tr>
       <td>Color:</td>
       <td>
-        <select formControlName="color">
+        <select formControlName="color"  class="form-control">
           <option [ngValue]="null" disabled>Select color</option>
           <option *ngFor="let color of colors" [ngValue]="color.name">{{color.name}}</option>
         </select>
@@ -89,3 +89,7 @@
   </table>
   <button class="btn btn-success">Create</button>
 </form>
+<ng-template [ngIf]="!isData">
+  <p class="text-danger" layout-align="center center" >You did not fill in all fields </p>
+  <p class="text-danger" layout-align="center center" >Please,fill in all fields</p>
+</ng-template>

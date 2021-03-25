@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Auto } from '../models/auto.model';
 import { AutoService } from '../_services/auto.service';
 import {FormBuilder} from "@angular/forms";
+import {MatIconModule} from '@angular/material/icon'
 
 @Component({
   selector: 'app-add-auto',
@@ -11,8 +12,6 @@ import {FormBuilder} from "@angular/forms";
 })
 
 export class AddAutoComponent {
-
-  auto: Auto = new Auto();
 
   colors = [
     { id: 1,  name: "White" },
@@ -55,6 +54,10 @@ export class AddAutoComponent {
     {id: 6, name: "wagon"},
   ];
 
+  auto: Auto = new Auto();
+
+  isData: boolean = true;
+
   constructor(private router: Router, private autoService: AutoService, public fb: FormBuilder) {}
 
   createForm = this.fb.group({
@@ -65,11 +68,21 @@ export class AddAutoComponent {
   })
 
   onSubmit(){
-    this.auto.color = this.createForm.controls["color"].value;
-    this.auto.driveType = this.createForm.controls["drive"].value;
-    this.auto.transmissionType = this.createForm.controls["transmission"].value;
-    this.auto.bodyStyleType = this.createForm.controls["bodyStyle"].value;
-    this.create(this.auto);
+    const obj = this.auto;
+    obj.color = this.createForm.controls["color"].value;
+    obj.driveType = this.createForm.controls["drive"].value;
+    obj.transmissionType = this.createForm.controls["transmission"].value;
+    obj.bodyStyleType = this.createForm.controls["bodyStyle"].value;
+
+    if((obj.idBrand == null) || (obj.idMotor == null) || (obj.color == null) || (obj.price == null) || (obj.driveType == null)
+      ||(obj.driveType == null) || (obj.transmissionType == null) || (obj.bodyStyleType == null)){
+      this.isData = false;
+
+    }else{
+
+      console.log(this.isData);
+      this.create(this.auto);
+    }
   }
 
   create(auto: Auto): void{
