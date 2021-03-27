@@ -1,32 +1,96 @@
-<h2 class="text-center">Update Auto</h2>
-<form>
-  <div class="form-group">
-    <label for="idBrand">Id brand:</label>
-    <input [(ngModel)]="auto.idBrand" placeholder="IdBrand" name="idBrand" class="form-control" id="idBrand">
-  </div>
-  <div class="form-group">
-    <label for="idMotor">Id motor:</label>
-    <input [(ngModel)]="auto.idMotor" placeholder="IdMotor" name="idMotor" class="form-control" id="idMotor">
-  </div>
-  <div class="form-group">
-    <label for="color">Color:</label>
-    <input [(ngModel)]="auto.color" placeholder="Color" name="color" class="form-control" id="color">
-  </div>
-  <div class="form-group">
-    <label for="price">Price:</label>
-    <input [(ngModel)]="auto.price" placeholder="Price" name="price" class="form-control" id="price">
-  </div>
-  <div class="form-group">
-    <label for="driveType">Drive type:</label>
-    <input [(ngModel)]="auto.driveType" placeholder="Drive" name="driveType" class="form-control" id="driveType">
-  </div>
-  <div class="form-group">
-    <label for="transmissionType">Transmission type:</label>
-    <input [(ngModel)]="auto.transmissionType" placeholder="Transmission" name="transmissionType" class="form-control" id="transmissionType">
-  </div>
-  <div class="form-group">
-    <label for="bodyStyleType">Body style:</label>
-    <input [(ngModel)]="auto.bodyStyleType" placeholder="Body style" name="bodyStyleType" class="form-control" id="bodyStyleType">
-  </div>
-  <button class="btn btn-success" (click)="updateAuto(auto)">Update</button>
-</form>
+<h2>Update auto</h2>
+<form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+  <table>
+    <tr>
+      <td>Id brand:</td>
+      <td>
+        <input [(ngModel)]="auto.idBrand" [ngModelOptions]="{standalone: true}"
+               placeholder="IdBrand"
+               name="idBrand"
+               class="form-control"
+               required
+               #idBrand="ngModel" />
+        <div
+          class="alert alert-danger"
+          *ngIf="idBrand.invalid" >
+          <div *ngIf="idBrand.errors.required">Id brand is required</div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Id motor:</td>
+      <td>
+        <input [(ngModel)]="auto.idMotor" [ngModelOptions]="{standalone: true}"
+               placeholder="IdMotor"
+               name="idMotor"
+               class="form-control"
+               required
+               #idMotor="ngModel" />
+        <div
+          class="alert alert-danger"
+          *ngIf="idMotor.invalid" >
+          <div *ngIf="idMotor.errors.required">Id motor is required</div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Color:</td>
+      <td>
+        <select formControlName="color">
+          <option [ngValue]="null" disabled>Select color</option>
+          <option *ngFor="let color of colors" [ngValue]="color.name">{{color.name}}</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Price:</td>
+      <td>
+        <input [(ngModel)]="auto.price" [ngModelOptions]="{standalone: true}"
+               placeholder="Price"
+               name="price"
+               class="form-control"
+               required
+               min="0"
+               #price="ngModel" >
+        <div
+          class="alert alert-danger"
+          *ngIf="price.invalid" >
+          <div *ngIf="price.errors.required">Price is required</div>
+          <div *ngIf="price.errors.min">Price must at least 0</div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Drive:</td>
+      <td>
+        <select formControlName="drive">
+          <option [ngValue]="null" disabled>Select drive</option>
+          <option *ngFor="let drive of drives" [ngValue]="drive.name">{{drive.name}}</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Transmission:</td>
+      <td>
+        <select formControlName="transmission">
+          <option [ngValue]="null" disabled>Select transmission</option>
+          <option *ngFor="let transmission of transmissions" [ngValue]="transmission.name">{{transmission.name}}</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Body style:</td>
+      <td><select formControlName="bodyStyle">
+        <option [ngValue]="null" disabled>Select body style</option>
+        <option *ngFor="let bodyStyle of bodyStyles" [ngValue]="bodyStyle.name">{{bodyStyle.name}}</option>
+      </select>
+      </td>
+    </tr>
+  </table>
+  <button class="btn btn-success">Update</button>
+  </form>
+  <ng-template [ngIf]="!isData">
+    <p class="text-danger" layout-align="center center" >You did not fill in all fields </p>
+    <p class="text-danger" layout-align="center center" >Please,fill in all fields</p>
+  </ng-template>
+

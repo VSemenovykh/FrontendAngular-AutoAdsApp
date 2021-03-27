@@ -1,13 +1,13 @@
 export class AutoJoin {
-   id: number;
-   nameBrand: string;
-   nameModel: string;
-   year: string;
-   color: string;
-   price: string;
-   motorType: string;
-   volume: string;
-   transmissionType: string;
-   driveType: string;
-   bodyStyleType: string;
+   id: number = null;
+   nameBrand: string = null;
+   nameModel: string = null;
+   year: string = null;
+   color: string = null;
+   price: string = null;
+   motorType: string = null;
+   volume: string = null;
+   transmissionType: string = null;
+   driveType: string = null;
+   bodyStyleType: string = null;
 }

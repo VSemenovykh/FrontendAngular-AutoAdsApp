@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { DOCUMENT } from '@angular/common';
 import { AutoJoin  } from '../models/autojoin.model';
-import { AutoService } from './auto.service';
-import {Auto} from '../models/auto.model';
+import { AutoService } from '../_services/auto.service';
 
 @Component({
   selector: 'app-auto',
@@ -13,22 +11,32 @@ import {Auto} from '../models/auto.model';
 })
 export class AutoComponent implements OnInit {
 
-  constructor(private router: Router, private autoService: AutoService) {
+  cars:  Array<AutoJoin>;
+
+  constructor(private router: Router, private autoService: AutoService, @Inject(DOCUMENT) private _document: Document) {
+    this.cars = new Array<AutoJoin>();
   }
-  cars: AutoJoin[];
 
   ngOnInit(): void{
+     this.loadAuto();
+  }
+
+  private loadAuto() {
     this.autoService.getAllAuto()
-      .subscribe( (data: any[]) => {
+      .subscribe( (data: AutoJoin[]) => {
         this.cars = data;
       });
+  }
+
+  refreshPage() {
+    this._document.defaultView.location.reload();
   }
 
   deleteAuto(car: AutoJoin): void {
     this.autoService.deleteAuto(car)
       .subscribe( data => {
-      alert('Auto deleted successfully.');
     });
+    this.refreshPage();
   }
 
   goToUpdate(id: number): void{
