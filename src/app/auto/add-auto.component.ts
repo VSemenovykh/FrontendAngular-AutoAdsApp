@@ -1,9 +1,8 @@
-import { Component,  OnInit} from '@angular/core';
+import { Component} from '@angular/core';
 import { Router } from '@angular/router';
 import { Auto } from '../models/auto.model';
 import { AutoService } from '../_services/auto.service';
 import {FormBuilder} from "@angular/forms";
-import {MatIconModule} from '@angular/material/icon'
 
 @Component({
   selector: 'app-add-auto',
@@ -79,16 +78,19 @@ export class AddAutoComponent {
       this.isData = false;
 
     }else{
-
-      console.log(this.isData);
+      console.log(this.auto.idImage);
       this.create(this.auto);
     }
   }
 
   create(auto: Auto): void{
+    if(this.auto.idImage == null){
+      this.auto.idImage = null;
+    }
+
     this.autoService.createAuto(this.auto)
       .subscribe( data => {
-        this.router.navigate(['/cars']);
+        this.router.navigate(['/auto']);
       });
   }
 }

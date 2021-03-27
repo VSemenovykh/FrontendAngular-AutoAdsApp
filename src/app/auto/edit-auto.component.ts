@@ -95,7 +95,7 @@ export class EditAutoComponent implements OnInit {
     console.log(Number(this.auto.id));
     this.autoService.updateAuto(Number(this.auto.id), auto)
       .subscribe( data => {
-        this.router.navigate(['/cars']);
+        this.router.navigate(['/auto']);
         if(data==null){
           this.isData = false;
         }

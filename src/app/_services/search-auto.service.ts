@@ -1,14 +1,10 @@
 import {Injectable} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Observable} from "rxjs";
-import {AutoJoin} from "../models/autojoin.model";
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
 
 @Injectable()
-export class SearchCarService {
+export class SearchAutoService {
 
   constructor(private http: HttpClient) {}
 
@@ -18,3 +14,4 @@ export class SearchCarService {
     return this.http.post(this.searchUrl, inData);
   }
 }
+

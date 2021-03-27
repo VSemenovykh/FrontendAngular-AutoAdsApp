@@ -1,0 +1,60 @@
+th {
+  font-weight: normal;
+  border-bottom: 2px solid #6678b1;
+  border-right: 30px solid white;
+  border-left: 30px solid white;
+  color: #039;
+  padding: 8px 2px;
+}
+td {
+  border-right: 30px solid white;
+  border-left: 30px solid white;
+  color: #669;
+  padding: 12px 2px;
+}
+
+
+.button {
+  border: none;
+  outline: none;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: Roboto, Verdana, Tahoma, sans;
+  padding: 12px 16px;
+  border-radius: 100px;
+  color: #fff;
+}
+
+.button i {
+  margin-right: 4px;
+}
+.button + .button {
+  margin-left: 6px;
+}
+
+.button.blue {
+  background: #cadefc;
+}
+
+
+button:hover, .detail-options {
+  cursor: pointer;
+}
+
+.button:hover {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.button:hover.blue {
+  background: #e5effe;
+}
+.button:active {
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.button:active.blue {
+  background: #bcbdd7;
+}
+

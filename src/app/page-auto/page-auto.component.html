@@ -1,0 +1,43 @@
+<div class="container row">
+  <div class="col-md-12">
+    <ng-template [ngIf]="isImage">
+        <img width="650" height="320" alt={{cars.nameModel}} [src]="retrievedImage">
+    </ng-template>
+    <ng-template [ngIf]="!isImage">
+      <h2> No photo </h2>
+    </ng-template>
+  </div>
+</div>
+
+<h2>{{cars.nameBrand}} {{cars.nameModel}}</h2>
+<table>
+  <tr>
+    <td>Model:</td>
+    <td>{{cars.nameModel}}</td>
+  </tr>
+  <tr>
+    <td>Year:</td>
+    <td>{{cars.year}}</td>
+  </tr>
+  <tr>
+    <td>Color:</td>
+    <td>{{cars.color}}</td>
+  </tr>
+  <tr>
+    <td>Price:</td>
+    <td>{{cars.price}}</td>
+  </tr>
+  <tr>
+    <td>Drive:</td>
+    <td>{{cars.driveType}}</td>
+  </tr>
+  <tr>
+    <td>Transmission:</td>
+    <td>{{cars.transmissionType}}</td>
+  </tr>
+  <tr>
+    <td>Body style:</td>
+    <td>{{cars.bodyStyleType}}</td>
+  </tr>
+</table>
+<button class="button blue" (click)="goBack()">Back to list of auto </button>

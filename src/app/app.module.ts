@@ -12,9 +12,12 @@ import {EditAutoComponent} from './auto/edit-auto.component';
 
 import { HomeComponent } from './home/home.component';
 import {SearchCarComponent} from './auto/search-car.component'
-import {SearchCarService} from './_services/search-car.service';
+import {SearchAutoService} from './_services/search-auto.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatIconModule} from "@angular/material/icon";
+import {ImageAutoService} from "./_services/image-auto.sevice";
+import {ImageAutoComponent} from "./auto/image-auto.component";
+import {PageAutoComponent} from "./page-auto/page-auto.component";
 
 @NgModule({
   declarations: [
@@ -23,7 +26,9 @@ import {MatIconModule} from "@angular/material/icon";
     AddAutoComponent,
     EditAutoComponent,
     HomeComponent,
-    SearchCarComponent
+    SearchCarComponent,
+    ImageAutoComponent,
+    PageAutoComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +39,7 @@ import {MatIconModule} from "@angular/material/icon";
     BrowserAnimationsModule,
     MatIconModule
   ],
-  providers: [AutoService, SearchCarService],
+  providers: [AutoService, SearchAutoService, ImageAutoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

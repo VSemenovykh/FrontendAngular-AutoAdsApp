@@ -1,5 +1,6 @@
 export class AutoJoin {
    id: number = null;
+   raster: any = null;
    nameBrand: string = null;
    nameModel: string = null;
    year: string = null;

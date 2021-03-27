@@ -2,8 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormControl} from "@angular/forms";
 import {AutoJoin} from "../models/autojoin.model";
-import { SearchCarService } from '../_services/search-car.service';
-import {Auto} from "../models/auto.model";
+import { SearchAutoService } from '../_services/search-auto.service';
 import {Autosearch} from "../models/autosearch.model";
 import { AutoService } from '../_services/auto.service';
 
@@ -216,7 +215,7 @@ export class SearchCarComponent implements OnInit{
 
   ];
 
-  constructor(private searchCarService: SearchCarService, private route: ActivatedRoute, private router: Router,
+  constructor(private searchCarService: SearchAutoService, private route: ActivatedRoute, private router: Router,
               public fb: FormBuilder, public  autoService: AutoService) {
   }
 
