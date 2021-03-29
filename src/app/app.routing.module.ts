@@ -6,7 +6,7 @@ import {AddAutoComponent} from './auto/add-auto.component';
 import {EditAutoComponent} from './auto/edit-auto.component';
 import { HomeComponent } from './home/home.component';
 import {SearchCarComponent} from "./auto/search-car.component";
-import {ImageAutoComponent} from "./auto/image-auto.component";
+import {PictureAutoComponent} from "./auto/picture-auto.component";
 import {PageAutoComponent} from "./page-auto/page-auto.component";
 
 const routes: Routes = [
@@ -24,7 +24,7 @@ const routes: Routes = [
 
   { path: 'search-car', component: SearchCarComponent },
 
-  { path: 'image-auto', component: ImageAutoComponent },
+  { path: 'image-auto', component: PictureAutoComponent },
 
   { path: 'page-auto/:id', component: PageAutoComponent },
 

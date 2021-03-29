@@ -1,9 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
-import { AutoJoin  } from '../models/autojoin.model';
-import { AutoService } from '../_services/auto.service';
-import {ImageAutoService} from "../_services/image-auto.sevice";
+import {Component, OnInit, Inject} from '@angular/core';
+import {Router} from '@angular/router';
+import {DOCUMENT} from '@angular/common';
+import {AutoJoin} from '../models/autojoin.model';
+import {AutoService} from '../_services/auto.service';
+import {PictureAutoService} from "../_services/picture-auto.sevice";
 
 @Component({
   selector: 'app-auto',
@@ -12,20 +12,20 @@ import {ImageAutoService} from "../_services/image-auto.sevice";
 })
 export class AutoComponent implements OnInit {
 
-  cars:  Array<AutoJoin>;
-  isImage: boolean=true;
+  cars: Array<AutoJoin>;
+  isImage: boolean = true;
 
-  constructor(private router: Router, private autoService: AutoService, private imageAutoService: ImageAutoService, @Inject(DOCUMENT) private _document: Document) {
+  constructor(private router: Router, private autoService: AutoService, private imageAutoService: PictureAutoService, @Inject(DOCUMENT) private _document: Document) {
     this.cars = new Array<AutoJoin>();
   }
 
-  ngOnInit(): void{
-     this.loadAuto();
+  ngOnInit(): void {
+    this.loadAuto();
   }
 
   private loadAuto() {
     this.autoService.getAllAuto()
-      .subscribe( (data: AutoJoin[]) => {
+      .subscribe((data: AutoJoin[]) => {
         this.cars = data;
       });
   }
@@ -34,26 +34,26 @@ export class AutoComponent implements OnInit {
     this._document.defaultView.location.reload();
   }
 
-  getImageAuto(raster: any): string{
-    if(this.isImage){
+  getImageAuto(raster: any): string {
+    if (this.isImage) {
       return "data:image/png;base64," + raster;
-    }else {
+    } else {
       this.isImage = false;
     }
   }
 
   deleteAuto(car: AutoJoin): void {
     this.autoService.deleteAuto(car)
-      .subscribe( data => {
-    });
+      .subscribe(data => {
+      });
     this.refreshPage();
   }
 
-  goToUpdate(id: number): void{
+  goToUpdate(id: number): void {
     this.router.navigate(['/update', id]);
   }
 
-  goToSelectAuto(idAuto: any): void{
+  goToSelectAuto(idAuto: any): void {
     this.router.navigate(['/page-auto', idAuto]);
   }
 }

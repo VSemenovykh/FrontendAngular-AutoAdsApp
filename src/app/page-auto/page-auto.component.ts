@@ -1,8 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ImageAutoService} from "../_services/image-auto.sevice";
+import {PictureAutoService} from "../_services/picture-auto.sevice";
 import {AutoJoin} from "../models/autojoin.model";
-import {Imageauto} from "../models/imageauto.model";
+import {AutoPicture} from "../models/autopicture.model";
 import {AutoService} from "../_services/auto.service";
 
 @Component({
@@ -12,40 +12,36 @@ import {AutoService} from "../_services/auto.service";
 })
 export class PageAutoComponent implements OnInit {
 
-  cars: AutoJoin = new AutoJoin();
+  auto: AutoJoin = new AutoJoin();
   retrievedImage: any;
-  imageauto: Imageauto = new Imageauto();
-  isImage: boolean = true;
+  pictureAuto: AutoPicture = new AutoPicture();
+  isPicture: boolean = true;
 
-  constructor(private route: ActivatedRoute, private router: Router, private autoService: AutoService , private imageAutoService: ImageAutoService) {
-
+  constructor(private route: ActivatedRoute
+             ,private router: Router
+             ,private autoService: AutoService
+             ,private imageAutoService: PictureAutoService) {
   }
 
   ngOnInit(): void{
     this.getImage(Number(this.route.snapshot.params.id));
-    this.getAutoById();
+    this.getAutoJoinById();
   }
 
   getImage(id: any): void {
-
-      this.imageAutoService.getImageAutoByIdAuto(id)
+      this.imageAutoService.getPictureAutoByIdAuto(id)
         .subscribe(
           res => {
-            this.imageauto = res;
-            if(this.imageauto != null){
-              console.log("raster: "+this.imageauto.raster);
-              this.retrievedImage = "data:image/png;base64," + this.imageauto.raster;
-            }else{
-              this.isImage = false;
-            }
+            this.pictureAuto = res;
+            (this.pictureAuto != null)?(this.retrievedImage = "data:image/png;base64," + this.pictureAuto.raster):( this.isPicture = false);
           }
       );
   }
 
-  getAutoById(): void{
-    this.autoService.getAutoById(Number(this.route.snapshot.params.id))
+  getAutoJoinById(): void{
+    this.autoService.getAutoJoinById(Number(this.route.snapshot.params.id))
       .subscribe( (data: any) => {
-        this.cars = data;
+        this.auto = data;
       });
   }
 

@@ -1,6 +1,6 @@
 export class Auto {
   id: number = null;
-  idImage: string = null;
+  idImage: number = null;
   idBrand: string = null;
   color: string = null;
   price: string = null;

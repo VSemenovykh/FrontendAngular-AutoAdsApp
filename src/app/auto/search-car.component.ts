@@ -1,21 +1,9 @@
 import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormControl} from "@angular/forms";
 import {AutoJoin} from "../models/autojoin.model";
 import { SearchAutoService } from '../_services/search-auto.service';
 import {Autosearch} from "../models/autosearch.model";
-import { AutoService } from '../_services/auto.service';
-
-interface Model {
-  id: number;
-  name: string;
-}
-
-interface ModelGroup {
-  disabled?: boolean;
-  name: string;
-  model: Model[];
-}
+import { ModelGroup } from '../interface/modelgroup';
 
 @Component({
   selector: 'app-search-car',
@@ -24,8 +12,7 @@ interface ModelGroup {
 })
 export class SearchCarComponent implements OnInit{
 
-  cars: Array<AutoJoin>;
-
+  auto: Array<AutoJoin>;
   autoSearch: Autosearch = new Autosearch();
 
   brands = [
@@ -215,8 +202,7 @@ export class SearchCarComponent implements OnInit{
 
   ];
 
-  constructor(private searchCarService: SearchAutoService, private route: ActivatedRoute, private router: Router,
-              public fb: FormBuilder, public  autoService: AutoService) {
+  constructor(private searchCarService: SearchAutoService, public fb: FormBuilder) {
   }
 
   searchForm = this.fb.group({
@@ -294,15 +280,13 @@ export class SearchCarComponent implements OnInit{
       objAutoSearch.bodyStyleType = null;
     }
 
-    console.log(objAutoSearch);
     this.findCarByDiffCriteria(objAutoSearch);
-
   }
 
   findCarByDiffCriteria(data: any): void{
     this.searchCarService.getSearchAuto(data).
     subscribe(data =>{
-      this.cars = data;
+      this.auto = data;
     });
   }
 }

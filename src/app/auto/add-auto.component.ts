@@ -1,47 +1,105 @@
-import { Component} from '@angular/core';
-import { Router } from '@angular/router';
-import { Auto } from '../models/auto.model';
-import { AutoService } from '../_services/auto.service';
-import {FormBuilder} from "@angular/forms";
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {AutoService} from '../_services/auto.service';
+import {FormBuilder, FormControl} from "@angular/forms";
+import {PictureAutoService} from "../_services/picture-auto.sevice";
+import {AutoJoin} from "../models/autojoin.model";
+import {ModelGroup} from '../interface/modelgroup';
 
 @Component({
   selector: 'app-add-auto',
-   templateUrl: 'add-auto.component.html',
+  templateUrl: 'add-auto.component.html',
   styleUrls: ['add-auto.component.css']
 })
 
 export class AddAutoComponent {
 
+  brands = [
+    {id: 1, name: "BMW"},
+    {id: 2, name: "Mercedes-Benz"},
+  ];
+
+  modelControl = new FormControl();
+  modelGroups: ModelGroup[] = [
+    {
+      name: 'BMW',
+      model: [
+        {id: 0, name: '---'},
+        {id: 1, name: 'M8'},
+        {id: 2, name: 'M6'},
+        {id: 3, name: 'M5'},
+      ]
+    },
+    {
+      name: 'Mercedes-Benz',
+      model: [
+        {id: 0, name: '---'},
+        {id: 1, name: 'GLE AMG'}
+      ]
+    }
+  ];
+
+  years = [
+    {id: 1, name: "2000"},
+    {id: 2, name: "2001"},
+    {id: 3, name: "2002"},
+    {id: 4, name: "2003"},
+    {id: 5, name: "2004"},
+    {id: 6, name: "2005"},
+    {id: 7, name: "2006"},
+    {id: 8, name: "2007"},
+    {id: 9, name: "2008"},
+    {id: 10, name: "2009"},
+    {id: 11, name: "2010"},
+    {id: 12, name: "2011"},
+    {id: 13, name: "2012"},
+    {id: 14, name: "2013"},
+    {id: 15, name: "2014"},
+    {id: 16, name: "2015"},
+    {id: 17, name: "2016"},
+    {id: 18, name: "2017"},
+    {id: 29, name: "2018"},
+    {id: 20, name: "2019"},
+    {id: 21, name: "2020"},
+    {id: 22, name: "2021"}
+  ];
+
+  motors = [
+    {id: 1, name: "id:1 BMW M8 2015"},
+    {id: 2, name: "id:2 BMW M5 2014"},
+    {id: 3, name: "id:3 BMW M6 2016"}
+  ];
+
   colors = [
-    { id: 1,  name: "White" },
-    { id: 2,  name: "Silver" },
-    { id: 3,  name: "Gray" },
-    { id: 4,  name: "Black" },
-    { id: 5,  name: "Red" },
-    { id: 6,  name: "Maroon" },
-    { id: 7,  name: "Navy" },
-    { id: 8,  name: "Yellow" },
-    { id: 9,  name: "Olive" },
-    { id: 10, name: "Lime" },
-    { id: 11, name: "Green" },
-    { id: 12, name: "Aqua" },
-    { id: 13, name: "Teal" },
-    { id: 14, name: "Blue" },
-    { id: 15, name: "Fuchsia" },
-    { id: 16, name: "Purple" },
+    {id: 1, name: "White"},
+    {id: 2, name: "Silver"},
+    {id: 3, name: "Gray"},
+    {id: 4, name: "Black"},
+    {id: 5, name: "Red"},
+    {id: 6, name: "Maroon"},
+    {id: 7, name: "Navy"},
+    {id: 8, name: "Yellow"},
+    {id: 9, name: "Olive"},
+    {id: 10, name: "Lime"},
+    {id: 11, name: "Green"},
+    {id: 12, name: "Aqua"},
+    {id: 13, name: "Teal"},
+    {id: 14, name: "Blue"},
+    {id: 15, name: "Fuchsia"},
+    {id: 16, name: "Purple"}
   ];
 
   drives = [
     {id: 1, name: "awd"},
     {id: 2, name: "fwd"},
-    {id: 2, name: "rwd"},
+    {id: 3, name: "rwd"}
   ];
 
   transmissions = [
     {id: 1, name: "hybrid"},
     {id: 2, name: "automatic"},
     {id: 3, name: "manual"},
-    {id: 4, name: "cvt"},
+    {id: 4, name: "cvt"}
   ];
 
   bodyStyles = [
@@ -50,46 +108,104 @@ export class AddAutoComponent {
     {id: 3, name: "minivan"},
     {id: 4, name: "suv"},
     {id: 5, name: "sedan"},
-    {id: 6, name: "wagon"},
+    {id: 6, name: "wagon"}
   ];
 
-  auto: Auto = new Auto();
+  motorTypes = [
+    {id: 1, name: "diesel"},
+    {id: 2, name: "electric"},
+    {id: 3, name: "gasoline"}
+  ];
 
+  volumes = [
+    {id: 1, name: "0.2"},
+    {id: 2, name: "0.4"},
+    {id: 3, name: "0.6"},
+    {id: 4, name: "0.8"},
+    {id: 5, name: "1.0"},
+    {id: 6, name: "1.2"},
+    {id: 7, name: "1.4"},
+    {id: 8, name: "1.6"},
+    {id: 9, name: "1.8"},
+    {id: 10, name: "2.0"},
+    {id: 11, name: "2.2"},
+    {id: 12, name: "2.4"},
+    {id: 13, name: "2.6"},
+    {id: 14, name: "2.7"},
+    {id: 15, name: "2.8"},
+    {id: 16, name: "3.0"},
+    {id: 17, name: "3.2"},
+    {id: 18, name: "4.0"},
+    {id: 19, name: "5.0"},
+    {id: 20, name: "5.5"}
+  ];
+
+  autoJoin: AutoJoin = new AutoJoin();
+  selectedFile: File;
+  message: string;
+  idPicture: number;
+  isPicture: boolean = true;
   isData: boolean = true;
 
-  constructor(private router: Router, private autoService: AutoService, public fb: FormBuilder) {}
+  constructor(private router: Router
+              ,private autoService: AutoService
+              ,private imageAutoService: PictureAutoService
+              ,public fb: FormBuilder) {
+  }
 
   createForm = this.fb.group({
+    brand: [null],
+    year: [null],
+    motorType: [null],
+    volume: [null],
     color: [null],
     drive: [null],
     transmission: [null],
     bodyStyle: [null]
   })
 
-  onSubmit(){
-    const obj = this.auto;
+  onSubmit() {
+    const obj = this.autoJoin;
+    obj.nameBrand = this.createForm.controls["brand"].value;
+    obj.nameModel = this.modelControl.value;
+    obj.year = this.createForm.controls["year"].value;
+    obj.motorType = this.createForm.controls["motorType"].value;
+    obj.volume = this.createForm.controls["volume"].value;
     obj.color = this.createForm.controls["color"].value;
     obj.driveType = this.createForm.controls["drive"].value;
     obj.transmissionType = this.createForm.controls["transmission"].value;
     obj.bodyStyleType = this.createForm.controls["bodyStyle"].value;
 
-    if((obj.idBrand == null) || (obj.idMotor == null) || (obj.color == null) || (obj.price == null) || (obj.driveType == null)
-      ||(obj.driveType == null) || (obj.transmissionType == null) || (obj.bodyStyleType == null)){
+    if ((obj.nameBrand == null) || (obj.nameModel == null) || (obj.year == null) || (obj.motorType == null)
+      || (obj.volume == null) || (obj.color == null) || (obj.price == null) || (obj.driveType == null) || (obj.driveType == null)
+      || (obj.transmissionType == null) || (obj.bodyStyleType == null)) {
       this.isData = false;
-
-    }else{
-      console.log(this.auto.idImage);
-      this.create(this.auto);
+    } else {
+      this.createPicture(this.autoJoin);
     }
   }
 
-  create(auto: Auto): void{
-    if(this.auto.idImage == null){
-      this.auto.idImage = null;
-    }
+  public onFileChanged(event) {
+    this.selectedFile = event.target.files[0];
+  }
 
-    this.autoService.createAuto(this.auto)
-      .subscribe( data => {
+  createPicture(autoJoin): any {
+    const uploadImageData = new FormData();
+    if( this.selectedFile != null){
+      uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
+      this.imageAutoService.createPictureAuto(uploadImageData)
+        .subscribe((id) => {
+          (id != null)? (this.create(autoJoin, id)):(   this.create(autoJoin, null));
+        });
+
+    }else {
+      this.isPicture = false;
+    }
+  }
+
+  create(auto: any, idImage: any): void {
+    this.autoService.createAuto(auto, idImage)
+      .subscribe(data => {
         this.router.navigate(['/auto']);
       });
   }
