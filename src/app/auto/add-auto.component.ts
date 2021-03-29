@@ -147,10 +147,12 @@ export class AddAutoComponent {
   isPicture: boolean = true;
   isData: boolean = true;
 
-  constructor(private router: Router
-              ,private autoService: AutoService
-              ,private imageAutoService: PictureAutoService
-              ,public fb: FormBuilder) {
+  constructor(
+              private router: Router,
+              private autoService: AutoService,
+              private imageAutoService: PictureAutoService,
+              public fb: FormBuilder
+             ){
   }
 
   createForm = this.fb.group({

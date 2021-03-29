@@ -15,7 +15,13 @@ export class AutoComponent implements OnInit {
   cars: Array<AutoJoin>;
   isImage: boolean = true;
 
-  constructor(private router: Router, private autoService: AutoService, private imageAutoService: PictureAutoService, @Inject(DOCUMENT) private _document: Document) {
+  constructor(
+              private router: Router,
+              private autoService: AutoService,
+              private imageAutoService: PictureAutoService,
+              @Inject(DOCUMENT) private _document: Document
+             ){
+
     this.cars = new Array<AutoJoin>();
   }
 

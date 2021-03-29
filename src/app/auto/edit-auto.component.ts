@@ -146,7 +146,13 @@ export class EditAutoComponent implements OnInit {
   isPicture: boolean = true;
   isData: boolean = true;
 
-  constructor(private route: ActivatedRoute, private router: Router, private imageAutoService: PictureAutoService, private autoService: AutoService, public fb: FormBuilder) {
+  constructor(
+              private route: ActivatedRoute,
+              private router: Router,
+              private imageAutoService: PictureAutoService,
+              private autoService: AutoService,
+              public fb: FormBuilder
+            ){
   }
 
   ngOnInit(): void {

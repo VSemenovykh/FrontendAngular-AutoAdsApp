@@ -12,15 +12,17 @@ import {AutoService} from "../_services/auto.service";
 })
 export class PageAutoComponent implements OnInit {
 
-  auto: AutoJoin = new AutoJoin();
+  auto: AutoJoin;
   retrievedImage: any;
   pictureAuto: AutoPicture = new AutoPicture();
   isPicture: boolean = true;
 
-  constructor(private route: ActivatedRoute
-             ,private router: Router
-             ,private autoService: AutoService
-             ,private imageAutoService: PictureAutoService) {
+  constructor(
+             private route: ActivatedRoute,
+             private router: Router,
+             private autoService: AutoService,
+             private imageAutoService: PictureAutoService
+            ) {
   }
 
   ngOnInit(): void{
