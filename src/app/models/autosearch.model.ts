@@ -1,5 +1,6 @@
 export class Autosearch {
   id: number = null;
+  raster: any = null;
   nameBrand: string = null;
   nameModel: string = null;
   startYear: string = null;

@@ -2,14 +2,14 @@
 <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
   <table>
     <tr>
-      <td> Brand: </td>
+      <td> Brand:</td>
       <td>
         <select formControlName="brandType">
           <option [ngValue]="null" disabled>Select brand</option>
           <option *ngFor="let brandType of brands" [ngValue]="brandType.name">{{brandType.name}}</option>
         </select>
       </td>
-      <td> Model: </td>
+      <td> Model:</td>
       <td>
         <select [formControl]="modelControl">
           <optgroup *ngFor="let modelGroup of modelGroups" [label]="modelGroup.name"
@@ -20,88 +20,89 @@
           </optgroup>
         </select>
       </td>
-      <td> Year from: </td>
+      <td> Year from:</td>
       <td>
         <select formControlName="startYear">
           <option [ngValue]="null" disabled>Select year</option>
           <option *ngFor="let year of startYears" [ngValue]="year.name">{{year.name}}</option>
         </select>
       </td>
-      <td> to: </td>
+      <td> to:</td>
       <td>
         <select formControlName="endYear">
           <option [ngValue]="null" disabled>Select year</option>
           <option *ngFor="let year of endYears" [ngValue]="year.name">{{year.name}}</option>
         </select>
       </td>
-      <td></td>
+      <td colspan="2"></td>
     </tr>
     <tr>
-      <td> Color: </td>
+      <td> Color:</td>
       <td>
         <select formControlName="color">
           <option [ngValue]="null" disabled>Select color</option>
           <option *ngFor="let color of colors" [ngValue]="color.name">{{color.name}}</option>
         </select>
       </td>
-      <td> Drive: </td>
+      <td> Drive:</td>
       <td>
         <select formControlName="drive">
           <option [ngValue]="null" disabled>Select color</option>
           <option *ngFor="let drive of drives" [ngValue]="drive.name">{{drive.name}}</option>
         </select>
       </td>
-      <td> Transmission: </td>
+      <td> Transmission:</td>
       <td>
         <select formControlName="transmission">
           <option [ngValue]="null" disabled>Select transmission</option>
-          <option *ngFor="let transmission of transmissions" [ngValue]="transmission.name">{{transmission.name}}</option>
+          <option *ngFor="let transmission of transmissions"
+                  [ngValue]="transmission.name">{{transmission.name}}</option>
         </select>
       </td>
-      <td> Body style: </td>
+      <td> Body style:</td>
       <td>
         <select formControlName="bodyStyle">
           <option [ngValue]="null" disabled>Select body style</option>
           <option *ngFor="let bodyStyle of bodyStyles" [ngValue]="bodyStyle.name">{{bodyStyle.name}}</option>
         </select>
       </td>
-      <td></td>
+      <td colspan="2"></td>
     </tr>
     <tr>
-      <td> Motor type: </td>
+      <td> Motor type:</td>
       <td>
         <select formControlName="motorType">
           <option [ngValue]="null" disabled>Select motor type</option>
           <option *ngFor="let motorType of motorTypes" [ngValue]="motorType.name">{{motorType.name}}</option>
         </select>
       </td>
-      <td> Volume from: </td>
+      <td> Volume from:</td>
       <td>
         <select formControlName="startVolume">
           <option [ngValue]="null" disabled>Select year</option>
           <option *ngFor="let startVolume of startVolumes" [ngValue]="startVolume.name">{{startVolume.name}}</option>
         </select>
       </td>
-      <td> to: </td>
+      <td> to:</td>
       <td>
         <select formControlName="endVolume">
           <option [ngValue]="null" disabled>Select year</option>
           <option *ngFor="let endVolume of endVolumes" [ngValue]="endVolume.name">{{endVolume.name}}</option>
         </select>
       </td>
-      <td> Price from: </td>
+      <td> Price from:</td>
       <td><input [(ngModel)]="autoSearch.startPrice" [ngModelOptions]="{standalone: true}"
                  placeholder="start"
                  name="startPrice"
                  class="form-control"
-                 ng-pattern="/^-?[0-9][^\.]*$/" />
+                 ng-pattern="/^-?[0-9][^\.]*$/"/>
       </td>
-      <td> to: </td>
+      <td> to:</td>
       <td><input [(ngModel)]="autoSearch.endPrice" [ngModelOptions]="{standalone: true}"
                  placeholder="end"
                  name="endPrice"
                  class="form-control"
-                 ng-pattern="/^-?[0-9][^\.]*$/" />
+                 ng-pattern="/^-?[0-9][^\.]*$/"/>
       </td>
     </tr>
   </table>
@@ -126,8 +127,8 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let car of cars; let i = index">
-    <td>{{i+1}}</td>
+  <tr *ngFor="let car of auto; let i = index">
+    <td>{{i + 1}}</td>
     <td>{{car.nameBrand}}</td>
     <td>{{car.nameModel}}</td>
     <td>{{car.year}}</td>
