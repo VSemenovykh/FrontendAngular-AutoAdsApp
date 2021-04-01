@@ -18,6 +18,13 @@ import {MatIconModule} from "@angular/material/icon";
 import {PictureAutoService} from "./_services/picture-auto.sevice";
 import {PictureAutoComponent} from "./auto/picture-auto.component";
 import {PageAutoComponent} from "./page-auto/page-auto.component";
+import {RegisterComponent} from "./register/register.component";
+import {LoginComponent} from "./login/login.component";
+import {authInterceptorProviders} from "./_helpers/auth.interceptor";
+import {BoardAdminComponent} from "./board-admin/board-admin.component";
+import {BoardModeratorComponent} from "./board-moderator/board-moderator.component";
+import {BoardUserComponent} from "./board-user/board-user.component";
+import {ProfileComponent} from "./profile/profile.component";
 
 @NgModule({
   declarations: [
@@ -28,7 +35,13 @@ import {PageAutoComponent} from "./page-auto/page-auto.component";
     HomeComponent,
     SearchCarComponent,
     PictureAutoComponent,
-    PageAutoComponent
+    PageAutoComponent,
+    RegisterComponent,
+    LoginComponent,
+    BoardAdminComponent,
+    BoardModeratorComponent,
+    BoardUserComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +52,7 @@ import {PageAutoComponent} from "./page-auto/page-auto.component";
     BrowserAnimationsModule,
     MatIconModule
   ],
-  providers: [AutoService, SearchAutoService, PictureAutoService],
+  providers: [AutoService, SearchAutoService, PictureAutoService, authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

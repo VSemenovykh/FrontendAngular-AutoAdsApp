@@ -8,7 +8,7 @@ export class AutoService {
 
   constructor(private http: HttpClient) {}
 
-  private autoUrl = 'http://localhost:8080/api';
+  private autoUrl = 'http://localhost:8080/api/auth';
 
   public getAllAuto(): Observable<any> {
     return this.http.get(this.autoUrl);

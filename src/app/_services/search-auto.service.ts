@@ -8,7 +8,7 @@ export class SearchAutoService {
 
   constructor(private http: HttpClient) {}
 
-  private searchUrl = 'http://localhost:8080/api/search';
+  private searchUrl = 'http://localhost:8080/api/auth/search';
 
   public getSearchAuto(inData: any): Observable<any>{
     return this.http.post(this.searchUrl, inData);

@@ -6,6 +6,7 @@ import {FormBuilder, FormControl} from "@angular/forms";
 import {PictureAutoService} from "../_services/picture-auto.sevice";
 import {AutoJoin} from "../models/autojoin.model";
 import {AutoPicture} from "../models/autopicture.model";
+import {TokenStorageService} from "../_services/token-storage.service";
 
 @Component({
   selector: 'app-edit-auto',
@@ -159,7 +160,6 @@ export class EditAutoComponent implements OnInit {
     this.autoService.getAutoJoinById(Number(this.route.snapshot.params.id))
       .subscribe((data: AutoJoin) => {
         this.auto = data;
-        const objAuto = this.auto;
         this.updateForm.controls["brand"].setValue(this.auto.nameBrand);
         this.updateForm.controls["year"].setValue(this.auto.year);
         this.updateForm.controls["color"].setValue(this.auto.color);
@@ -201,9 +201,16 @@ export class EditAutoComponent implements OnInit {
     newAuto.transmissionType = newForm.controls["transmission"].value;
     newAuto.bodyStyleType = newForm.controls["bodyStyle"].value;
 
-    if ((newAuto.nameBrand == null) || (newAuto.nameModel == null) || (newAuto.year == null) || (newAuto.motorType == null)
-      || (newAuto.volume == null) || (newAuto.color == null) || (newAuto.price == null) || (newAuto.driveType == null)
-      || (newAuto.volume == null) || (newAuto.transmissionType == null) || (newAuto.bodyStyleType == null)) {
+    if ((newAuto.nameBrand == null) ||
+        (newAuto.nameModel == null) ||
+        (newAuto.year == null) ||
+        (newAuto.motorType == null) ||
+        (newAuto.volume == null) ||
+        (newAuto.color == null) ||
+        (newAuto.price == null) || (newAuto.driveType == null) ||
+        (newAuto.volume == null) ||
+        (newAuto.transmissionType == null) ||
+        (newAuto.bodyStyleType == null)) {
 
       this.isData = false;
 
@@ -241,10 +248,10 @@ export class EditAutoComponent implements OnInit {
     if (file != null) {
       this.imageAutoService.updatePictureAuto(file, id)
         .subscribe(data => { });
-    } else {
-      this.imageAutoService.updatePictureAuto(null, id)
-        .subscribe(data => {  });
-    }
+     }// else {
+    //   this.imageAutoService.updatePictureAuto(null, null)
+    //     .subscribe(data => {  });
+    // }
   }
 
   updateAuto(auto: any, idImage: any): void {

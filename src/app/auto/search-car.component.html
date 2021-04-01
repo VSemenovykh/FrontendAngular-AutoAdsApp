@@ -1,6 +1,6 @@
 <h2>Search of auto</h2>
 <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
-  <table>
+  <table width= "400" height="150" align=center>
     <tr>
       <td> Brand:</td>
       <td>
@@ -34,7 +34,8 @@
           <option *ngFor="let year of endYears" [ngValue]="year.name">{{year.name}}</option>
         </select>
       </td>
-      <td colspan="2"></td>
+      <td></td>
+      <td></td>
     </tr>
     <tr>
       <td> Color:</td>
@@ -66,7 +67,8 @@
           <option *ngFor="let bodyStyle of bodyStyles" [ngValue]="bodyStyle.name">{{bodyStyle.name}}</option>
         </select>
       </td>
-      <td colspan="2"></td>
+      <td></td>
+      <td></td>
     </tr>
     <tr>
       <td> Motor type:</td>
@@ -76,7 +78,7 @@
           <option *ngFor="let motorType of motorTypes" [ngValue]="motorType.name">{{motorType.name}}</option>
         </select>
       </td>
-      <td> Volume from:</td>
+      <td> Volume: from</td>
       <td>
         <select formControlName="startVolume">
           <option [ngValue]="null" disabled>Select year</option>
@@ -90,57 +92,67 @@
           <option *ngFor="let endVolume of endVolumes" [ngValue]="endVolume.name">{{endVolume.name}}</option>
         </select>
       </td>
-      <td> Price from:</td>
+      <td> Price: from</td>
       <td><input [(ngModel)]="autoSearch.startPrice" [ngModelOptions]="{standalone: true}"
+                 class="mat-form-field"
+                 size="10"
                  placeholder="start"
                  name="startPrice"
-                 class="form-control"
                  ng-pattern="/^-?[0-9][^\.]*$/"/>
       </td>
       <td> to:</td>
       <td><input [(ngModel)]="autoSearch.endPrice" [ngModelOptions]="{standalone: true}"
+                 class="mat-form-field"
+                 size="10"
                  placeholder="end"
                  name="endPrice"
-                 class="form-control"
                  ng-pattern="/^-?[0-9][^\.]*$/"/>
       </td>
     </tr>
   </table>
-  <button class="btn btn-success">Find</button>
+  <ng-template [ngIf]="isUser || isAdmin || isModerator">
+    <button class="btn btn-success">Find</button>
+  </ng-template>
 </form>
 <br>
 <br>
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th>№</th>
-    <th>Brand</th>
-    <th>Model</th>
-    <th>Year</th>
-    <th>Color</th>
-    <th>Price</th>
-    <th>Motor type</th>
-    <th>Volume</th>
-    <th>Drive type</th>
-    <th>transmission type</th>
-    <th>Body style</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let car of auto; let i = index">
-    <td>{{i + 1}}</td>
-    <td>{{car.nameBrand}}</td>
-    <td>{{car.nameModel}}</td>
-    <td>{{car.year}}</td>
-    <td>{{car.color}}</td>
-    <td>{{car.price}}</td>
-    <td>{{car.motorType}}</td>
-    <td>{{car.volume}}</td>
-    <td>{{car.driveType}}</td>
-    <td>{{car.transmissionType}}</td>
-    <td>{{car.bodyStyleType}}</td>
-  </tr>
-  </tbody>
-</table>
+<ng-template [ngIf]="isUser || isAdmin || isModerator">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>№</th>
+      <th>Brand</th>
+      <th>Model</th>
+      <th>Year</th>
+      <th>Color</th>
+      <th>Price</th>
+      <th>Motor type</th>
+      <th>Volume</th>
+      <th>Drive type</th>
+      <th>transmission type</th>
+      <th>Body style</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let car of auto; let i = index">
+      <td>{{i + 1}}</td>
+      <td>{{car.nameBrand}}</td>
+      <td>{{car.nameModel}}</td>
+      <td>{{car.year}}</td>
+      <td>{{car.color}}</td>
+      <td>{{car.price}}</td>
+      <td>{{car.motorType}}</td>
+      <td>{{car.volume}}</td>
+      <td>{{car.driveType}}</td>
+      <td>{{car.transmissionType}}</td>
+      <td>{{car.bodyStyleType}}</td>
+    </tr>
+    </tbody>
+  </table>
+</ng-template>
+<ng-template [ngIf]="!isUser && !isAdmin && !isModerator">
+  <p>Please, log in or Sign Up </p>
+</ng-template>
+
 
 

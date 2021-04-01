@@ -32,6 +32,7 @@ export class PictureAutoComponent {
           this.pictureAuto = res;
           if(this.pictureAuto != null){
             this.retrievedImage = "data:image/png;base64," + this.pictureAuto.raster;
+            this.isPicture = true;
           }else {
             this.isPicture = false;
           }

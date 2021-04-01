@@ -4,6 +4,7 @@ import {DOCUMENT} from '@angular/common';
 import {AutoJoin} from '../models/autojoin.model';
 import {AutoService} from '../_services/auto.service';
 import {PictureAutoService} from "../_services/picture-auto.sevice";
+import {TokenStorageService} from "../_services/token-storage.service";
 
 @Component({
   selector: 'app-auto',
@@ -13,11 +14,17 @@ import {PictureAutoService} from "../_services/picture-auto.sevice";
 export class AutoComponent implements OnInit {
 
   cars: Array<AutoJoin>;
+  private roles: string[];
+  isAdmin: boolean = false;
+  isModerator: boolean = false;
+  isUser: boolean = false;
   isImage: boolean = true;
+  isLoggedIn: boolean = false;
 
   constructor(
               private router: Router,
               private autoService: AutoService,
+              private tokenStorageService: TokenStorageService,
               private imageAutoService: PictureAutoService,
               @Inject(DOCUMENT) private _document: Document
              ){
@@ -26,6 +33,17 @@ export class AutoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+
+    if (this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      this.roles = user.roles;
+
+      this.isAdmin = this.roles.includes('ROLE_ADMIN');
+      this.isModerator = this.roles.includes('ROLE_MODERATOR');
+      this.isUser = this.roles.includes('ROLE_USER');
+
+    }
     this.loadAuto();
   }
 

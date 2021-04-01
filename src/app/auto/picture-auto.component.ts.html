@@ -16,6 +16,9 @@
     </div>
   </div>
 </ng-template>
-<ng-template [ngIf]="!isPicture">
-  <h3>No photo</h3>
-</ng-template>
+<div class="col-md-12">
+  <div *ngIf=!isPicture>
+    <h3>This car model "{{namePicture}}" is not in the database</h3>
+  </div>
+</div>
+

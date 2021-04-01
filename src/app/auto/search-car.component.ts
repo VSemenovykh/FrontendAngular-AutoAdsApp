@@ -4,6 +4,7 @@ import {AutoJoin} from "../models/autojoin.model";
 import { SearchAutoService } from '../_services/search-auto.service';
 import {Autosearch} from "../models/autosearch.model";
 import { ModelGroup } from '../interface/modelgroup';
+import {TokenStorageService} from "../_services/token-storage.service";
 
 @Component({
   selector: 'app-search-car',
@@ -11,9 +12,6 @@ import { ModelGroup } from '../interface/modelgroup';
   styleUrls: ['search-car.component.css']
 })
 export class SearchCarComponent implements OnInit{
-
-  auto: Array<AutoJoin>;
-  autoSearch: Autosearch = new Autosearch();
 
   brands = [
     {id: 0, name: '---'},
@@ -199,10 +197,19 @@ export class SearchCarComponent implements OnInit{
     {id: 19, name: "4.0"},
     {id: 20, name: "5.0"},
     {id: 21, name: "5.5"},
-
   ];
 
-  constructor(private searchCarService: SearchAutoService, public fb: FormBuilder) {
+  auto: Array<AutoJoin>;
+  autoSearch: Autosearch = new Autosearch();
+  private roles: string[];
+  isLoggedIn = false;
+  isAdmin = false;
+  isModerator = false;
+  isUser = false;
+
+  constructor(private searchCarService: SearchAutoService,
+              private tokenStorageService: TokenStorageService,
+              public fb: FormBuilder) {
   }
 
   searchForm = this.fb.group({
@@ -220,6 +227,17 @@ export class SearchCarComponent implements OnInit{
 
 
   ngOnInit(): void{
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+
+    if (this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      this.roles = user.roles;
+
+      this.isAdmin = this.roles.includes('ROLE_ADMIN');
+      this.isModerator = this.roles.includes('ROLE_MODERATOR');
+      this.isUser = this.roles.includes('ROLE_USER');
+    }
+
     this.onSubmit();
   }
 

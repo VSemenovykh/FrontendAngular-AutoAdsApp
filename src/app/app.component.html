@@ -8,14 +8,32 @@
       <li class="nav-item">
         <a style="margin-left:15px" href="/auto" class="nav-link" routerLink="auto">List auto</a>
       </li>
+        <li class="nav-item">
+          <a style="margin-left:20px" href="/add" class="nav-link" *ngIf="isAdmin" routerLink="add">Add auto</a>
+        </li>
       <li class="nav-item">
-        <a style="margin-left:25px" href="/add" class="nav-link" routerLink="add">Add auto</a>
-      </li>
-      <li class="nav-item">
-        <a style="margin-left:25px" href="/search-car" class="nav-link" routerLink="search-car">Search auto</a>
+        <a style="margin-left:25px" href="/search-auto" class="nav-link" routerLink="search-auto">Search auto</a>
       </li>
       <li class="nav-item">
         <a style="margin-left:30px" href="/image-auto" class="nav-link" routerLink="image-auto">Picture auto</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+      <li class="nav-item">
+        <a style="margin-right:15px" href="/register" class="nav-link" routerLink="register">Sign Up</a>
+      </li>
+      <li class="nav-item">
+        <a style="margin-right:5px" href="/login" class="nav-link" routerLink="login">Login</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+      <li class="nav-item">
+        <a style="margin-right:20px" href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
+      </li>
+      <li class="nav-item">
+        <a style="margin-right:5px" href class="nav-link" (click)="logout()">LogOut</a>
       </li>
     </ul>
   </nav>
