@@ -5,21 +5,26 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { AutoComponent } from './auto/auto.component';
 import { AppRoutingModule } from './app.routing.module';
-import {AutoService} from './auto/auto.service';
+import {AutoService} from './_services/auto.service';
 import {HttpClientModule} from '@angular/common/http';
 import {AddAutoComponent} from './auto/add-auto.component';
 import {EditAutoComponent} from './auto/edit-auto.component';
-import { RouterModule } from '@angular/router';
 
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
-import { ProfileComponent } from './profile/profile.component';
-import { BoardAdminComponent } from './board-admin/board-admin.component';
-import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
-import { BoardUserComponent } from './board-user/board-user.component';
-
-import { authInterceptorProviders } from './_helpers/auth.interceptor';
+import {SearchCarComponent} from './auto/search-car.component'
+import {SearchAutoService} from './_services/search-auto.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatIconModule} from "@angular/material/icon";
+import {PictureAutoService} from "./_services/picture-auto.sevice";
+import {PictureAutoComponent} from "./auto/picture-auto.component";
+import {PageAutoComponent} from "./page-auto/page-auto.component";
+import {RegisterComponent} from "./register/register.component";
+import {LoginComponent} from "./login/login.component";
+import {authInterceptorProviders} from "./_helpers/auth.interceptor";
+import {BoardAdminComponent} from "./board-admin/board-admin.component";
+import {BoardModeratorComponent} from "./board-moderator/board-moderator.component";
+import {BoardUserComponent} from "./board-user/board-user.component";
+import {ProfileComponent} from "./profile/profile.component";
 
 @NgModule({
   declarations: [
@@ -27,22 +32,27 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     AutoComponent,
     AddAutoComponent,
     EditAutoComponent,
-    LoginComponent,
-    RegisterComponent,
     HomeComponent,
-    ProfileComponent,
+    SearchCarComponent,
+    PictureAutoComponent,
+    PageAutoComponent,
+    RegisterComponent,
+    LoginComponent,
     BoardAdminComponent,
     BoardModeratorComponent,
-    BoardUserComponent
+    BoardUserComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatIconModule
   ],
-  providers: [AutoService, authInterceptorProviders],
+  providers: [AutoService, SearchAutoService, PictureAutoService, authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

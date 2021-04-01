@@ -3,15 +3,15 @@ import { TokenStorageService } from './_services/token-storage.service';
 
 @Component({
   selector: 'app-root',
-  // template: '<router-outlet></router-outlet>',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css']
 })
 export class AppComponent {
   private roles: string[];
   isLoggedIn = false;
-  showAdminBoard = false;
-  showModeratorBoard = false;
+  isAdmin = false;
+  isModerator = false;
+  isUser = false;
   username: string;
 
   constructor(private tokenStorageService: TokenStorageService) { }
@@ -23,8 +23,9 @@ export class AppComponent {
       const user = this.tokenStorageService.getUser();
       this.roles = user.roles;
 
-      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+      this.isAdmin = this.roles.includes('ROLE_ADMIN');
+      this.isModerator = this.roles.includes('ROLE_MODERATOR');
+      this.isUser = this.roles.includes('ROLE_USER');
 
       this.username = user.username;
     }
