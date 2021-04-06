@@ -199,7 +199,8 @@ export class MultipleSearchAutoComponent implements OnInit{
     startYear: 'all',
     endYear: 'all',
     startVolume: 'all',
-    endVolume: 'all'
+    endVolume: 'all',
+    model: null
   })
 
   ngOnInit(): void{
@@ -225,9 +226,8 @@ export class MultipleSearchAutoComponent implements OnInit{
     this.dataMultipleSearch['raster'] = null;
     this.dataMultipleSearch['nameBrand'] = this.brands;
 
-    const model = this.groupedModel.map(data => data.value);
-    console.log("model: ", model);
-    this.dataMultipleSearch['nameModel'] = null;  //????
+    console.log("model: ", this.searchForm.controls["model"].value);
+    this.dataMultipleSearch['nameModel'] = null;  // this.searchForm.controls["model"].value ????
 
     this.dataMultipleSearch['startYear'] = this.startYears;
     this.dataMultipleSearch['endYear'] = this.endYears;
