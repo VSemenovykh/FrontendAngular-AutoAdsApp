@@ -1,10 +1,12 @@
-import {Component, OnInit, Inject} from '@angular/core';
+import {Component, AfterViewInit, ViewChild, OnInit, Inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {DOCUMENT} from '@angular/common';
 import {AutoJoin} from '../models/autojoin.model';
 import {AutoService} from '../_services/auto.service';
 import {PictureAutoService} from "../_services/picture-auto.sevice";
 import {TokenStorageService} from "../_services/token-storage.service";
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-auto',
@@ -15,11 +17,20 @@ export class AutoComponent implements OnInit {
 
   cars: Array<AutoJoin>;
   private roles: string[];
+  currentAutoJoin = null;
+  currentIndex = -1;
+  currentPage = 1;
+  page = 1;
+  count = 0;
+  pageSize = 3;
+
   isAdmin: boolean = false;
   isModerator: boolean = false;
   isUser: boolean = false;
   isImage: boolean = true;
   isLoggedIn: boolean = false;
+
+  displayedColumns: string[] = ['photo', 'brand', 'model', 'year', 'color', 'price','motor','volume','drive','transmission','body style'];
 
   constructor(
               private router: Router,
@@ -28,9 +39,13 @@ export class AutoComponent implements OnInit {
               private imageAutoService: PictureAutoService,
               @Inject(DOCUMENT) private _document: Document
              ){
-
-    this.cars = new Array<AutoJoin>();
   }
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  // ngAfterViewInit() {
+  //   this.cars.paginator = this.paginator;
+  // }
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
@@ -44,17 +59,54 @@ export class AutoComponent implements OnInit {
       this.isUser = this.roles.includes('ROLE_USER');
 
     }
-    this.loadAuto();
+
+    if(this.page != 1){
+      this.handlePageChange(this.currentPage);
+    }else{
+      this.loadAutoByPage();
+    }
   }
 
-  private loadAuto() {
-    this.autoService.getAllAuto()
-      .subscribe((data: AutoJoin[]) => {
-        this.cars = data;
-      });
+  getRequestParams(page, pageSize): any {
+    // tslint:disable-next-line:prefer-const
+    let params = {};
+
+    if (page) {
+      params[`page`] = page - 1;
+    }
+
+    if (pageSize) {
+      params[`size`] = pageSize;
+    }
+
+    return params;
   }
 
-  refreshPage() {
+  handlePageChange(event): void {
+    console.log("event: " + event);
+    this.page = event;
+    this.loadAutoByPage();
+  }
+
+  setActiveTutorial(tutorial, index): void {
+    this.currentAutoJoin = tutorial;
+    this.currentIndex = index;
+  }
+
+  private loadAutoByPage(): void {
+    const params = this.getRequestParams(this.page, this.pageSize);
+    console.log("params: ", params);
+    this.autoService.getAllAutoPage(params).subscribe((response) =>{
+      const { listAutoJoin, totalAutoJoin, currentPage } = response;
+      this.cars = listAutoJoin;
+      this.count = totalAutoJoin;
+      this.currentPage = currentPage;
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  refreshPage(): void {
     this._document.defaultView.location.reload();
   }
 

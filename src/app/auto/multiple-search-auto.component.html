@@ -4,104 +4,98 @@
     <tr>
       <td>Brand:</td>
       <td>
-        <select formControlName="brandType">
-          <option [ngValue]="null" disabled>Select brand</option>
-          <option *ngFor="let brandType of brands" [ngValue]="brandType.name">{{brandType.name}}</option>
-        </select>
+        <div class="example-wrapper">
+          <kendo-multiselect [data]="brandList" [(ngModel)]="brands" [ngModelOptions]="{standalone: true}"></kendo-multiselect>
+        </div>
       </td>
       <td>Model:</td>
       <td>
-        <select [formControl]="modelControl">
-          <optgroup *ngFor="let modelGroup of modelGroups" [label]="modelGroup.name"
-                    [disabled]="modelGroup.disabled">
-            <option *ngFor="let model of modelGroup.model" [value]="model.name">
-              {{model.name}}
-            </option>
-          </optgroup>
-        </select>
+        <div class="example-wrapper">
+          <kendo-multiselect
+            [data]="groupedModel"
+            [textField]="'name'"
+            [valueField]="'name'">
+          </kendo-multiselect>
+        </div>
       </td>
-      <td> Year from:</td>
+      <td>
+        Year from:
+      </td>
       <td>
         <select formControlName="startYear">
           <option [ngValue]="null" disabled>Select year</option>
-          <option *ngFor="let year of startYears" [ngValue]="year.name">{{year.name}}</option>
+          <option *ngFor="let startYear of startYears" [ngValue]="startYear.name" >{{startYear.name}}</option>
         </select>
       </td>
-      <td> to:</td>
+      <td>to:</td>
       <td>
         <select formControlName="endYear">
           <option [ngValue]="null" disabled>Select year</option>
-          <option *ngFor="let year of endYears" [ngValue]="year.name">{{year.name}}</option>
+          <option *ngFor="let endYear of endYears" [ngValue]="endYear.name">{{endYear.name}}</option>
         </select>
       </td>
       <td></td>
       <td></td>
     </tr>
     <tr>
-      <td> Color:</td>
+      <td>Color:</td>
       <td>
-        <select formControlName="color">
-          <option [ngValue]="null" disabled>Select color</option>
-          <option *ngFor="let color of colors" [ngValue]="color.name">{{color.name}}</option>
-        </select>
+        <div class="example-wrapper">
+          <kendo-multiselect [data]="colorList" [(ngModel)]="colors" [ngModelOptions]="{standalone: true}"></kendo-multiselect>
+        </div>
       </td>
-      <td> Drive:</td>
+      <td>Drive:</td>
       <td>
-        <select formControlName="drive">
-          <option [ngValue]="null" disabled>Select color</option>
-          <option *ngFor="let drive of drives" [ngValue]="drive.name">{{drive.name}}</option>
-        </select>
+        <div class="example-wrapper">
+          <kendo-multiselect [data]="driveList" [(ngModel)]="drives" [ngModelOptions]="{standalone: true}"></kendo-multiselect>
+        </div>
       </td>
-      <td> Transmission:</td>
+      <td>Transmission:</td>
       <td>
-        <select formControlName="transmission">
-          <option [ngValue]="null" disabled>Select transmission</option>
-          <option *ngFor="let transmission of transmissions"
-                  [ngValue]="transmission.name">{{transmission.name}}</option>
-        </select>
+        <div class="example-wrapper">
+          <kendo-multiselect [data]="transmissionList" [(ngModel)]="transmissions" [ngModelOptions]="{standalone: true}"></kendo-multiselect>
+        </div>
       </td>
-      <td> Body style:</td>
+      <td>Body style:</td>
       <td>
-        <select formControlName="bodyStyle">
-          <option [ngValue]="null" disabled>Select body style</option>
-          <option *ngFor="let bodyStyle of bodyStyles" [ngValue]="bodyStyle.name">{{bodyStyle.name}}</option>
-        </select>
+        <div class="example-wrapper">
+          <kendo-multiselect [data]="bodyStyleList" [(ngModel)]="bodyStyles" [ngModelOptions]="{standalone: true}"></kendo-multiselect>
+        </div>
       </td>
       <td></td>
       <td></td>
     </tr>
     <tr>
-      <td> Motor type:</td>
+      <td>Motor:</td>
       <td>
-        <select formControlName="motorType">
-          <option [ngValue]="null" disabled>Select motor type</option>
-          <option *ngFor="let motorType of motorTypes" [ngValue]="motorType.name">{{motorType.name}}</option>
-        </select>
+        <div class="example-wrapper">
+          <kendo-multiselect [data]="motorList" [(ngModel)]="motors" [ngModelOptions]="{standalone: true}"></kendo-multiselect>
+        </div>
       </td>
-      <td> Volume: from</td>
+      <td>Volume: from</td>
       <td>
         <select formControlName="startVolume">
           <option [ngValue]="null" disabled>Select year</option>
           <option *ngFor="let startVolume of startVolumes" [ngValue]="startVolume.name">{{startVolume.name}}</option>
         </select>
       </td>
-      <td> to:</td>
+      <td>to:</td>
       <td>
         <select formControlName="endVolume">
           <option [ngValue]="null" disabled>Select year</option>
           <option *ngFor="let endVolume of endVolumes" [ngValue]="endVolume.name">{{endVolume.name}}</option>
         </select>
       </td>
-      <td> Price: from</td>
-      <td><input [(ngModel)]="autoSearch.startPrice" [ngModelOptions]="{standalone: true}"
+      <td>Price: from</td>
+      <td><input [(ngModel)]="startPrice" [ngModelOptions]="{standalone: true}"
                  class="mat-form-field"
                  size="10"
                  placeholder="start"
                  name="startPrice"
                  ng-pattern="/^-?[0-9][^\.]*$/"/>
       </td>
-      <td> to:</td>
-      <td><input [(ngModel)]="autoSearch.endPrice" [ngModelOptions]="{standalone: true}"
+      <td>to:</td>
+      <td><input [(ngModel)]="endPrice" [ngModelOptions]="{standalone: true}"
                  class="mat-form-field"
                  size="10"
                  placeholder="end"
@@ -129,10 +123,10 @@
       <th>Year</th>
       <th>Color</th>
       <th>Price</th>
-      <th>Motor type</th>
+      <th>Motor</th>
       <th>Volume</th>
-      <th>Drive type</th>
-      <th>transmission type</th>
+      <th>Drive</th>
+      <th>Transmission</th>
       <th>Body style</th>
     </tr>
     </thead>

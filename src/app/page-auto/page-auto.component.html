@@ -1,44 +1,60 @@
-<div class="container row">
-  <div class="col-md-12">
-    <ng-template [ngIf]="isPicture">
-      <img width="650" height="320" alt={{auto.nameModel}} [src]="retrievedImage">
-    </ng-template>
-    <ng-template [ngIf]="!isPicture">
-      <h2> No photo </h2>
-    </ng-template>
+<div class="content">
+  <div class = "image-auto">
+    <div class="container row">
+      <div class="col-md-12">
+        <ng-template [ngIf]="isPicture">
+          <img class = "border-image-auto" alt={{auto.nameModel}} [src]="retrievedImage">
+        </ng-template>
+        <ng-template [ngIf]="!isPicture">
+          <h2> No photo </h2>
+        </ng-template>
+        <div>
+          <p>
+            <strong>Email: </strong> {{auto.email}}
+          </p>
+          <p>
+            <strong>Phone number: </strong>{{auto.phone}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class = "info-auto">
+    <table>
+      <h1>{{auto.nameBrand}} - {{auto.nameModel}}</h1>
+      <h2> Сar specifications: </h2>
+      <tr>
+        <td>Model:</td>
+        <td>{{auto.nameModel}}</td>
+      </tr>
+      <tr>
+        <td>Year:</td>
+        <td>{{auto.year}}</td>
+      </tr>
+      <tr>
+        <td>Color:</td>
+        <td>{{auto.color}}</td>
+      </tr>
+      <tr>
+        <td>Price:</td>
+        <td>{{auto.price}}</td>
+      </tr>
+      <tr>
+        <td>Drive:</td>
+        <td>{{auto.driveType}}</td>
+      </tr>
+      <tr>
+        <td>Transmission:</td>
+        <td>{{auto.transmissionType}}</td>
+      </tr>
+      <tr>
+        <td>Body style:</td>
+        <td>{{auto.bodyStyleType}}</td>
+      </tr>
+    </table>
+    <button class="button blue" (click)="goBack()">Back to list of auto</button>
   </div>
 </div>
-<div>
-  <h2>{{auto.nameBrand}} - {{auto.nameModel}}</h2>
-</div>
-<table>
-  <tr>
-    <td>Model:</td>
-    <td>{{auto.nameModel}}</td>
-  </tr>
-  <tr>
-    <td>Year:</td>
-    <td>{{auto.year}}</td>
-  </tr>
-  <tr>
-    <td>Color:</td>
-    <td>{{auto.color}}</td>
-  </tr>
-  <tr>
-    <td>Price:</td>
-    <td>{{auto.price}}</td>
-  </tr>
-  <tr>
-    <td>Drive:</td>
-    <td>{{auto.driveType}}</td>
-  </tr>
-  <tr>
-    <td>Transmission:</td>
-    <td>{{auto.transmissionType}}</td>
-  </tr>
-  <tr>
-    <td>Body style:</td>
-    <td>{{auto.bodyStyleType}}</td>
-  </tr>
-</table>
-<button class="button blue" (click)="goBack()">Back to list of auto </button>
+
+
+

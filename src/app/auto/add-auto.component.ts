@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {AutoService} from '../_services/auto.service';
-import {FormBuilder, FormControl} from "@angular/forms";
+import {FormBuilder, FormControl, Validators} from "@angular/forms";
 import {PictureAutoService} from "../_services/picture-auto.sevice";
 import {AutoJoin} from "../models/autojoin.model";
 import {ModelGroup} from '../interface/modelgroup';
@@ -24,7 +24,6 @@ export class AddAutoComponent {
     {
       name: 'BMW',
       model: [
-        {id: 0, name: '---'},
         {id: 1, name: 'M8'},
         {id: 2, name: 'M6'},
         {id: 3, name: 'M5'},
@@ -33,7 +32,6 @@ export class AddAutoComponent {
     {
       name: 'Mercedes-Benz',
       model: [
-        {id: 0, name: '---'},
         {id: 1, name: 'GLE AMG'}
       ]
     }
@@ -166,6 +164,14 @@ export class AddAutoComponent {
     bodyStyle: [null]
   })
 
+  phoneForm = this.fb.group({
+    mobileNumber: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]]
+  })
+
+  get f(){
+    return this.phoneForm.controls;
+  }
+
   onSubmit() {
     const obj = this.autoJoin;
     obj.nameBrand = this.createForm.controls["brand"].value;
@@ -178,11 +184,22 @@ export class AddAutoComponent {
     obj.transmissionType = this.createForm.controls["transmission"].value;
     obj.bodyStyleType = this.createForm.controls["bodyStyle"].value;
 
-    if ((obj.nameBrand == null) || (obj.nameModel == null) || (obj.year == null) || (obj.motorType == null)
-      || (obj.volume == null) || (obj.color == null) || (obj.price == null) || (obj.driveType == null) || (obj.driveType == null)
-      || (obj.transmissionType == null) || (obj.bodyStyleType == null)) {
+    if ((obj.nameBrand == null)
+      || (obj.nameModel == null)
+      || (obj.year == null)
+      || (obj.motorType == null)
+      || (obj.volume == null)
+      || (obj.color == null)
+      || (obj.price == null)
+      || (obj.driveType == null)
+      || (obj.driveType == null)
+      || (obj.transmissionType == null)
+      || (obj.bodyStyleType == null)) {
+
       this.isData = false;
+
     } else {
+
       this.createPicture(this.autoJoin);
     }
   }

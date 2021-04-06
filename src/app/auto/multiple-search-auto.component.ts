@@ -1,51 +1,49 @@
-import {Component, Inject, OnInit} from "@angular/core";
+import {AfterViewInit, Component, Inject, OnInit, ViewChild} from "@angular/core";
 import {FormBuilder, FormControl} from "@angular/forms";
 import {AutoJoin} from "../models/autojoin.model";
 import { SearchAutoService } from '../_services/search-auto.service';
-import { ModelGroup } from '../interface/modelgroup';
 import {TokenStorageService} from "../_services/token-storage.service";
 import {Router} from "@angular/router";
 import {DOCUMENT} from "@angular/common";
+import { GroupResult, groupBy } from '@progress/kendo-data-query';
 
 @Component({
-  selector: 'app-search-car',
-  templateUrl: 'search-car.component.html',
-  styleUrls: ['search-car.component.css']
+  selector: 'app-multiple-search-auto',
+  templateUrl: 'multiple-search-auto.component.html',
+  styleUrls: ['multiple-search-auto.component.css']
 })
-export class SearchCarComponent implements OnInit{
+export class MultipleSearchAutoComponent implements OnInit{
+  @ViewChild('list') list;
 
-  brands = [
-    {id: 0, name: 'all'},
-    {id: 1, name: "BMW"},
-    {id: 2, name: "Mercedes-Benz"}
+  // tslint:disable-next-line:max-line-length
+  brandList: Array<string> = ['BMW', 'Mercedes-Benz'];
+
+  modelList: Array<any> = [
+    { name: 'I8', category: 'Model', subcategory: 'BMW' },
+    { name: 'M3', category: 'Model', subcategory: 'BMW' },
+    { name: 'M5', category: 'Model', subcategory: 'BMW' },
+    { name: 'M6', category: 'Model', subcategory: 'BMW' },
+    { name: 'M8', category: 'Model', subcategory: 'BMW' },
+    { name: 'X1', category: 'Model', subcategory: 'BMW' },
+    { name: 'X2', category: 'Model', subcategory: 'BMW' },
+    { name: 'X3', category: 'Model', subcategory: 'BMW' },
+    { name: 'X4', category: 'Model', subcategory: 'BMW' },
+    { name: 'X5', category: 'Model', subcategory: 'BMW' },
+    { name: 'GLE AMG', category: 'Model', subcategory: 'Mercedes-Benz' }
   ];
 
-  modelControl = new FormControl();
-  modelGroups: ModelGroup[] = [
-    {
-      name: 'BMW',
-      model: [
-        {id: 0, name: 'all'},
-        {id: 1, name: 'I8'},
-        {id: 2, name: 'M3'},
-        {id: 3, name: 'M5'},
-        {id: 4, name: 'M6'},
-        {id: 5, name: 'M8'},
-        {id: 6, name: 'X1'},
-        {id: 7, name: 'X2'},
-        {id: 8, name: 'X3'},
-        {id: 9, name: 'X4'},
-        {id: 10, name: 'X5'}
-      ]
-    },
-    {
-      name: 'Mercedes-Benz',
-      model: [
-        {id: 0, name: 'all'},
-        {id: 1, name: 'GLE AMG'}
-      ]
-    }
-  ];
+  groupedModel: GroupResult[] = groupBy(this.modelList, [{field: 'subcategory'}]);
+
+  colorList: Array<string> = ['White', 'Silver', 'Gray', 'Black', 'Red', 'Maroon', 'Navy', 'Yellow', 'Olive', 'Lime',
+                              'Green', 'Aqua','Teal','Blue', 'Fuchsia', 'Purple'];
+
+  driveList: Array<string> = ['awd', 'fwd', 'rwd'];
+
+  transmissionList: Array<string> = ['hybrid', 'automatic', 'manual', 'cvt'];
+
+  bodyStyleList: Array<string> = ['coupe', 'hatchback', 'minivan', 'suv', 'sedan', 'wagon'];
+
+  motorList: Array<string> = ['diesel', 'electric', 'gasoline'];
 
   startYears = [
     {id: 0,  name: 'all'},
@@ -99,58 +97,6 @@ export class SearchCarComponent implements OnInit{
     {id: 22, name: "2021"}
   ];
 
-  colors = [
-    {id: 0,   name: 'all'},
-    { id: 1,  name: "White" },
-    { id: 2,  name: "Silver" },
-    { id: 3,  name: "Gray" },
-    { id: 4,  name: "Black" },
-    { id: 5,  name: "Red" },
-    { id: 6,  name: "Maroon" },
-    { id: 7,  name: "Navy" },
-    { id: 8,  name: "Yellow" },
-    { id: 9,  name: "Olive" },
-    { id: 10, name: "Lime" },
-    { id: 11, name: "Green" },
-    { id: 12, name: "Aqua" },
-    { id: 13, name: "Teal" },
-    { id: 14, name: "Blue" },
-    { id: 15, name: "Fuchsia" },
-    { id: 16, name: "Purple" }
-  ];
-
-  drives = [
-    {id: 0, name: 'all'},
-    {id: 1, name: "awd"},
-    {id: 2, name: "fwd"},
-    {id: 2, name: "rwd"}
-  ];
-
-  transmissions = [
-    {id: 0, name: 'all'},
-    {id: 1, name: "hybrid"},
-    {id: 2, name: "automatic"},
-    {id: 3, name: "manual"},
-    {id: 4, name: "cvt"}
-  ];
-
-  bodyStyles = [
-    {id: 0, name: 'all'},
-    {id: 1, name: "coupe"},
-    {id: 2, name: "hatchback"},
-    {id: 3, name: "minivan"},
-    {id: 4, name: "suv"},
-    {id: 5, name: "sedan"},
-    {id: 6, name: "wagon"}
-  ];
-
-  motorTypes = [
-    {id: 0, name: 'all'},
-    {id: 1, name: "diesel"},
-    {id: 2, name: "electric"},
-    {id: 3, name: "gasoline"}
-  ];
-
   startVolumes = [
     {id: 0,  name: "all"},
     {id: 2,  name: "0.2"},
@@ -200,24 +146,34 @@ export class SearchCarComponent implements OnInit{
     {id: 21, name: "5.5"},
   ];
 
-  auto: Array<AutoJoin>;
-  autoSearch = {"id": null,
-                    "raster": null,
-                    "nameBrand": null,
-                    "nameModel": null,
-                    "startYear": null,
-                    "endYear": null,
-                    "color": null,
-                    "startPrice": null,
-                    "endPrice": null,
-                    "motorType": null,
-                    "startVolume": null,
-                    "endVolume": null,
-                    "transmissionType": null,
-                    "driveType": null,
-                    "bodyStyleType": null};
+  dataMultipleSearch = {"id": null,
+                        "raster": null,
+                        "nameBrand": null,
+                        "nameModel": null,
+                        "startYear": null,
+                        "endYear": null,
+                        "color":null,
+                        "startPrice": null,
+                        "endPrice": null,
+                        "motorType": null,
+                        "startVolume": null,
+                        "endVolume": null,
+                        "driveType": null,
+                        "transmissionType": null,
+                        "bodyStyleType": null};
 
+  auto: Array<AutoJoin>;
   private roles: string[];
+
+  brands: [] = null;
+  colors: [] = null;
+  startPrice: any = null;
+  endPrice: any = null;
+  motors: [] = null;
+  drives: [] = null;
+  transmissions: [] = null;
+  bodyStyles: [] = null;
+
   currentAutoJoin: any;
   currentIndex = -1;
   currentPage = 1;
@@ -225,10 +181,10 @@ export class SearchCarComponent implements OnInit{
   count = 0;
   pageSize = 3;
 
-  isLoggedIn = false;
-  isAdmin = false;
-  isModerator = false;
-  isUser = false;
+  isLoggedIn: boolean = false;
+  isAdmin: boolean = false;
+  isModerator: boolean = false;
+  isUser: boolean = false;
   isImage: boolean = true;
   isResponse: boolean = true;
 
@@ -240,20 +196,14 @@ export class SearchCarComponent implements OnInit{
   }
 
   searchForm = this.fb.group({
-    brandType: 'all',
     startYear: 'all',
     endYear: 'all',
-    color: 'all',
-    drive: 'all',
-    transmission: 'all',
-    bodyStyle: 'all',
-    motorType: 'all',
     startVolume: 'all',
     endVolume: 'all'
   })
 
-
   ngOnInit(): void{
+
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {
@@ -269,66 +219,53 @@ export class SearchCarComponent implements OnInit{
   }
 
   onSubmit(){
-    const dataSearch = this.autoSearch;
-    dataSearch["nameBrand"] = this.searchForm.controls["brandType"].value;
-    if(dataSearch["nameBrand"]== "all"){
-      dataSearch["nameBrand"] = null;
+    console.log("multiple-search-auto.component: onSubmit()");
+
+    this.dataMultipleSearch['id'] = null;
+    this.dataMultipleSearch['raster'] = null;
+    this.dataMultipleSearch['nameBrand'] = this.brands;
+
+    const model = this.groupedModel.map(data => data.value);
+    console.log("model: ", model);
+    this.dataMultipleSearch['nameModel'] = null;  //????
+
+    this.dataMultipleSearch['startYear'] = this.startYears;
+    this.dataMultipleSearch['endYear'] = this.endYears;
+    this.dataMultipleSearch['color'] = this.colors;
+    this.dataMultipleSearch['startPrice'] = this.startPrice;
+    this.dataMultipleSearch['endPrice'] = this.endPrice;
+    this.dataMultipleSearch['motorType'] = this.motors;
+    this.dataMultipleSearch['startVolume'] = this.startVolumes;
+    this.dataMultipleSearch['endVolume'] = this.endVolumes;
+    this.dataMultipleSearch['driveType'] = this.drives;
+    this.dataMultipleSearch['transmissionType'] = this.transmissions;
+    this.dataMultipleSearch['bodyStyleType'] = this.bodyStyles;
+
+    this.dataMultipleSearch['startYear'] = this.searchForm.controls["startYear"].value;
+    if(this.dataMultipleSearch['startYear'] == "all"){
+      this.dataMultipleSearch['startYear'] = null;
     }
 
-    dataSearch["nameModel"]  = this.modelControl.value;
-    if( dataSearch["nameModel"]== "all"){
-      dataSearch["nameModel"] = null;
+    this.dataMultipleSearch['endYear'] = this.searchForm.controls["endYear"].value;
+    if( this.dataMultipleSearch['endYear'] == "all"){
+      this.dataMultipleSearch['endYear'] = null;
     }
 
-    dataSearch["startYear"] = this.searchForm.controls["startYear"].value;
-    if(dataSearch["startYear"] == "all"){
-      dataSearch["startYear"] = null;
+    this.dataMultipleSearch['startVolume'] = this.searchForm.controls["startVolume"].value;
+    if(this.dataMultipleSearch['startVolume'] == "all"){
+      this.dataMultipleSearch['startVolume'] = null;
     }
 
-    dataSearch["endYear"] = this.searchForm.controls["endYear"].value;
-    if(dataSearch["endYear"] == "all"){
-      dataSearch["endYear"] = null;
+    this.dataMultipleSearch['endVolume'] = this.searchForm.controls["endVolume"].value;
+    if( this.dataMultipleSearch['endVolume']  == "all"){
+      this.dataMultipleSearch['endVolume']  = null;
     }
 
-    dataSearch["motorType"] = this.searchForm.controls["motorType"].value;
-    if(dataSearch["motorType"] == "all"){
-      dataSearch["motorType"] = null;
-    }
-
-    dataSearch["startVolume"] = this.searchForm.controls["startVolume"].value;
-    if(dataSearch["startVolume"] == "all"){
-      dataSearch["startVolume"] = null;
-    }
-
-    dataSearch["endVolume"] = this.searchForm.controls["endVolume"].value;
-    if( dataSearch["endVolume"]  == "all"){
-      dataSearch["endVolume"] = null;
-    }
-
-    dataSearch["color"] = this.searchForm.controls["color"].value;
-    if( dataSearch["color"] == "all"){
-      dataSearch["color"] = null;
-    }
-
-    dataSearch["driveType"] = this.searchForm.controls["drive"].value;
-    if(dataSearch["driveType"]  == "all" ){
-      dataSearch["driveType"]  = null;
-    }
-
-    dataSearch["transmissionType"]  = this.searchForm.controls["transmission"].value;
-    if(   dataSearch["transmissionType"]  == "all"){
-      dataSearch["transmissionType"]  = null;
-    }
-
-    dataSearch["bodyStyleType"]  = this.searchForm.controls["bodyStyle"].value;
-    if(dataSearch["bodyStyleType"] == "all"){
-      dataSearch["bodyStyleType"] = null;
-    }
-
+    console.log("this.dataMultipleSearch: ", this.dataMultipleSearch);
     if(this.page != 1){
       this.handlePageChange(this.currentPage);
     }else{
-      this.findCarByDiffCriteriaPage(this.autoSearch);
+      this.findCarByDiffCriteriaPage(this.dataMultipleSearch);
     }
   }
 
@@ -349,7 +286,7 @@ export class SearchCarComponent implements OnInit{
 
   handlePageChange(event): void {
     this.page = event;
-    this.findCarByDiffCriteriaPage(this.autoSearch);
+    this.findCarByDiffCriteriaPage(this.dataMultipleSearch);
   }
 
   setActiveTutorial(tutorial, index): void {
@@ -358,22 +295,23 @@ export class SearchCarComponent implements OnInit{
   }
 
   findCarByDiffCriteriaPage(data: any): void{
+    console.log("multiple-search-auto.component: findCarByDiffCriteriaPage(data: any)");
     const params = this.getRequestParams(this.page, this.pageSize);
-    console.log("params: ", params);
-    this.searchCarService.getSearchAutoPage(data, params)
+    this.searchCarService.getMultipleSearchAutoPage(data, params)
       .subscribe((response) =>{
-       if(response != null){
+        console.log("response", response);
+        if(response != null){
           const {listAutoJoin, totalAutoJoin, currentPage} = response;
           this.auto = listAutoJoin;
           this.count = totalAutoJoin;
           this.currentPage = currentPage;
           this.isResponse = true;
-       }else{
-        this.isResponse = false;
-       }
+        }else{
+          this.isResponse = false;
+        }
       }, error => {
-      console.log(error);
-    });
+        console.log(error);
+      });
   }
 
   getImageAuto(raster: any): string {
@@ -389,7 +327,6 @@ export class SearchCarComponent implements OnInit{
   }
 
   reset():void{
-    this.autoSearch = null;
     this._document.defaultView.location.reload();
   }
 }

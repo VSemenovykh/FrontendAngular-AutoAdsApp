@@ -15,4 +15,8 @@ export class HomeComponent implements OnInit {
     this.content = 'hello!';
   }
 
+
+  reloadPage(): void {
+    window.location.reload();
+  }
 }

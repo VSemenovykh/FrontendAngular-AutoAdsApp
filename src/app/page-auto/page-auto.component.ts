@@ -12,7 +12,23 @@ import {AutoService} from "../_services/auto.service";
 })
 export class PageAutoComponent implements OnInit {
 
-  auto: AutoJoin;
+  // auto: AutoJoin = new AutoJoin();
+  auto = {"id": null,
+    "idPicture": null,
+    "raster": null,
+    "email": null,
+    "phone": null,
+    "nameBrand": null,
+    "nameModel": null,
+    "year": null,
+    "color": null,
+    "price": null,
+    "motorType": null,
+    "volume": null,
+    "driveType": null,
+    "transmissionType": null,
+    "bodyStyleType": null};
+
   retrievedImage: any;
   pictureAuto: AutoPicture = new AutoPicture();
   isPicture: boolean = true;
@@ -44,6 +60,7 @@ export class PageAutoComponent implements OnInit {
     this.autoService.getAutoJoinById(Number(this.route.snapshot.params.id))
       .subscribe( (data: any) => {
         this.auto = data;
+        console.log('brand: ', this.auto);
       });
   }
 

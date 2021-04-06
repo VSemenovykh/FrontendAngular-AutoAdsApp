@@ -1,14 +1,31 @@
+/*
 th {
   font-weight: normal;
   border-bottom: 2px solid #6678b1;
-  border-right: 30px solid white;
-  border-left: 30px solid white;
-  color: #039;
+  border-right: 30px solid #f7f9f8;
+  border-left: 30px solid #f7f9f8;
   padding: 8px 2px;
 }
 td {
-  border-right: 30px solid white;
-  border-left: 30px solid white;
-  color: #669;
+  border-right: 30px solid #f7f9f8;
+  border-left: 30px solid #f7f9f8;
   padding: 12px 2px;
+}
+
+h1, h2{
+  color:navy;
+  font-weight: bold;
+}
+*/
+table {
+  table-layout:fixed; width:105%; height: 25%;
+}
+
+select {
+  width: 100%;
+}
+
+h1, h2{
+  color:navy;
+  font-weight: bold;
 }

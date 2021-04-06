@@ -8,10 +8,14 @@ export class SearchAutoService {
 
   constructor(private http: HttpClient) {}
 
-  private searchUrl = 'http://localhost:8080/api/auth/search';
+  private searchUrl = 'http://localhost:8080/api/auth';
 
-  public getSearchAuto(inData: any): Observable<any>{
-    return this.http.post(this.searchUrl, inData);
+  public getSearchAutoPage(data: any, params: any): Observable<any> {
+    return this.http.post(this.searchUrl + '/search/page', data, {params});
+  }
+
+  public getMultipleSearchAutoPage(data: any, params: any): Observable<any> {
+    return this.http.post(this.searchUrl + '/multiple-search/page', data, {params});
   }
 }
 

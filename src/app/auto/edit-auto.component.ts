@@ -139,7 +139,22 @@ export class EditAutoComponent implements OnInit {
     {id: 20, name: "5.5"}
   ];
 
-  auto: AutoJoin = new AutoJoin();
+  auto = {"id": null,
+          "idPicture": null,
+          "raster": null,
+          "email": null,
+          "phone": null,
+          "nameBrand": null,
+          "nameModel": null,
+          "year": null,
+          "color": null,
+          "price": null,
+          "motorType": null,
+          "volume": null,
+          "driveType": null,
+          "transmissionType": null,
+          "bodyStyleType": null};
+
   autoPicture: AutoPicture = new AutoPicture();
   selectedFile: File;
   message: string;
@@ -186,31 +201,31 @@ export class EditAutoComponent implements OnInit {
   })
 
   onSubmit() {
-    const newAuto = this.auto;
-    const newForm = this.updateForm;
+    const auto = this.auto;
+    const form = this.updateForm;
 
-    newAuto.nameBrand = newForm.controls["brand"].value;
+    auto.nameBrand = form.controls["brand"].value;
 
-    (this.modelGroups.values() == null)?(newAuto.nameModel = this.modelControl.value):(newAuto.nameModel = this.auto.nameModel);
+    (this.modelGroups.values() == null)?(auto.nameModel = this.modelControl.value):(auto.nameModel = this.auto.nameModel);
 
-    newAuto.year = newForm.controls["year"].value;
-    newAuto.motorType = newForm.controls["motorType"].value;
-    newAuto.volume = newForm.controls["volume"].value;
-    newAuto.color = newForm.controls["color"].value;
-    newAuto.driveType = newForm.controls["drive"].value;
-    newAuto.transmissionType = newForm.controls["transmission"].value;
-    newAuto.bodyStyleType = newForm.controls["bodyStyle"].value;
+    auto.year = form.controls["year"].value;
+    auto.motorType = form.controls["motorType"].value;
+    auto.volume = form.controls["volume"].value;
+    auto.color = form.controls["color"].value;
+    auto.driveType = form.controls["drive"].value;
+    auto.transmissionType = form.controls["transmission"].value;
+    auto.bodyStyleType = form.controls["bodyStyle"].value;
 
-    if ((newAuto.nameBrand == null) ||
-        (newAuto.nameModel == null) ||
-        (newAuto.year == null) ||
-        (newAuto.motorType == null) ||
-        (newAuto.volume == null) ||
-        (newAuto.color == null) ||
-        (newAuto.price == null) || (newAuto.driveType == null) ||
-        (newAuto.volume == null) ||
-        (newAuto.transmissionType == null) ||
-        (newAuto.bodyStyleType == null)) {
+    if ((auto.nameBrand == null) ||
+        (auto.nameModel == null) ||
+        (auto.year == null) ||
+        (auto.motorType == null) ||
+        (auto.volume == null) ||
+        (auto.color == null) ||
+        (auto.price == null) || (auto.driveType == null) ||
+        (auto.volume == null) ||
+        (auto.transmissionType == null) ||
+        (auto.bodyStyleType == null)) {
 
       this.isData = false;
 
@@ -248,10 +263,7 @@ export class EditAutoComponent implements OnInit {
     if (file != null) {
       this.imageAutoService.updatePictureAuto(file, id)
         .subscribe(data => { });
-     }// else {
-    //   this.imageAutoService.updatePictureAuto(null, null)
-    //     .subscribe(data => {  });
-    // }
+     }
   }
 
   updateAuto(auto: any, idImage: any): void {

@@ -1,26 +1,31 @@
+<h1 class="text-center"> List auto</h1>
 <div class="col-md-6" xmlns:background="http://www.w3.org/1999/xhtml" xmlns:font-size="http://www.w3.org/1999/xhtml">
-  <h2> List auto</h2>
     <table class="table table-striped">
       <thead>
       <tr>
-        <th> № </th>
-        <th> </th>
+        <th> Photo </th>
         <th> Brand </th>
         <th> Model </th>
         <th> Year </th>
         <th> Color </th>
         <th> Price </th>
-        <th> Motor type </th>
+        <th> Motor </th>
         <th> Volume </th>
-        <th> Drive type </th>
-        <th> transmission type </th>
+        <th> Drive </th>
+        <th> Transmission </th>
         <th> Body style </th>
         <td *ngIf=" isAdmin || isModerator" colspan="2" BGCOLOR="#CCCCCC" ></td>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let car of cars; let i = index">
-        <td>{{i+1}}</td>
+      <tr *ngFor="let car of cars | paginate : {
+                                    itemsPerPage: pageSize,
+                                    currentPage: page,
+                                    totalItems: count
+                                  };
+                 let i = index
+                "  [class.active]="i == currentIndex"
+                   (click)="setActiveTutorial(car, i)">
         <td>
           <ng-template [ngIf]="isImage">
             <img width="100" height="50" alt={{cars.nameModel}} [src]="getImageAuto(car.raster)">
@@ -35,8 +40,8 @@
           </a>
         </td>
         <td><a href="/page-auto" class="nav-link" routerLink="page-auto"  (click)="goToSelectAuto(car.idPicture)">
-          {{car.nameModel}}
-        </a>  </td>
+          {{car.nameModel}} </a>
+        </td>
         <td>{{car.year}}</td>
         <td>{{car.color}}</td>
         <td>{{car.price}}</td>
@@ -69,5 +74,91 @@
       </tr>
       </tbody>
     </table>
+  <div style="margin-left:50%" class="col-md-12" >
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      responsive="true"
+      (pageChange)="handlePageChange($event)"
+    ></pagination-controls>
+  </div>
 </div>
 
+<!--
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="cars">
+
+    <ng-container matColumnDef="photo">
+      <th mat-header-cell *matHeaderCellDef> photo </th>
+      <td mat-cell *matCellDef="let element"> <ng-template [ngIf]="isImage">
+        <img width="100" height="50" alt={{cars.nameModel}} [src]="getImageAuto(element.raster)">
+      </ng-template>
+        <ng-template [ngIf]="!isImage">
+          <p>No photo</p>
+        </ng-template> </td>
+
+    </ng-container>
+
+
+    <ng-container matColumnDef="brand">
+      <th mat-header-cell *matHeaderCellDef> brand </th>
+      <td mat-cell *matCellDef="let element"> {{element.nameBrand}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="model">
+      <th mat-header-cell *matHeaderCellDef> model </th>
+      <td mat-cell *matCellDef="let element"> {{element.nameModel}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="year">
+      <th mat-header-cell *matHeaderCellDef> year </th>
+      <td mat-cell *matCellDef="let element"> {{element.year}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="color">
+      <th mat-header-cell *matHeaderCellDef> color </th>
+      <td mat-cell *matCellDef="let element"> {{element.color}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> price </th>
+      <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="motor">
+      <th mat-header-cell *matHeaderCellDef> motor </th>
+      <td mat-cell *matCellDef="let element"> {{element.motorType}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="volume">
+      <th mat-header-cell *matHeaderCellDef> volume </th>
+      <td mat-cell *matCellDef="let element"> {{element.volume}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="drive">
+      <th mat-header-cell *matHeaderCellDef> drive </th>
+      <td mat-cell *matCellDef="let element"> {{element.driveType}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="transmission">
+      <th mat-header-cell *matHeaderCellDef> transmission </th>
+      <td mat-cell *matCellDef="let element"> {{element.transmissionType}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="body style">
+      <th mat-header-cell *matHeaderCellDef> body style </th>
+      <td mat-cell *matCellDef="let element"> {{element.bodyStyleType}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[3, 6, 9]" showFirstLastButtons></mat-paginator>
+</div>
+
+-->

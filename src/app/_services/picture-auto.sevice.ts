@@ -9,10 +9,6 @@ export class PictureAutoService {
 
   private pictureUrl = 'http://localhost:8080/api/auth';
 
-  public getPictureAutoByNamePicture(namePicture: any): Observable<any>{
-    return this.http.get(this.pictureUrl + '/pictureAuto/' + namePicture);
-  }
-
   public getPictureAutoByIdAuto(idAuto: any): Observable<any>{
     return this.http.get(this.pictureUrl + '/pictureAuto/idAuto/' + idAuto);
   }
@@ -26,4 +22,3 @@ export class PictureAutoService {
   }
 }
 
-//admin
