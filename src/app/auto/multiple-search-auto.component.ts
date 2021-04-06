@@ -216,7 +216,6 @@ export class MultipleSearchAutoComponent implements OnInit{
       this.isUser = this.roles.includes('ROLE_USER');
     }
 
-    this.onSubmit();
   }
 
   onSubmit(){
@@ -226,8 +225,11 @@ export class MultipleSearchAutoComponent implements OnInit{
     this.dataMultipleSearch['raster'] = null;
     this.dataMultipleSearch['nameBrand'] = this.brands;
 
-    console.log("model: ", this.searchForm.controls["model"].value);
-    this.dataMultipleSearch['nameModel'] = null;  // this.searchForm.controls["model"].value ????
+    const selectedModels = this.searchForm.controls["model"].value;
+    console.log("selected models: ", selectedModels);
+    const selectedModelNames = selectedModels.map(model => model.name);
+    console.log("select model names: ", selectedModelNames);
+    this.dataMultipleSearch['nameModel'] = selectedModelNames;
 
     this.dataMultipleSearch['startYear'] = this.startYears;
     this.dataMultipleSearch['endYear'] = this.endYears;
