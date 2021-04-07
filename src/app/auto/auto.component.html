@@ -1,164 +1,91 @@
 <h1 class="text-center"> List auto</h1>
-<div class="col-md-6" xmlns:background="http://www.w3.org/1999/xhtml" xmlns:font-size="http://www.w3.org/1999/xhtml">
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th> Photo </th>
-        <th> Brand </th>
-        <th> Model </th>
-        <th> Year </th>
-        <th> Color </th>
-        <th> Price </th>
-        <th> Motor </th>
-        <th> Volume </th>
-        <th> Drive </th>
-        <th> Transmission </th>
-        <th> Body style </th>
-        <td *ngIf=" isAdmin || isModerator" colspan="2" BGCOLOR="#CCCCCC" ></td>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let car of cars | paginate : {
-                                    itemsPerPage: pageSize,
-                                    currentPage: page,
-                                    totalItems: count
-                                  };
-                 let i = index
-                "  [class.active]="i == currentIndex"
-                   (click)="setActiveTutorial(car, i)">
-        <td>
-          <ng-template [ngIf]="isImage">
-            <img width="100" height="50" alt={{cars.nameModel}} [src]="getImageAuto(car.raster)">
-          </ng-template>
-          <ng-template [ngIf]="!isImage">
-            <p>No photo</p>
-          </ng-template>
-        </td>
-        <td>
-          <a href="/page-auto" class="nav-link" routerLink="page-auto"  (click)="goToSelectAuto(car.idPicture)">
-            {{car.nameBrand}}
-          </a>
-        </td>
-        <td><a href="/page-auto" class="nav-link" routerLink="page-auto"  (click)="goToSelectAuto(car.idPicture)">
-          {{car.nameModel}} </a>
-        </td>
-        <td>{{car.year}}</td>
-        <td>{{car.color}}</td>
-        <td>{{car.price}}</td>
-        <td>{{car.motorType}}</td>
-        <td>{{car.volume}}</td>
-        <td>{{car.driveType}}</td>
-        <td>{{car.transmissionType}}</td>
-        <td>{{car.bodyStyleType}}</td>
-        <td *ngIf="isModerator || isAdmin">
-          <button
-            class="button blue">
-            <mat-icon
-              class="habit-icon"
-              color="primary"
-              (click)="goToUpdate(car.id)"
-            >border_color
-            </mat-icon>
-          </button>
-        </td>
-        <td *ngIf=" isAdmin">
-          <button class="button blue">
-            <mat-icon
-              class="habit-icon"
-              color="warn"
-              (click)="deleteAuto(car)"
-            >remove
-            </mat-icon>
-          </button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  <div style="margin-left:50%" class="col-md-12" >
-    <pagination-controls
-      previousLabel="Prev"
-      nextLabel="Next"
-      responsive="true"
-      (pageChange)="handlePageChange($event)"
-    ></pagination-controls>
-  </div>
-</div>
-
-<!--
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="cars">
+<div>
+  <table mat-table
+         [dataSource]="cars"
+         cdkDropList
+         cdkDropListOrientation="horizontal" >
 
     <ng-container matColumnDef="photo">
-      <th mat-header-cell *matHeaderCellDef> photo </th>
+      <th mat-header-cell cdkDrag *matHeaderCellDef> Picture</th>
       <td mat-cell *matCellDef="let element"> <ng-template [ngIf]="isImage">
-        <img width="100" height="50" alt={{cars.nameModel}} [src]="getImageAuto(element.raster)">
+        <div class = "picture-box">
+          <img width="100" height="50" alt={{cars.nameModel}} [src]="getImageAuto(element.raster)">
+        </div>
       </ng-template>
         <ng-template [ngIf]="!isImage">
           <p>No photo</p>
         </ng-template> </td>
-
     </ng-container>
-
 
     <ng-container matColumnDef="brand">
-      <th mat-header-cell *matHeaderCellDef> brand </th>
-      <td mat-cell *matCellDef="let element"> {{element.nameBrand}} </td>
+      <th mat-header-cell cdkDrag *matHeaderCellDef> brand</th>
+      <td mat-cell *matCellDef="let element">
+        <a href="/page-auto"
+           class="nav-link"
+           routerLink="page-auto"
+           (click)="goToSelectAuto(element.idPicture)">
+          {{element.nameBrand}}
+        </a>
+      </td>
     </ng-container>
-
 
     <ng-container matColumnDef="model">
-      <th mat-header-cell *matHeaderCellDef> model </th>
-      <td mat-cell *matCellDef="let element"> {{element.nameModel}} </td>
+      <th mat-header-cell cdkDrag *matHeaderCellDef> model</th>
+      <td mat-cell *matCellDef="let element">
+        <a href="/page-auto"
+           class="nav-link"
+           routerLink="page-auto"
+           (click)="goToSelectAuto(element.idPicture)">
+          {{element.nameModel}}
+        </a>
+      </td>
     </ng-container>
 
-
     <ng-container matColumnDef="year">
-      <th mat-header-cell *matHeaderCellDef> year </th>
+      <th mat-header-cell cdkDrag *matHeaderCellDef> year</th>
       <td mat-cell *matCellDef="let element"> {{element.year}} </td>
     </ng-container>
 
-
-    <ng-container matColumnDef="color">
-      <th mat-header-cell *matHeaderCellDef> color </th>
-      <td mat-cell *matCellDef="let element"> {{element.color}} </td>
-    </ng-container>
-
-
     <ng-container matColumnDef="price">
-      <th mat-header-cell *matHeaderCellDef> price </th>
+      <th mat-header-cell cdkDrag *matHeaderCellDef> price</th>
       <td mat-cell *matCellDef="let element"> {{element.price}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="motor">
-      <th mat-header-cell *matHeaderCellDef> motor </th>
-      <td mat-cell *matCellDef="let element"> {{element.motorType}} </td>
+    <ng-container matColumnDef="update" *ngIf="isModerator || isAdmin">
+      <th mat-header-cell cdkDrag *matHeaderCellDef> update</th>
+      <td mat-cell *matCellDef="let element">
+        <button class="button blue">
+          <mat-icon
+            class="habit-icon"
+            color="primary"
+            (click)="goToUpdate(element.id)"
+          >border_color
+          </mat-icon>
+        </button>
+      </td>
     </ng-container>
 
-    <ng-container matColumnDef="volume">
-      <th mat-header-cell *matHeaderCellDef> volume </th>
-      <td mat-cell *matCellDef="let element"> {{element.volume}} </td>
+    <ng-container matColumnDef="delete" *ngIf=" isAdmin">
+      <th mat-header-cell cdkDrag *matHeaderCellDef> delete</th>
+      <td mat-cell *matCellDef="let element">
+        <button class="button blue">
+          <mat-icon
+            class="habit-icon"
+            color="warn"
+            (click)="deleteAuto(element)"
+          >remove
+          </mat-icon>
+        </button>
+      </td>
     </ng-container>
 
-    <ng-container matColumnDef="drive">
-      <th mat-header-cell *matHeaderCellDef> drive </th>
-      <td mat-cell *matCellDef="let element"> {{element.driveType}} </td>
-    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns; "></tr>
 
-    <ng-container matColumnDef="transmission">
-      <th mat-header-cell *matHeaderCellDef> transmission </th>
-      <td mat-cell *matCellDef="let element"> {{element.transmissionType}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="body style">
-      <th mat-header-cell *matHeaderCellDef> body style </th>
-      <td mat-cell *matCellDef="let element"> {{element.bodyStyleType}} </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[3, 6, 9]" showFirstLastButtons></mat-paginator>
+  <mat-paginator [length]="sizeCars"
+                 [pageSize]="pageSize"
+                 (page)="getIndexPage($event.pageIndex)">
+  </mat-paginator>
 </div>
-
--->

@@ -1,19 +1,16 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
-import { AppComponent } from './app.component';
-import { AutoComponent } from './auto/auto.component';
-import { AppRoutingModule } from './app.routing.module';
+import {AppComponent} from './app.component';
+import {AutoComponent} from './auto/auto.component';
+import {AppRoutingModule} from './app.routing.module';
 import {AutoService} from './_services/auto.service';
 import {HttpClientModule} from '@angular/common/http';
 import {AddAutoComponent} from './auto/add-auto.component';
 import {EditAutoComponent} from './auto/edit-auto.component';
-
-import { HomeComponent } from './home/home.component';
-import {SearchCarComponent} from './auto/search-car.component'
+import {HomeComponent} from './home/home.component';
 import {SearchAutoService} from './_services/search-auto.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatIconModule} from "@angular/material/icon";
 import {PictureAutoService} from "./_services/picture-auto.sevice";
 import {PageAutoComponent} from "./page-auto/page-auto.component";
@@ -23,12 +20,11 @@ import {authInterceptorProviders} from "./_helpers/auth.interceptor";
 import {ProfileComponent} from "./profile/profile.component";
 import {NgxPaginationModule} from 'ngx-pagination';
 import {MultipleSearchAutoComponent} from "./auto/multiple-search-auto.component";
-import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
-import { LabelModule } from '@progress/kendo-angular-label';
+import {DropDownsModule} from '@progress/kendo-angular-dropdowns';
+import {LabelModule} from '@progress/kendo-angular-label';
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
-
-
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 @NgModule({
   declarations: [
@@ -37,13 +33,11 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     AddAutoComponent,
     EditAutoComponent,
     HomeComponent,
-    SearchCarComponent,
     MultipleSearchAutoComponent,
     PageAutoComponent,
     RegisterComponent,
     LoginComponent,
     ProfileComponent
-
   ],
   imports: [
     BrowserModule,
@@ -57,9 +51,11 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     DropDownsModule,
     LabelModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    DragDropModule
   ],
   providers: [AutoService, SearchAutoService, PictureAutoService, authInterceptorProviders],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

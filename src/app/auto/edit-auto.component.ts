@@ -6,7 +6,6 @@ import {FormBuilder, FormControl} from "@angular/forms";
 import {PictureAutoService} from "../_services/picture-auto.sevice";
 import {AutoJoin} from "../models/autojoin.model";
 import {AutoPicture} from "../models/autopicture.model";
-import {TokenStorageService} from "../_services/token-storage.service";
 
 @Component({
   selector: 'app-edit-auto',
@@ -160,7 +159,6 @@ export class EditAutoComponent implements OnInit {
   message: string;
   retrievedImage: any;
   isPicture: boolean = true;
-  isData: boolean = true;
 
   constructor(
               private route: ActivatedRoute,
@@ -205,8 +203,7 @@ export class EditAutoComponent implements OnInit {
     const form = this.updateForm;
 
     auto.nameBrand = form.controls["brand"].value;
-
-    (this.modelGroups.values() == null)?(auto.nameModel = this.modelControl.value):(auto.nameModel = this.auto.nameModel);
+    (this.modelGroups.values() == null) ? (auto.nameModel = this.modelControl.value) : (auto.nameModel = this.auto.nameModel);
 
     auto.year = form.controls["year"].value;
     auto.motorType = form.controls["motorType"].value;
@@ -216,23 +213,24 @@ export class EditAutoComponent implements OnInit {
     auto.transmissionType = form.controls["transmission"].value;
     auto.bodyStyleType = form.controls["bodyStyle"].value;
 
-    if ((auto.nameBrand == null) ||
-        (auto.nameModel == null) ||
-        (auto.year == null) ||
-        (auto.motorType == null) ||
-        (auto.volume == null) ||
-        (auto.color == null) ||
-        (auto.price == null) || (auto.driveType == null) ||
-        (auto.volume == null) ||
-        (auto.transmissionType == null) ||
-        (auto.bodyStyleType == null)) {
-
-      this.isData = false;
-
-    } else {
+    // if ((auto.nameBrand == null)        ||
+    //     (auto.nameModel == null)        ||
+    //     (auto.year == null)             ||
+    //     (auto.motorType == null)        ||
+    //     (auto.volume == null)           ||
+    //     (auto.color == null)            ||
+    //     (auto.price == null)            ||
+    //     (auto.driveType == null)        ||
+    //     (auto.volume == null)           ||
+    //     (auto.transmissionType == null) ||
+    //     (auto.bodyStyleType == null)) {
+    //
+    //   this.isData = false;
+    //
+    // } else {
       this.uploadPictureAuto();
       this.updateAuto(this.auto, this.auto.idPicture);
-    }
+    // }
   }
 
   getPictureAuto(id: any): void {
@@ -240,7 +238,7 @@ export class EditAutoComponent implements OnInit {
       .subscribe(
         res => {
           this.autoPicture = res;
-          (this.autoPicture != null)?( this.retrievedImage = "data:image/png;base64," + this.autoPicture.raster):( this.isPicture = false);
+          (this.autoPicture != null) ? (this.retrievedImage = "data:image/png;base64," + this.autoPicture.raster) : (this.isPicture = false);
         }
       );
   }
@@ -270,9 +268,6 @@ export class EditAutoComponent implements OnInit {
     this.autoService.updateAuto(auto, Number(this.route.snapshot.params.id), idImage)
       .subscribe(data => {
         this.router.navigate(['/auto']);
-        if (data == null) {
-          this.isData = false;
-        }
       });
   }
 }

@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, Inject, OnInit, ViewChild} from "@angular/core";
-import {FormBuilder, FormControl} from "@angular/forms";
+import {Component, Inject, OnInit, ViewChild} from "@angular/core";
+import {FormBuilder} from "@angular/forms";
 import {AutoJoin} from "../models/autojoin.model";
 import { SearchAutoService } from '../_services/search-auto.service';
 import {TokenStorageService} from "../_services/token-storage.service";
@@ -219,17 +219,15 @@ export class MultipleSearchAutoComponent implements OnInit{
   }
 
   onSubmit(){
-    console.log("multiple-search-auto.component: onSubmit()");
-
     this.dataMultipleSearch['id'] = null;
     this.dataMultipleSearch['raster'] = null;
     this.dataMultipleSearch['nameBrand'] = this.brands;
 
     const selectedModels = this.searchForm.controls["model"].value;
-    console.log("selected models: ", selectedModels);
-    const selectedModelNames = selectedModels.map(model => model.name);
-    console.log("select model names: ", selectedModelNames);
-    this.dataMultipleSearch['nameModel'] = selectedModelNames;
+    if(selectedModels != null){
+      const selectedModelNames = selectedModels.map(model => model.name);
+      this.dataMultipleSearch['nameModel'] = selectedModelNames;
+    }
 
     this.dataMultipleSearch['startYear'] = this.startYears;
     this.dataMultipleSearch['endYear'] = this.endYears;

@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { AutoComponent } from './auto/auto.component';
 import {AddAutoComponent} from './auto/add-auto.component';
 import {EditAutoComponent} from './auto/edit-auto.component';
 import { HomeComponent } from './home/home.component';
-import {SearchCarComponent} from "./auto/search-car.component";
 import {PageAutoComponent} from "./page-auto/page-auto.component";
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
@@ -24,8 +22,6 @@ const routes: Routes = [
 
   { path: 'add',
     component: AddAutoComponent },
-
-  { path: 'search-auto', component: SearchCarComponent },
 
   { path: 'multiple-search-auto', component: MultipleSearchAutoComponent },
 

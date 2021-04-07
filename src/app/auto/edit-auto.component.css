@@ -17,3 +17,25 @@ h1, h2{
   color:navy;
   font-weight: bold;
 }
+
+.content{
+  position: relative;
+  top: 15px;
+  left: 20px;
+  width: 350px;
+  height: 400px;
+}
+.update-auto{
+  position: absolute;
+  top: 15%;
+}
+.image-auto{
+  position: absolute;
+  top: 80px;
+  left: 140%;
+}
+.border-image-auto{
+  width: 600px;
+  height: 300px;
+  border: 1px solid #ccc;
+}

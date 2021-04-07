@@ -1,9 +1,9 @@
 <div class="content">
-  <div class = "image-auto">
+  <div class="image-auto">
     <div class="container row">
       <div class="col-md-12">
         <ng-template [ngIf]="isPicture">
-          <img class = "border-image-auto" alt={{auto.nameModel}} [src]="retrievedImage">
+          <img class="border-image-auto" alt={{auto.nameModel}} [src]="retrievedImage">
         </ng-template>
         <ng-template [ngIf]="!isPicture">
           <h2> No photo </h2>
@@ -19,36 +19,62 @@
       </div>
     </div>
   </div>
-  <div class = "info-auto">
+  <div class="info-auto">
     <table>
       <h1>{{auto.nameBrand}} - {{auto.nameModel}}</h1>
       <h2> Сar specifications: </h2>
       <tr>
-        <td>Model:</td>
+        <strong>
+          <td>Model:</td>
+        </strong>
         <td>{{auto.nameModel}}</td>
       </tr>
       <tr>
-        <td>Year:</td>
+        <strong>
+          <td>Year:</td>
+        </strong>
         <td>{{auto.year}}</td>
       </tr>
       <tr>
-        <td>Color:</td>
+        <strong>
+          <td>Color:</td>
+        </strong>
         <td>{{auto.color}}</td>
       </tr>
       <tr>
-        <td>Price:</td>
+        <strong>
+          <td>Price:</td>
+        </strong>
         <td>{{auto.price}}</td>
       </tr>
       <tr>
-        <td>Drive:</td>
+        <strong>
+          <td>Motor:</td>
+        </strong>
+        <td>{{auto.motorType}}</td>
+      </tr>
+      <tr>
+        <strong>
+          <td>Volume:</td>
+        </strong>
+        <td>{{auto.volume}}</td>
+      </tr>
+      <tr>
+        <strong>
+          <td>Drive:</td>
+        </strong>
         <td>{{auto.driveType}}</td>
       </tr>
       <tr>
-        <td>Transmission:</td>
+        <strong>
+          <td>Transmission:</td>
+        </strong>
         <td>{{auto.transmissionType}}</td>
       </tr>
       <tr>
-        <td>Body style:</td>
+        <strong>
+          <td>Body style:</td>
+        </strong>
         <td>{{auto.bodyStyleType}}</td>
       </tr>
     </table>

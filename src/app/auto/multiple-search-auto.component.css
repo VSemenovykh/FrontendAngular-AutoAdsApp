@@ -4,6 +4,9 @@ table {
 kendo-multiselect{
   width: 100%;
 }
+td{
+  align: "center";
+}
 h1, h2{
   color:navy;
   font-weight: bold;

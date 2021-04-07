@@ -138,10 +138,12 @@ export class AddAutoComponent {
     {id: 20, name: "5.5"}
   ];
 
-  autoJoin: AutoJoin = new AutoJoin();
+  auto: AutoJoin = new AutoJoin();
   selectedFile: File;
+
   message: string;
-  idPicture: number;
+  idPicture: number
+
   isPicture: boolean = true;
   isData: boolean = true;
 
@@ -173,34 +175,34 @@ export class AddAutoComponent {
   }
 
   onSubmit() {
-    const obj = this.autoJoin;
-    obj.nameBrand = this.createForm.controls["brand"].value;
-    obj.nameModel = this.modelControl.value;
-    obj.year = this.createForm.controls["year"].value;
-    obj.motorType = this.createForm.controls["motorType"].value;
-    obj.volume = this.createForm.controls["volume"].value;
-    obj.color = this.createForm.controls["color"].value;
-    obj.driveType = this.createForm.controls["drive"].value;
-    obj.transmissionType = this.createForm.controls["transmission"].value;
-    obj.bodyStyleType = this.createForm.controls["bodyStyle"].value;
+    const auto = this.auto;
+    auto.nameBrand = this.createForm.controls["brand"].value;
+    auto.nameModel = this.modelControl.value;
+    auto.year = this.createForm.controls["year"].value;
+    auto.motorType = this.createForm.controls["motorType"].value;
+    auto.volume = this.createForm.controls["volume"].value;
+    auto.color = this.createForm.controls["color"].value;
+    auto.driveType = this.createForm.controls["drive"].value;
+    auto.transmissionType = this.createForm.controls["transmission"].value;
+    auto.bodyStyleType = this.createForm.controls["bodyStyle"].value;
 
-    if ((obj.nameBrand == null)
-      || (obj.nameModel == null)
-      || (obj.year == null)
-      || (obj.motorType == null)
-      || (obj.volume == null)
-      || (obj.color == null)
-      || (obj.price == null)
-      || (obj.driveType == null)
-      || (obj.driveType == null)
-      || (obj.transmissionType == null)
-      || (obj.bodyStyleType == null)) {
+    if ((auto.nameBrand == null)
+      || (auto.nameModel == null)
+      || (auto.year == null)
+      || (auto.motorType == null)
+      || (auto.volume == null)
+      || (auto.color == null)
+      || (auto.price == null)
+      || (auto.driveType == null)
+      || (auto.driveType == null)
+      || (auto.transmissionType == null)
+      || (auto.bodyStyleType == null)) {
 
       this.isData = false;
 
     } else {
 
-      this.createPicture(this.autoJoin);
+      this.createPicture(this.auto);
     }
   }
 

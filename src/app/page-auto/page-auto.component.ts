@@ -1,7 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PictureAutoService} from "../_services/picture-auto.sevice";
-import {AutoJoin} from "../models/autojoin.model";
 import {AutoPicture} from "../models/autopicture.model";
 import {AutoService} from "../_services/auto.service";
 
@@ -12,22 +11,21 @@ import {AutoService} from "../_services/auto.service";
 })
 export class PageAutoComponent implements OnInit {
 
-  // auto: AutoJoin = new AutoJoin();
   auto = {"id": null,
-    "idPicture": null,
-    "raster": null,
-    "email": null,
-    "phone": null,
-    "nameBrand": null,
-    "nameModel": null,
-    "year": null,
-    "color": null,
-    "price": null,
-    "motorType": null,
-    "volume": null,
-    "driveType": null,
-    "transmissionType": null,
-    "bodyStyleType": null};
+          "idPicture": null,
+          "raster": null,
+          "email": null,
+          "phone": null,
+          "nameBrand": null,
+          "nameModel": null,
+          "year": null,
+          "color": null,
+          "price": null,
+          "motorType": null,
+          "volume": null,
+          "driveType": null,
+          "transmissionType": null,
+          "bodyStyleType": null};
 
   retrievedImage: any;
   pictureAuto: AutoPicture = new AutoPicture();
@@ -60,7 +58,6 @@ export class PageAutoComponent implements OnInit {
     this.autoService.getAutoJoinById(Number(this.route.snapshot.params.id))
       .subscribe( (data: any) => {
         this.auto = data;
-        console.log('brand: ', this.auto);
       });
   }
 

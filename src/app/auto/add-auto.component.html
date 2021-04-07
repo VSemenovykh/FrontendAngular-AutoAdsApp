@@ -16,7 +16,8 @@
           <td>
             <select formControlName="brand" class="form-control">
               <option [ngValue]="null" disabled>select brand</option>
-              <option *ngFor="let brand of brands" [ngValue]="brand.name">{{brand.name}}</option>
+              <option *ngFor="let brand of brands"
+                      [ngValue]="brand.name">{{brand.name}}</option>
             </select>
           </td>
         </tr>
@@ -39,7 +40,8 @@
           <td>
             <select formControlName="year" class="form-control">
               <option [ngValue]="null" disabled>select year</option>
-              <option *ngFor="let year of years" [ngValue]="year.name">{{year.name}}</option>
+              <option *ngFor="let year of years"
+                      [ngValue]="year.name">{{year.name}}</option>
             </select>
           </td>
         </tr>
@@ -48,7 +50,8 @@
           <td>
             <select formControlName="motorType" class="form-control">
               <option [ngValue]="null" disabled>select motor type</option>
-              <option *ngFor="let motorType of motorTypes" [ngValue]="motorType.name">{{motorType.name}}</option>
+              <option *ngFor="let motorType of motorTypes"
+                      [ngValue]="motorType.name">{{motorType.name}}</option>
             </select>
           </td>
         </tr>
@@ -57,7 +60,8 @@
           <td>
             <select formControlName="volume" class="form-control">
               <option [ngValue]="null" disabled>select volume</option>
-              <option *ngFor="let volume of volumes" [ngValue]="volume.name">{{volume.name}}</option>
+              <option *ngFor="let volume of volumes"
+                      [ngValue]="volume.name">{{volume.name}}</option>
             </select>
           </td>
         </tr>
@@ -66,14 +70,15 @@
           <td>
             <select formControlName="color" class="form-control">
               <option [ngValue]="null" disabled>select color</option>
-              <option *ngFor="let color of colors" [ngValue]="color.name">{{color.name}}</option>
+              <option *ngFor="let color of colors"
+                      [ngValue]="color.name">{{color.name}}</option>
             </select>
           </td>
         </tr>
         <tr>
           <td>Price:</td>
           <td>
-            <input [(ngModel)]="autoJoin.price" [ngModelOptions]="{standalone: true}"
+            <input [(ngModel)]="auto.price" [ngModelOptions]="{standalone: true}"
                    placeholder="price"
                    name="price"
                    class="form-control"
@@ -97,7 +102,8 @@
           <td>
             <select formControlName="drive" class="form-control">
               <option [ngValue]="null" disabled>select drive</option>
-              <option *ngFor="let drive of drives" [ngValue]="drive.name">{{drive.name}}</option>
+              <option *ngFor="let drive of drives"
+                      [ngValue]="drive.name">{{drive.name}}</option>
             </select>
           </td>
         </tr>
@@ -113,10 +119,12 @@
         </tr>
         <tr>
           <td>Body style:</td>
-          <td><select formControlName="bodyStyle" class="form-control">
-            <option [ngValue]="null" disabled>select body style</option>
-            <option *ngFor="let bodyStyle of bodyStyles" [ngValue]="bodyStyle.name">{{bodyStyle.name}}</option>
-          </select>
+          <td>
+            <select formControlName="bodyStyle" class="form-control">
+              <option [ngValue]="null" disabled>select body style</option>
+              <option *ngFor="let bodyStyle of bodyStyles"
+                      [ngValue]="bodyStyle.name">{{bodyStyle.name}}</option>
+            </select>
           </td>
         </tr>
       </table>
@@ -127,10 +135,9 @@
         <tr>
           <td>Email:</td>
           <td>
-            <input [(ngModel)]="autoJoin.email" [ngModelOptions]="{standalone: true}"
+            <input [(ngModel)]="auto.email" [ngModelOptions]="{standalone: true}"
                    placeholder="email"
                    name="email"
-
                    #email="ngModel"
                    min="0"
                    required/>
@@ -147,7 +154,7 @@
           </td>
           <td>Phone:</td>
           <td>
-            <input [(ngModel)]="autoJoin.phone" [ngModelOptions]="{standalone: true}"
+            <input [(ngModel)]="auto.phone" [ngModelOptions]="{standalone: true}"
                    placeholder="phone"
                    name="phone"
 
@@ -168,12 +175,14 @@
         </tr>
       </table>
     </div>
+    <div class="error-message">
+      <ng-template [ngIf]="!isData">
+        <p class="text-danger">You did not fill in all fields </p>
+        <p class="text-danger">Please,fill in all fields</p>
+      </ng-template>
+      <ng-template [ngIf]="!isPicture">
+        <p class="text-danger">Not added photo</p>
+      </ng-template>
+    </div>
   </form>
-  <ng-template [ngIf]="!isData">
-    <p class="text-danger" layout-align="center center">You did not fill in all fields </p>
-    <p class="text-danger" layout-align="center center">Please,fill in all fields</p>
-  </ng-template>
-  <ng-template [ngIf]="!isPicture">
-    <p class="text-danger" layout-align="center center">Not added photo</p>
-  </ng-template>
 </div>

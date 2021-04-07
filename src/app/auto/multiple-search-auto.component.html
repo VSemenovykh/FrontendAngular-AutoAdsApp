@@ -5,7 +5,11 @@
       <td>Brand:</td>
       <td>
         <div class="example-wrapper">
-          <kendo-multiselect [data]="brandList" [(ngModel)]="brands" [ngModelOptions]="{standalone: true}"></kendo-multiselect>
+          <kendo-multiselect
+            [data]="brandList"
+            [(ngModel)]="brands"
+            [ngModelOptions]="{standalone: true}">
+          </kendo-multiselect>
         </div>
       </td>
       <td>Model:</td>
@@ -19,20 +23,20 @@
           </kendo-multiselect>
         </div>
       </td>
-      <td>
-        Year from:
-      </td>
+      <td> Year &nbsp; &nbsp; &nbsp; from:</td>
       <td>
         <select formControlName="startYear">
           <option [ngValue]="null" disabled>Select year</option>
-          <option *ngFor="let startYear of startYears" [ngValue]="startYear.name" >{{startYear.name}}</option>
+          <option *ngFor="let startYear of startYears"
+                  [ngValue]="startYear.name" >{{startYear.name}}</option>
         </select>
       </td>
-      <td>to:</td>
+      <td>&nbsp; &nbsp; &nbsp; to:</td>
       <td>
         <select formControlName="endYear">
           <option [ngValue]="null" disabled>Select year</option>
-          <option *ngFor="let endYear of endYears" [ngValue]="endYear.name">{{endYear.name}}</option>
+          <option *ngFor="let endYear of endYears"
+                  [ngValue]="endYear.name">{{endYear.name}}</option>
         </select>
       </td>
       <td></td>
@@ -42,25 +46,41 @@
       <td>Color:</td>
       <td>
         <div class="example-wrapper">
-          <kendo-multiselect [data]="colorList" [(ngModel)]="colors" [ngModelOptions]="{standalone: true}"></kendo-multiselect>
+          <kendo-multiselect
+            [data]="colorList"
+            [(ngModel)]="colors"
+            [ngModelOptions]="{standalone: true}">
+          </kendo-multiselect>
         </div>
       </td>
       <td>Drive:</td>
       <td>
         <div class="example-wrapper">
-          <kendo-multiselect [data]="driveList" [(ngModel)]="drives" [ngModelOptions]="{standalone: true}"></kendo-multiselect>
+          <kendo-multiselect
+            [data]="driveList"
+            [(ngModel)]="drives"
+            [ngModelOptions]="{standalone: true}">
+          </kendo-multiselect>
         </div>
       </td>
       <td>Transmission:</td>
       <td>
         <div class="example-wrapper">
-          <kendo-multiselect [data]="transmissionList" [(ngModel)]="transmissions" [ngModelOptions]="{standalone: true}"></kendo-multiselect>
+          <kendo-multiselect
+            [data]="transmissionList"
+            [(ngModel)]="transmissions"
+            [ngModelOptions]="{standalone: true}">
+          </kendo-multiselect>
         </div>
       </td>
       <td>Body style:</td>
       <td>
         <div class="example-wrapper">
-          <kendo-multiselect [data]="bodyStyleList" [(ngModel)]="bodyStyles" [ngModelOptions]="{standalone: true}"></kendo-multiselect>
+          <kendo-multiselect
+            [data]="bodyStyleList"
+            [(ngModel)]="bodyStyles"
+            [ngModelOptions]="{standalone: true}">
+          </kendo-multiselect>
         </div>
       </td>
       <td></td>
@@ -70,33 +90,41 @@
       <td>Motor:</td>
       <td>
         <div class="example-wrapper">
-          <kendo-multiselect [data]="motorList" [(ngModel)]="motors" [ngModelOptions]="{standalone: true}"></kendo-multiselect>
+          <kendo-multiselect
+            [data]="motorList"
+            [(ngModel)]="motors"
+            [ngModelOptions]="{standalone: true}">
+          </kendo-multiselect>
         </div>
       </td>
-      <td>Volume: from</td>
+      <td>Volume &nbsp; &nbsp; &nbsp; from:</td>
       <td>
         <select formControlName="startVolume">
           <option [ngValue]="null" disabled>Select year</option>
-          <option *ngFor="let startVolume of startVolumes" [ngValue]="startVolume.name">{{startVolume.name}}</option>
+          <option *ngFor="let startVolume of startVolumes"
+                  [ngValue]="startVolume.name">{{startVolume.name}}</option>
         </select>
       </td>
-      <td>to:</td>
+      <td>&nbsp; &nbsp; &nbsp; to:</td>
       <td>
         <select formControlName="endVolume">
           <option [ngValue]="null" disabled>Select year</option>
-          <option *ngFor="let endVolume of endVolumes" [ngValue]="endVolume.name">{{endVolume.name}}</option>
+          <option *ngFor="let endVolume of endVolumes"
+                  [ngValue]="endVolume.name">{{endVolume.name}}</option>
         </select>
       </td>
-      <td>Price: from</td>
-      <td><input [(ngModel)]="startPrice" [ngModelOptions]="{standalone: true}"
+      <td>Price &nbsp; &nbsp; &nbsp; from:</td>
+      <td><input [(ngModel)]="startPrice"
+                 [ngModelOptions]="{standalone: true}"
                  class="mat-form-field"
                  size="10"
                  placeholder="start"
                  name="startPrice"
                  ng-pattern="/^-?[0-9][^\.]*$/"/>
       </td>
-      <td>to:</td>
-      <td><input [(ngModel)]="endPrice" [ngModelOptions]="{standalone: true}"
+      <td>&nbsp; &nbsp; &nbsp; to:</td>
+      <td><input [(ngModel)]="endPrice"
+                 [ngModelOptions]="{standalone: true}"
                  class="mat-form-field"
                  size="10"
                  placeholder="end"
@@ -149,10 +177,10 @@
             <p>No photo</p>
           </ng-template>
         </td>
-        <td> <a href="/page-auto" class="nav-link" routerLink="page-auto"  (click)="goToSelectAuto(car.idPicture)">
+        <td><a href="/page-auto" class="nav-link" routerLink="page-auto" (click)="goToSelectAuto(car.idPicture)">
           {{car.nameBrand}}
         </a></td>
-        <td><a href="/page-auto" class="nav-link" routerLink="page-auto"  (click)="goToSelectAuto(car.idPicture)">
+        <td><a href="/page-auto" class="nav-link" routerLink="page-auto" (click)="goToSelectAuto(car.idPicture)">
           {{car.nameModel}} </a>
         </td>
         <td>{{car.year}}</td>
