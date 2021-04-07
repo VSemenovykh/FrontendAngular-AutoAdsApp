@@ -27,7 +27,7 @@ export class AutoComponent implements OnInit {
   isImage: boolean = true;
   isLoggedIn: boolean = false;
 
-  columns: string[] = ['photo', 'brand', 'model', 'year', 'price', 'update', 'delete'];
+  columns: string[];
   dataSource: Array<AutoJoin>;
 
   drop(event: CdkDragDrop<string[]>) {
@@ -53,6 +53,14 @@ export class AutoComponent implements OnInit {
       this.isAdmin = this.roles.includes('ROLE_ADMIN');
       this.isModerator = this.roles.includes('ROLE_MODERATOR');
       this.isUser = this.roles.includes('ROLE_USER');
+    }
+
+    if(this.isAdmin){
+      this.columns = ['photo', 'brand', 'model', 'year', 'price', 'update', 'delete'];
+    }else if(this.isModerator){
+      this.columns = ['photo', 'brand', 'model', 'year', 'price', 'update'];
+    }else{
+      this.columns = ['photo', 'brand', 'model', 'year', 'price'];
     }
 
     if(this.page != 1){
