@@ -9,10 +9,19 @@ h3 {
 table {
   border-collapse: collapse;
 }
-table, th, td {
-  border: 1px solid black;
-  font-size:17px;
+.table {
+  margin:0 25% 0 25%;
+  width:50%;
 }
+table, th, td {
+ /* border: 1px solid black;*/
+  font-size:18px;
+}
+h1, h2{
+  color:navy;
+  font-weight: bold;
+}
+
 input {
   width: 225px;
   margin: 8px 0;
@@ -52,7 +61,7 @@ input {
   margin-left: 6px;
 }
 .button.blue {
-  background: #cadefc;
+  background: #ffffff;
 }
 
 .all-habits {
@@ -83,7 +92,7 @@ button:hover, .detail-options {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 .button:hover.blue {
-  background: #e5effe;
+  background: #f3f3f3;
 }
 .button:active {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -96,4 +105,20 @@ button:hover, .detail-options {
 table {
   width: 100%;
   height: 100%;
+
+}
+
+#pagination{
+  margin-left:50%;
+}
+
+.picture-box{
+  border: 1px solid #d4d4d4;
+  width: 100px;
+  height: 50px;
+}
+
+img{
+  width: 100px;
+  height: 50px;
 }

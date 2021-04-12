@@ -1,14 +1,53 @@
+.content{
+  position: relative;
+  top: 15px;
+  left: 20px;
+  width: 250px;
+  height: 180px;
+}
+.form-add-auto{
+  position: absolute;
+  top: 80px;
+  left:50px;
+  width: 160%;
+}
+.contact{
+  position: absolute;
+  top: 80px;
+  left: 200%;
+}
+
+.error-message{
+  position: absolute;
+  top: 90%;
+  left: 240%;
+  width: 125%;
+  padding: 20px;
+}
+
 th {
   font-weight: normal;
-  border-bottom: 2px solid #6678b1;
-  border-right: 30px solid white;
-  border-left: 30px solid white;
-  color: #039;
+  border-bottom: 2px solid #f7f9f8;
+  border-right: 30px solid #f7f9f8;
+  border-left: 30px solid #f7f9f8;
   padding: 8px 2px;
 }
 td {
-  border-right: 30px solid white;
-  border-left: 30px solid white;
-  color: #669;
+  border-right: 30px solid #f7f9f8;
+  border-left: 30px solid #f7f9f8;
   padding: 12px 2px;
 }
+
+h1, h2{
+  color:navy;
+  font-weight: bold;
+}
+
+p{
+  font-size: 22px;
+}
+
+select{
+  width: 100%;
+}
+

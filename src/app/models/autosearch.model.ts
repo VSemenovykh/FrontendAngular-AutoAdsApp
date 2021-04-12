@@ -14,4 +14,5 @@ export class Autosearch {
   transmissionType: string = null;
   driveType: string = null;
   bodyStyleType: string = null;
+
 }

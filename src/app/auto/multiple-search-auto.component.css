@@ -1,0 +1,13 @@
+table {
+  table-layout:fixed; width:105%; height: 25%;
+}
+kendo-multiselect{
+  width: 100%;
+}
+td{
+  align: "center";
+}
+h1, h2{
+  color:navy;
+  font-weight: bold;
+}

@@ -1,9 +1,11 @@
-import {Component, OnInit, Inject} from '@angular/core';
+import {Component, OnInit, Inject, ViewChild, AfterViewInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {DOCUMENT} from '@angular/common';
 import {AutoJoin} from '../models/autojoin.model';
 import {AutoService} from '../_services/auto.service';
 import {PictureAutoService} from "../_services/picture-auto.sevice";
+import {TokenStorageService} from "../_services/token-storage.service";
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-auto',
@@ -13,30 +15,94 @@ import {PictureAutoService} from "../_services/picture-auto.sevice";
 export class AutoComponent implements OnInit {
 
   cars: Array<AutoJoin>;
+  private roles: string[];
+  currentPage = 1;
+  page = 0;
+  sizeCars: any;
+  pageSize = 4;
+
+  isAdmin: boolean = false;
+  isModerator: boolean = false;
+  isUser: boolean = false;
   isImage: boolean = true;
+  isLoggedIn: boolean = false;
+
+  columns: string[];
+  dataSource: Array<AutoJoin>;
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
+  }
 
   constructor(
               private router: Router,
               private autoService: AutoService,
+              private tokenStorageService: TokenStorageService,
               private imageAutoService: PictureAutoService,
               @Inject(DOCUMENT) private _document: Document
              ){
-
-    this.cars = new Array<AutoJoin>();
   }
 
   ngOnInit(): void {
-    this.loadAuto();
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+
+    if (this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      this.roles = user.roles;
+
+      this.isAdmin = this.roles.includes('ROLE_ADMIN');
+      this.isModerator = this.roles.includes('ROLE_MODERATOR');
+      this.isUser = this.roles.includes('ROLE_USER');
+    }
+
+    if(this.isAdmin){
+      this.columns = ['photo', 'brand', 'model', 'year', 'price', 'update', 'delete'];
+    }else if(this.isModerator){
+      this.columns = ['photo', 'brand', 'model', 'year', 'price', 'update'];
+    }else{
+      this.columns = ['photo', 'brand', 'model', 'year', 'price'];
+    }
+
+    if(this.page != 1){
+      this.getIndexPage(this.page);
+    }else{
+      this.loadAutoByPage();
+    }
   }
 
-  private loadAuto() {
-    this.autoService.getAllAuto()
-      .subscribe((data: AutoJoin[]) => {
-        this.cars = data;
-      });
+  getRequestParams(page, pageSize): any {
+    // tslint:disable-next-line:prefer-const
+    let params = {};
+
+    if (page) {
+      params[`page`] = page;// - 1;
+    }
+
+    if (pageSize) {
+      params[`size`] = pageSize;
+    }
+
+    return params;
   }
 
-  refreshPage() {
+  getIndexPage(index: any): void{
+    this.page = index;
+    this.loadAutoByPage();
+  }
+
+  private loadAutoByPage(): void {
+    const params = this.getRequestParams(this.page, this.pageSize);
+    this.autoService.getAllAutoPage(params).subscribe((response) =>{
+      const { listAutoJoin, totalAutoJoin, currentPage } = response;
+      this.cars = listAutoJoin;
+      this.currentPage = currentPage;
+      this.sizeCars = totalAutoJoin;
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  refreshPage(): void {
     this._document.defaultView.location.reload();
   }
 

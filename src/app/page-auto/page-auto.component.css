@@ -1,18 +1,51 @@
+.content{
+  position: relative;
+  top: 15px;
+  left: 20px;
+  width: 250px;
+  height: 180px;
+}
+.info-auto{
+  position: absolute;
+  top: 80px;
+  left:50px;
+}
+.image-auto{
+  position: absolute;
+  top: 80px;
+  left: 200%;
+}
+.border-image-auto{
+  width: 600px;
+  height: 300px;
+  border: 1px solid #ccc;
+}
+
+.contact{
+
+}
+
+h1{
+  color: #525254;
+  font-weight: bold;
+}
+
+h2{
+  color: #525254;
+}
+
 th {
   font-weight: normal;
-  border-bottom: 2px solid #6678b1;
-  border-right: 30px solid white;
-  border-left: 30px solid white;
-  color: #039;
+  border-bottom: 2px solid #f7f9f8;
+  border-right: 30px solid #f7f9f8;
+  border-left: 30px solid #f7f9f8;
   padding: 8px 2px;
 }
 td {
-  border-right: 30px solid white;
-  border-left: 30px solid white;
-  color: #669;
+  border-right: 30px solid #f7f9f8;
+  border-left: 30px solid #f7f9f8;
   padding: 12px 2px;
 }
-
 
 .button {
   border: none;
@@ -57,4 +90,3 @@ button:hover, .detail-options {
 .button:active.blue {
   background: #bcbdd7;
 }
-
