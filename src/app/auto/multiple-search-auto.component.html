@@ -28,7 +28,7 @@
         <select formControlName="startYear">
           <option [ngValue]="null" disabled>Select year</option>
           <option *ngFor="let startYear of startYears"
-                  [ngValue]="startYear.name" >{{startYear.name}}</option>
+                  [ngValue]="startYear.name">{{startYear.name}}</option>
         </select>
       </td>
       <td>&nbsp; &nbsp; &nbsp; to:</td>
@@ -133,17 +133,22 @@
       </td>
     </tr>
   </table>
-  <ng-template [ngIf]="isUser || isAdmin || isModerator">
-    <button class="btn btn-success">Find</button>
-    <button style="margin-left:20px" class="btn btn-success" (click)="reset()">Reset</button>
-    <strong style="margin-left:20px">Total auto: </strong>{{count}}
-  </ng-template>
-
+  <div class = "button">
+    <ng-template [ngIf]="isUser || isAdmin || isModerator">
+      <section>
+        <div class="example-button-row">
+          <button mat-stroked-button>find</button>
+          <button style="margin-left:20px" mat-stroked-button (click)="reset()">reset</button>
+        </div>
+        <strong style="margin-left:20px">Total auto: </strong>{{count}}
+      </section>
+    </ng-template>
+  </div>
 </form>
 <br>
 <br>
 <ng-template [ngIf]="isUser || isAdmin || isModerator">
-  <table class="table table-striped" >
+  <table class="table table-striped">
     <thead>
     <tr>
       <th>Photo</th>

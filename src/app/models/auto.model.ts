@@ -1,11 +1,16 @@
 export class Auto {
   id: number = null;
-  idImage: number = null;
-  idBrand: string = null;
-  idContact: string = null;
+  idPicture: number = null;
+  raster: any = null;
+  email: string = null;
+  phone: string = null;
+  nameBrand: string = null;
+  nameModel: string = null;
+  year: string = null;
   color: string = null;
   price: string = null;
-  idMotor: string = null;
+  motorType: string = null;
+  volume: string = null;
   driveType: string = null;
   transmissionType: string = null;
   bodyStyleType: string = null;

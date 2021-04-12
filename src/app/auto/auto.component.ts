@@ -1,7 +1,7 @@
 import {Component, OnInit, Inject, ViewChild, AfterViewInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {DOCUMENT} from '@angular/common';
-import {AutoJoin} from '../models/autojoin.model';
+import {Auto} from '../models/auto.model';
 import {AutoService} from '../_services/auto.service';
 import {PictureAutoService} from "../_services/picture-auto.sevice";
 import {TokenStorageService} from "../_services/token-storage.service";
@@ -14,12 +14,12 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 })
 export class AutoComponent implements OnInit {
 
-  cars: Array<AutoJoin>;
+  cars: Array<Auto>;
   private roles: string[];
   currentPage = 1;
   page = 0;
   sizeCars: any;
-  pageSize = 4;
+  pageSize = 5;
 
   isAdmin: boolean = false;
   isModerator: boolean = false;
@@ -27,8 +27,8 @@ export class AutoComponent implements OnInit {
   isImage: boolean = true;
   isLoggedIn: boolean = false;
 
-  columns: string[] = ['photo', 'brand', 'model', 'year', 'price', 'update', 'delete'];
-  dataSource: Array<AutoJoin>;
+  columns: string[];
+  dataSource: Array<Auto>;
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
@@ -53,6 +53,14 @@ export class AutoComponent implements OnInit {
       this.isAdmin = this.roles.includes('ROLE_ADMIN');
       this.isModerator = this.roles.includes('ROLE_MODERATOR');
       this.isUser = this.roles.includes('ROLE_USER');
+    }
+
+    if(this.isAdmin){
+      this.columns = ['photo', 'brand', 'model', 'year', 'price', 'update', 'delete'];
+    }else if(this.isModerator){
+      this.columns  = ['photo', 'brand', 'model', 'year', 'price', 'update'];
+    }else{
+      this.columns  = ['photo', 'brand', 'model', 'year', 'price'];
     }
 
     if(this.page != 1){
@@ -106,7 +114,7 @@ export class AutoComponent implements OnInit {
     }
   }
 
-  deleteAuto(car: AutoJoin): void {
+  deleteAuto(car: Auto): void {
     this.autoService.deleteAuto(car)
       .subscribe(data => {
       });

@@ -21,8 +21,8 @@ h1, h2{
 .content{
   position: relative;
   top: 15px;
-  left: 20px;
-  width: 350px;
+  /*margin-left: 5%;*/
+  width: 114%;
   height: 400px;
 }
 .update-auto{
@@ -31,11 +31,56 @@ h1, h2{
 }
 .image-auto{
   position: absolute;
-  top: 80px;
-  left: 140%;
+  top: 6%;
+  left: 110%;
 }
 .border-image-auto{
   width: 600px;
   height: 300px;
   border: 1px solid #ccc;
+}
+
+.form-contact{
+  padding-top: 2%;
+}
+
+section {
+  display: table;
+}
+
+.example-label {
+  display: table-cell;
+  font-size: 14px;
+  margin-left: 8px;
+  min-width: 120px;
+}
+
+.example-button-row {
+  display: table-cell;
+  width: 490px;
+}
+
+.example-button-row .mat-button-base {
+  margin: 8px 8px 8px 0;
+}
+.mat-stroked-button {
+  font-size: 160%;
+}
+
+.price-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.price-full-width {
+  width: 100%;
+}
+
+.email-full-width {
+  width: 100%;
+}
+
+.phone-full-width {
+  width: 100%;
 }
