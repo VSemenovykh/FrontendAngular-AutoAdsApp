@@ -9,7 +9,7 @@
         <a style="margin-left:15px" href="/auto" class="nav-link" routerLink="auto">List auto</a>
       </li>
         <li class="nav-item">
-          <a style="margin-left:20px" href="/add" class="nav-link" *ngIf="isAdmin" routerLink="add">Add auto</a>
+          <a style="margin-left:20px" href="/add" class="nav-link" *ngIf="isAdmin || isUser" routerLink="add">Add auto</a>
         </li>
       <li class="nav-item">
         <a style="margin-left:30px" href="/multiple-search-auto" class="nav-link" routerLink="multiple-search-auto">Search auto</a>
@@ -17,7 +17,7 @@
     </ul>
     <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
       <li class="nav-item">
-        <a style="margin-right:15px" href="/register" class="nav-link" routerLink="register">Sign Up</a>
+        <a style="margin-right:15px" href="/register" class="nav-link" routerLink="register">Create user</a>
       </li>
       <li class="nav-item">
         <a style="margin-right:5px" href="/login" class="nav-link" routerLink="login">Login</a>

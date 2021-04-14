@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {AutoService} from '../_services/auto.service';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from "@angular/forms";
 import {PictureAutoService} from "../_services/picture-auto.sevice";
-import {Auto} from "../models/auto.model";
+import {AutoJoin} from "../models/autojoin.model";
 import {ModelGroup} from '../interface/modelgroup';
 import { ErrorStateMatcher } from '@angular/material/core';
 
@@ -24,7 +24,7 @@ export class AddAutoComponent {
 
   brandControl = new FormControl('', Validators.required);
   brands = [
-    {id: 1, name: "Audi"},
+    {id: 1, name: "AUDI"},
     {id: 2, name: "FORD"},
     {id: 3, name: "HONDA"},
     {id: 4, name: "HYUNDAI"},
@@ -208,7 +208,7 @@ export class AddAutoComponent {
     {id: 20, name: "5.5"}
   ];
 
-  auto: Auto = new Auto();
+  auto: AutoJoin = new AutoJoin();
   selectedFile: File;
   matcher = new MyErrorStateMatcher();
 

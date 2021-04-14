@@ -1,4 +1,4 @@
-<h1 class="text-center"> List auto</h1>
+<h1 class="text-center"> List auto ads</h1>
 <div>
   <table mat-table
          [dataSource]="cars"
@@ -59,7 +59,7 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="delete" *ngIf=" isAdmin">
+    <ng-container matColumnDef="delete" *ngIf="isModerator || isAdmin">
       <th mat-header-cell cdkDrag *matHeaderCellDef> delete</th>
       <td mat-cell *matCellDef="let element">
         <button class="button blue">

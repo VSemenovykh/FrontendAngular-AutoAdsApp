@@ -1,4 +1,4 @@
-export class Auto {
+export class AutoJoin {
   id: number = null;
   idPicture: number = null;
   raster: any = null;

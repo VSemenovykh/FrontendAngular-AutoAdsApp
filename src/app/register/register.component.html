@@ -23,9 +23,11 @@
           required
           minlength="3"
           maxlength="20"
+          pattern="[A-aZ-z-]+"
           #username="ngModel"
         />
-        <div class="alert-danger" *ngIf="f.submitted && username.invalid">
+        <div class="alert-danger"
+             *ngIf="f.submitted && username.invalid">
           <div *ngIf="username.errors.required">Username is required</div>
           <div *ngIf="username.errors.minlength">
             Username must be at least 3 characters
@@ -33,6 +35,7 @@
           <div *ngIf="username.errors.maxlength">
             Username must be at most 20 characters
           </div>
+          <div *ngIf="username.errors.pattern">Only english letters</div>
         </div>
       </div>
       <div class="form-group">

@@ -1,11 +1,10 @@
 import {Component, OnInit, Inject, ViewChild, AfterViewInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {DOCUMENT} from '@angular/common';
-import {Auto} from '../models/auto.model';
+import {AutoJoin} from '../models/autojoin.model';
 import {AutoService} from '../_services/auto.service';
 import {PictureAutoService} from "../_services/picture-auto.sevice";
 import {TokenStorageService} from "../_services/token-storage.service";
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-auto',
@@ -14,7 +13,7 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 })
 export class AutoComponent implements OnInit {
 
-  cars: Array<Auto>;
+  cars: Array<AutoJoin>;
   private roles: string[];
   currentPage = 1;
   page = 0;
@@ -28,11 +27,11 @@ export class AutoComponent implements OnInit {
   isLoggedIn: boolean = false;
 
   columns: string[];
-  dataSource: Array<Auto>;
+  dataSource: Array<AutoJoin>;
 
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
-  }
+  // drop(event: CdkDragDrop<string[]>) {
+  //   moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
+  // }
 
   constructor(
               private router: Router,
@@ -55,11 +54,10 @@ export class AutoComponent implements OnInit {
       this.isUser = this.roles.includes('ROLE_USER');
     }
 
-    if(this.isAdmin){
+    if(this.isAdmin || this.isModerator){
       this.columns = ['photo', 'brand', 'model', 'year', 'price', 'update', 'delete'];
-    }else if(this.isModerator){
-      this.columns  = ['photo', 'brand', 'model', 'year', 'price', 'update'];
-    }else{
+    }
+    else{
       this.columns  = ['photo', 'brand', 'model', 'year', 'price'];
     }
 
@@ -114,7 +112,7 @@ export class AutoComponent implements OnInit {
     }
   }
 
-  deleteAuto(car: Auto): void {
+  deleteAuto(car: AutoJoin): void {
     this.autoService.deleteAuto(car)
       .subscribe(data => {
       });

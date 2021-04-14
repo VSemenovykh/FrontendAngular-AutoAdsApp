@@ -4,7 +4,7 @@ import {ModelGroup} from '../interface/modelgroup';
 import {AutoService} from '../_services/auto.service';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from "@angular/forms";
 import {PictureAutoService} from "../_services/picture-auto.sevice";
-import {Auto} from "../models/auto.model";
+import {AutoJoin} from "../models/autojoin.model";
 import {AutoPicture} from "../models/autopicture.model";
 import {ErrorStateMatcher} from "@angular/material/core";
 
@@ -208,7 +208,7 @@ export class EditAutoComponent implements OnInit {
     {id: 20, name: "5.5"}
   ];
 
-  auto: Auto = new Auto();
+  auto: AutoJoin = new AutoJoin();
 
   autoPicture: AutoPicture = new AutoPicture();
   matcher = new MyErrorStateMatcher();
@@ -308,7 +308,7 @@ export class EditAutoComponent implements OnInit {
 
   getAuto(): void {
     this.autoService.getAutoById(Number(this.route.snapshot.params.id))
-      .subscribe((data: Auto) => {
+      .subscribe((data: AutoJoin) => {
         this.auto = data;
         this.brandControl.setValue(data.nameBrand);
         this.modelControl.setValue(data.nameModel);

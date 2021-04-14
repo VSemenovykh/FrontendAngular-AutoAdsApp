@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit, ViewChild} from "@angular/core";
-import {FormBuilder} from "@angular/forms";
-import {Auto} from "../models/auto.model";
+import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
+import {AutoJoin} from "../models/autojoin.model";
 import { SearchAutoService } from '../_services/search-auto.service';
 import {TokenStorageService} from "../_services/token-storage.service";
 import {Router} from "@angular/router";
@@ -178,7 +178,9 @@ export class MultipleSearchAutoComponent implements OnInit{
                 "transmissionType": null,
                 "bodyStyleType": null};
 
-  auto: Array<Auto>;
+  auto: Array<AutoJoin>;
+  listSelectAutoAds = [];  //???
+
   private roles: string[];
 
   brands: [] = null;
@@ -281,6 +283,8 @@ export class MultipleSearchAutoComponent implements OnInit{
     }else{
       this.findCarByDiffCriteriaPage(this.dataSearch);
     }
+
+    // console.log("onChange: ", this.listSelectAutoAds); //???
   }
 
   getRequestParams(page, pageSize): any {
@@ -309,7 +313,6 @@ export class MultipleSearchAutoComponent implements OnInit{
   }
 
   findCarByDiffCriteriaPage(data: any): void{
-    console.log("multiple-search-auto.component: findCarByDiffCriteriaPage(data: any)");
     const params = this.getRequestParams(this.page, this.pageSize);
     this.searchCarService.searchAutoPage(data, params)
       .subscribe((response) =>{
@@ -342,5 +345,25 @@ export class MultipleSearchAutoComponent implements OnInit{
 
   reset():void{
     this._document.defaultView.location.reload();
+  }
+
+
+  onChange(idAuto: any, isChecked: boolean) {
+    if (isChecked) {
+      this.listSelectAutoAds.push(idAuto);
+    } else {
+      for(let value of this.listSelectAutoAds) {
+        if(value === idAuto){
+          this.listSelectAutoAds.pop();
+        }
+      }
+    }
+    console.log(" this.listSelectAutoAds.indexOf(idAuto): ", this.listSelectAutoAds.indexOf(idAuto));
+    console.log("idAuto: ", idAuto);
+  }
+
+  //??
+  compareAuto(){
+
   }
 }
