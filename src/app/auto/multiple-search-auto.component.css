@@ -11,3 +11,35 @@ h1, h2{
   color:navy;
   font-weight: bold;
 }
+
+section {
+  display: table;
+}
+
+.example-label {
+  display: table-cell;
+  font-size: 14px;
+  margin-left: 8px;
+  min-width: 120px;
+}
+
+.example-button-row {
+  display: table-cell;
+  width: 490px;
+}
+
+.example-button-row .mat-button-base {
+  margin: 8px 8px 8px 0;
+  width: 15%;
+}
+.mat-stroked-button {
+  font-size: 130%;
+}
+.example-button-row {
+  width: 25%;
+}
+.button{
+  padding-top: 3%;
+}
+
+

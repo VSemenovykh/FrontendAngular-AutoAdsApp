@@ -55,7 +55,7 @@ export class PageAutoComponent implements OnInit {
   }
 
   getAutoJoinById(): void{
-    this.autoService.getAutoJoinById(Number(this.route.snapshot.params.id))
+    this.autoService.getAutoById(Number(this.route.snapshot.params.id))
       .subscribe( (data: any) => {
         this.auto = data;
       });

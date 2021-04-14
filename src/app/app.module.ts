@@ -25,6 +25,10 @@ import {LabelModule} from '@progress/kendo-angular-label';
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {DragDropModule} from "@angular/cdk/drag-drop";
+import {MatButtonModule} from "@angular/material/button";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatSelectModule} from "@angular/material/select";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -52,7 +56,11 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
     LabelModule,
     MatTableModule,
     MatPaginatorModule,
-    DragDropModule
+    DragDropModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule
   ],
   providers: [AutoService, SearchAutoService, PictureAutoService, authInterceptorProviders],
   bootstrap: [AppComponent]

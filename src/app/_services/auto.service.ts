@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { AutoJoin } from '../models/autojoin.model';
 import {Observable} from 'rxjs';
 
@@ -15,10 +15,6 @@ export class AutoService {
   }
 
   public getAutoById(id: number): Observable<any> {
-    return this.http.get(this.autoUrl + '/' + id);
-  }
-
-  public getAutoJoinById(id: number): Observable<any> {
     return this.http.get(this.autoUrl + '/join/' + id);
   }
 

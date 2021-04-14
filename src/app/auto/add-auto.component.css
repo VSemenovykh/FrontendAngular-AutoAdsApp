@@ -5,21 +5,33 @@
   width: 250px;
   height: 180px;
 }
-.form-add-auto{
+
+.auto-add{
   position: absolute;
-  top: 80px;
+  top: 40%;
   left:50px;
-  width: 160%;
+  width: 130%;
 }
+.form-auto-add{
+  width: 240%;
+  height: 100%;
+}
+
+.table-select{
+  padding-top: 10%;
+  width: 200%;
+}
+
 .contact{
-  position: absolute;
-  top: 80px;
-  left: 200%;
+  position: relative;
+  margin-top: 10%;
+  left: 250%;
+  width: 100%
 }
 
 .error-message{
   position: absolute;
-  top: 90%;
+  top: 230%;
   left: 240%;
   width: 125%;
   padding: 20px;
@@ -48,6 +60,47 @@ p{
 }
 
 select{
+  width: 100%;
+}
+
+section {
+  display: table;
+}
+
+.example-label {
+  display: table-cell;
+  font-size: 14px;
+  margin-left: 8px;
+  min-width: 120px;
+}
+
+.example-button-row {
+  display: table-cell;
+  width: 490px;
+}
+
+.example-button-row .mat-button-base {
+  margin: 8px 8px 8px 0;
+}
+.mat-stroked-button {
+  font-size: 160%;
+}
+
+.price-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.price-full-width {
+  width: 100%;
+}
+
+.email-full-width {
+  width: 100%;
+}
+
+.phone-full-width {
   width: 100%;
 }
 

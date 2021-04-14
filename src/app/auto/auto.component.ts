@@ -5,7 +5,6 @@ import {AutoJoin} from '../models/autojoin.model';
 import {AutoService} from '../_services/auto.service';
 import {PictureAutoService} from "../_services/picture-auto.sevice";
 import {TokenStorageService} from "../_services/token-storage.service";
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-auto',
@@ -19,7 +18,7 @@ export class AutoComponent implements OnInit {
   currentPage = 1;
   page = 0;
   sizeCars: any;
-  pageSize = 4;
+  pageSize = 5;
 
   isAdmin: boolean = false;
   isModerator: boolean = false;
@@ -30,9 +29,9 @@ export class AutoComponent implements OnInit {
   columns: string[];
   dataSource: Array<AutoJoin>;
 
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
-  }
+  // drop(event: CdkDragDrop<string[]>) {
+  //   moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
+  // }
 
   constructor(
               private router: Router,
@@ -55,12 +54,11 @@ export class AutoComponent implements OnInit {
       this.isUser = this.roles.includes('ROLE_USER');
     }
 
-    if(this.isAdmin){
+    if(this.isAdmin || this.isModerator){
       this.columns = ['photo', 'brand', 'model', 'year', 'price', 'update', 'delete'];
-    }else if(this.isModerator){
-      this.columns = ['photo', 'brand', 'model', 'year', 'price', 'update'];
-    }else{
-      this.columns = ['photo', 'brand', 'model', 'year', 'price'];
+    }
+    else{
+      this.columns  = ['photo', 'brand', 'model', 'year', 'price'];
     }
 
     if(this.page != 1){

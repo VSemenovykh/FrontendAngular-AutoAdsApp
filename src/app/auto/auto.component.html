@@ -1,10 +1,9 @@
-<h1 class="text-center"> List auto</h1>
+<h1 class="text-center"> List auto ads</h1>
 <div>
   <table mat-table
          [dataSource]="cars"
          cdkDropList
          cdkDropListOrientation="horizontal" >
-
     <ng-container matColumnDef="photo">
       <th mat-header-cell cdkDrag *matHeaderCellDef> Picture</th>
       <td mat-cell *matCellDef="let element"> <ng-template [ngIf]="isImage">
@@ -51,41 +50,26 @@
       <td mat-cell *matCellDef="let element"> {{element.price}} </td>
     </ng-container>
 
-    <ng-container  *ngIf="isModerator || isAdmin">
-      <ng-container matColumnDef="update">
-        <th mat-header-cell cdkDrag *matHeaderCellDef > update</th>
-        <td mat-cell *matCellDef="let element">
-          <button class="button blue">
-            <mat-icon
-              class="habit-icon"
-              color="primary"
-              (click)="goToUpdate(element.id)"
-            >border_color
-            </mat-icon>
-          </button>
-        </td>
-      </ng-container>
+    <ng-container matColumnDef="update" *ngIf="isModerator || isAdmin">
+      <th mat-header-cell cdkDrag *matHeaderCellDef> update</th>
+      <td mat-cell *matCellDef="let element">
+        <button class="button blue">
+          <span class="material-icons" (click)="goToUpdate(element.id)">update</span>
+        </button>
+      </td>
     </ng-container>
 
-    <ng-container *ngIf=" isAdmin">
-      <ng-container matColumnDef="delete" >
-        <th mat-header-cell cdkDrag *matHeaderCellDef> delete</th>
-        <td mat-cell *matCellDef="let element">
-          <button class="button blue">
-            <mat-icon
-              class="habit-icon"
-              color="warn"
-              (click)="deleteAuto(element)"
-            >remove
-            </mat-icon>
-          </button>
-        </td>
-      </ng-container>
+    <ng-container matColumnDef="delete" *ngIf="isModerator || isAdmin">
+      <th mat-header-cell cdkDrag *matHeaderCellDef> delete</th>
+      <td mat-cell *matCellDef="let element">
+        <button class="button blue">
+          <span class="material-icons" (click)="deleteAuto(element)">delete</span>
+        </button>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="columns"></tr>
     <tr mat-row *matRowDef="let row; columns: columns; "></tr>
-
   </table>
 
   <mat-paginator [length]="sizeCars"
