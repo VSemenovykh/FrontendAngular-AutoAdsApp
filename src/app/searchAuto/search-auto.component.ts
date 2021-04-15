@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit, ViewChild} from "@angular/core";
-import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder} from "@angular/forms";
 import {AutoJoin} from "../models/autojoin.model";
 import { SearchAutoService } from '../_services/search-auto.service';
 import {TokenStorageService} from "../_services/token-storage.service";
@@ -11,10 +11,10 @@ import {CompareAutoService} from "../_services/compare-auto.service";
 
 @Component({
   selector: 'app-multiple-search-auto',
-  templateUrl: 'multiple-search-auto.component.html',
-  styleUrls: ['multiple-search-auto.component.css']
+  templateUrl: 'search-auto.component.html',
+  styleUrls: ['search-auto.component.css']
 })
-export class MultipleSearchAutoComponent implements OnInit{
+export class SearchAutoComponent implements OnInit{
   @ViewChild('list') list;
 
   // tslint:disable-next-line:max-line-length
@@ -182,11 +182,8 @@ export class MultipleSearchAutoComponent implements OnInit{
 
   auto: Array<AutoJoin>;
   neweAuto: AutoJoin = new AutoJoin();
-  listSelectIdAuto = [];  //???
-  listAutoForCompare = [];
 
   private roles: string[];
-
   brands: [] = null;
   colors: [] = null;
   startPrice: any = null;
@@ -228,9 +225,7 @@ export class MultipleSearchAutoComponent implements OnInit{
   })
 
   ngOnInit(): void{
-
     this.isLoggedIn = !!this.tokenStorageService.getToken();
-
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
       this.roles = user.roles;
@@ -239,7 +234,6 @@ export class MultipleSearchAutoComponent implements OnInit{
       this.isModerator = this.roles.includes('ROLE_MODERATOR');
       this.isUser = this.roles.includes('ROLE_USER');
     }
-
   }
 
   onSubmit(){
@@ -283,14 +277,13 @@ export class MultipleSearchAutoComponent implements OnInit{
       this.dataSearch['endVolume']  = null;
     }
 
-    console.log("this.dataMultipleSearch: ", this.dataSearch);
     if(this.page != 1){
       this.handlePageChange(this.currentPage);
+
     }else{
       this.findCarByDiffCriteriaPage(this.dataSearch);
     }
 
-    // console.log("onChange: ", this.listSelectAutoAds); //???
   }
 
   getRequestParams(page, pageSize): any {
@@ -322,16 +315,17 @@ export class MultipleSearchAutoComponent implements OnInit{
     const params = this.getRequestParams(this.page, this.pageSize);
     this.searchCarService.searchAutoPage(data, params)
       .subscribe((response) =>{
-        console.log("response", response);
         if(response != null){
           const {listAutoJoin, totalAutoJoin, currentPage} = response;
           this.auto = listAutoJoin;
           this.count = totalAutoJoin;
           this.currentPage = currentPage;
           this.isResponse = true;
+
         }else{
           this.isResponse = false;
         }
+
       }, error => {
         console.log(error);
       });
@@ -353,44 +347,21 @@ export class MultipleSearchAutoComponent implements OnInit{
     this._document.defaultView.location.reload();
   }
 
-
   onChange(idAuto: any, isChecked: boolean) {
     if (isChecked) {
-      this.listSelectIdAuto.push(idAuto);
-    } else {
-      for(let value of this.listSelectIdAuto) {
-        if(value === idAuto){
-          this.listSelectIdAuto.pop();
-        }
-      }
+      this.compareAuto(idAuto);
     }
-    // console.log(" this.listSelectAutoAds.indexOf(idAuto): ", this.listSelectIdAuto.indexOf(idAuto));
-    // console.log("idAuto: ", idAuto);
   }
 
-  //??
-  compareAuto(){
-    this.listSelectIdAuto.forEach(idAuto => console.log("idAuto",
+  compareAuto(idAuto: any){
       this.autoService.getAutoById(idAuto)
         .subscribe(
           res => {
             this.neweAuto = res;
-            this.listAutoForCompare.push(this.neweAuto)
-            console.log(" neweAuto",  this.neweAuto);
             this.compareAutoService.addAutoToCompare(this.neweAuto)
-             .subscribe(
-               data => {
-                console.log(" data",  data);
-              }
-            )
-          }
-        )
-    ));
-    console.log(" this.listAutoForCompare",  this.listAutoForCompare);
-
-      // .subscribe(res =>{
-      //
-      // });
-    this.router.navigate(['/compare-auto']);
+              .subscribe(
+                data => {
+                })
+          });
   }
 }

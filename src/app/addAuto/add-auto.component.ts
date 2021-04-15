@@ -1,12 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {ModelGroup} from '../interface/modelgroup';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
 import {AutoService} from '../_services/auto.service';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from "@angular/forms";
 import {PictureAutoService} from "../_services/picture-auto.sevice";
 import {AutoJoin} from "../models/autojoin.model";
-import {AutoPicture} from "../models/autopicture.model";
-import {ErrorStateMatcher} from "@angular/material/core";
+import {ModelGroup} from '../interface/ModelGroup';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -16,15 +15,16 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'app-edit-auto',
-  templateUrl: 'edit-auto.component.html',
-  styleUrls: ['edit-auto.component.css']
+  selector: 'app-add-auto',
+  templateUrl: 'add-auto.component.html',
+  styleUrls: ['add-auto.component.css']
 })
-export class EditAutoComponent implements OnInit {
 
-  brandControl = new FormControl('');
+export class AddAutoComponent {
+
+  brandControl = new FormControl('', Validators.required);
   brands = [
-    {id: 1, name: "Audi"},
+    {id: 1, name: "AUDI"},
     {id: 2, name: "FORD"},
     {id: 3, name: "HONDA"},
     {id: 4, name: "HYUNDAI"},
@@ -93,7 +93,7 @@ export class EditAutoComponent implements OnInit {
     }
   ];
 
-  yearControl = new FormControl('');
+  yearControl = new FormControl('', Validators.required);
   years = [
     {id: 1, name: "2000"},
     {id: 2, name: "2001"},
@@ -119,7 +119,7 @@ export class EditAutoComponent implements OnInit {
     {id: 22, name: "2021"}
   ];
 
-  colorControl = new FormControl('');
+  colorControl = new FormControl('', Validators.required);
   colors = [
     {id: 1, name: "WHITE"},
     {id: 2, name: "SILVER"},
@@ -141,14 +141,14 @@ export class EditAutoComponent implements OnInit {
     {id: 18, name: "BROWN"}
   ];
 
-  driveControl = new FormControl('');
+  driveControl = new FormControl('', Validators.required);
   drives = [
     {id: 1, name: "AWD"},
     {id: 2, name: "FWD"},
     {id: 3, name: "RWD"}
   ];
 
-  transmissionControl = new FormControl('');
+  transmissionControl = new FormControl('', Validators.required);
   transmissions = [
     {id: 1, name: "HYBRID"},
     {id: 2, name: "AUTOMATIC"},
@@ -157,7 +157,7 @@ export class EditAutoComponent implements OnInit {
     {id: 4, name: "DSG"}
   ];
 
-  bodyStyleControl = new FormControl('');
+  bodyStyleControl = new FormControl('', Validators.required);
   bodyStyles = [
     {id: 1, name: "COUPE"},
     {id: 2, name: "HATCHBACK"},
@@ -177,14 +177,14 @@ export class EditAutoComponent implements OnInit {
     {id: 16, name: "CROSSOVER"}
   ];
 
-  motorControl = new FormControl('');
+  motorControl = new FormControl('', Validators.required);
   motors = [
     {id: 1, name: "DIESEL"},
     {id: 2, name: "ELECTRIC"},
     {id: 3, name: "GASOLINE"}
   ];
 
-  volumeControl = new FormControl('');
+  volumeControl = new FormControl('', Validators.required);
   volumes = [
     {id: 1, name: "0.2"},
     {id: 2, name: "0.4"},
@@ -209,169 +209,141 @@ export class EditAutoComponent implements OnInit {
   ];
 
   auto: AutoJoin = new AutoJoin();
-
-  autoPicture: AutoPicture = new AutoPicture();
-  matcher = new MyErrorStateMatcher();
   selectedFile: File;
+  matcher = new MyErrorStateMatcher();
+
   message: string;
-  retrievedImage: any;
+  idPicture: number
+
   isPicture: boolean = true;
+  isData: boolean = true;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private imageAutoService: PictureAutoService,
-    private autoService: AutoService,
-    public fb: FormBuilder
-  ) {
+              private router: Router,
+              private autoService: AutoService,
+              private imageAutoService: PictureAutoService,
+              public fb: FormBuilder
+             ){
   }
+
+  createForm = this.fb.group({
+    price: new FormControl('',[
+      Validators.required,
+      Validators.min(1),
+      Validators.max(1000000000000)])
+  })
 
   inputForm = new FormGroup({
-    emailBrand: new FormControl('', [
+    emailBrand: new FormControl('',[
+      Validators.required,
       Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
-    phone: new FormControl('', [
-      Validators.pattern("^\\([0-9]{3}\\)+\\-[0-9]{3}\\-[0-9]{2}-[0-9]{2}$")])
+    phone: new FormControl('',[
+      Validators.required,
+    Validators.pattern("^\\([0-9]{3}\\)+\\-[0-9]{3}\\-[0-9]{2}-[0-9]{2}$")])
   });
-
-  updateForm = this.fb.group({
-    price: new FormControl('', [
-      Validators.min(1),
-      Validators.max(1000000000000)]),
-    numberImage: [null]
-  });
-
-
-  ngOnInit(): void {
-    this.getAuto();
-  }
 
   onSubmit() {
-    this.getAuto();
     const auto = this.auto;
 
-    const selectedBrand = this.brandControl.value;
-    console.log("selectedBrand['name']: ", selectedBrand['name']);
-    if (selectedBrand['name'] != auto.nameBrand && selectedBrand['name'] != undefined) {
+    const selectedBrand =  this.brandControl.value;
+    if(selectedBrand != null){
       auto.nameBrand = selectedBrand['name'];
     }
 
     auto.nameModel = this.modelControl.value;
 
-    const selectedYear = this.yearControl.value;
-    if (selectedYear['name'] != auto.year && selectedYear['name'] != undefined) {
+    const selectedYear =  this.yearControl.value;
+    if(selectedYear != null){
       auto.year = selectedYear['name'];
     }
+    auto.price = this.createForm.controls["price"].value;
 
-    auto.price = this.updateForm.controls["price"].value;
-
-    const selecteMotor = this.motorControl.value;
-    if (selecteMotor['name'] != auto.motorType && selecteMotor['name'] != undefined) {
-      auto.motorType = selecteMotor['name'];
+    const selectedMotor =  this.motorControl.value;
+    if(selectedMotor != null){
+      auto.motorType = selectedMotor['name'];
     }
 
-    const selecteVolune = this.volumeControl.value;
-    if (selecteVolune['name'] != auto.volume && selecteVolune['name'] != undefined) {
-      auto.volume = selecteVolune['name'];
+    const selectedVolume =  this.volumeControl.value;
+    if(selectedVolume != null){
+      auto.volume = selectedVolume['name'];
     }
 
-    const selecteColor = this.colorControl.value;
-    if (selecteColor['name'] != auto.color && selecteColor['name'] != undefined) {
-      auto.color = selecteColor['name'];
+    const selectedColor =  this.colorControl.value;
+    if(selectedColor != null){
+      auto.color = selectedColor['name'];
     }
 
-    const selecteDrive = this.driveControl.value;
-    if (selecteDrive['name'] != auto.driveType && selecteDrive['name'] != undefined) {
-      auto.driveType = selecteDrive['name'];
+    const selectedDrive =  this.driveControl.value;
+    if(selectedDrive != null){
+      auto.driveType = selectedDrive['name'];
+    }
+    const selectedTransmission =  this.transmissionControl.value;
+    if(selectedTransmission != null){
+      auto.transmissionType = selectedTransmission['name'];
     }
 
-    const selecteTransmission = this.transmissionControl.value;
-    if (selecteTransmission['name'] != auto.transmissionType && selecteTransmission['name'] != undefined) {
-      auto.transmissionType = selecteTransmission['name'];
+    const selectedBodyStyle =  this.bodyStyleControl.value;
+    if(selectedBodyStyle != null){
+      auto.bodyStyleType = selectedBodyStyle['name'];
     }
 
-    const selecteBodyStyle = this.bodyStyleControl.value;
-    if (selecteBodyStyle['name'] != auto.bodyStyleType && selecteBodyStyle['name'] != undefined) {
-      auto.bodyStyleType = selecteBodyStyle['name'];
+    auto.email = this.inputForm.controls["emailBrand"].value;
+    auto.phone = "+7" + this.inputForm.controls["phone"].value;
+
+    if ((auto.nameBrand == null)
+      || (auto.nameModel == null)
+      || (auto.year == null)
+      || (auto.motorType == null)
+      || (auto.volume == null)
+      || (auto.color == null)
+      || (auto.price == null)
+      || (auto.driveType == null)
+      || (auto.driveType == null)
+      || (auto.transmissionType == null)
+      || (auto.bodyStyleType == null)) {
+
+      this.isData = false;
+
+    } else {
+
+      this.createPicture(this.auto);
     }
-
-    if (this.inputForm.controls["emailBrand"].value != '') {
-      auto.email = this.inputForm.controls["emailBrand"].value;
-    }
-
-    if (this.inputForm.controls["phone"].value != '') {
-      auto.phone = this.inputForm.controls["phone"].value;
-    }
-
-    this.uploadPictureAuto();
-    this.updateAuto(auto, this.auto.idPicture);
-  }
-
-  getAuto(): void {
-    this.autoService.getAutoById(Number(this.route.snapshot.params.id))
-      .subscribe((data: AutoJoin) => {
-        this.auto = data;
-        this.brandControl.setValue(data.nameBrand);
-        this.modelControl.setValue(data.nameModel);
-        this.yearControl.setValue(data.year);
-        this.colorControl.setValue(data.color);
-        this.updateForm.controls["price"].setValue(data.price);
-        this.motorControl.setValue(data.motorType);
-        this.volumeControl.setValue(data.volume);
-        this.driveControl.setValue(data.driveType);
-        this.transmissionControl.setValue(data.transmissionType);
-        this.bodyStyleControl.setValue(data.bodyStyleType);
-        this.getPictureAuto(data.idPicture);
-      });
-  }
-
-  getPictureAuto(id: any): void {
-    this.imageAutoService.getPictureAutoByIdAuto(id)
-      .subscribe(
-        res => {
-          this.autoPicture = res;
-          (this.autoPicture != null) ? (this.retrievedImage = "data:image/png;base64," + this.autoPicture.raster) : (this.isPicture = false);
-        }
-      );
   }
 
   public onFileChanged(event) {
     this.selectedFile = event.target.files[0];
   }
 
-  uploadPictureAuto(): void {
-    if (this.selectedFile != null) {
-      const uploadImageData = new FormData();
+  createPicture(autoJoin): any {
+    const uploadImageData = new FormData();
+    if( this.selectedFile != null){
       uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
-      this.updatePictureAuto(uploadImageData, this.auto.idPicture);
-    } else {
-      this.updatePictureAuto(null, this.auto.idPicture);
-    }
-  }
-
-  updatePictureAuto(file: any, id: any): any {
-    if (file != null) {
-      this.imageAutoService.updatePictureAuto(file, id)
-        .subscribe(data => {
+      this.imageAutoService.createPictureAuto(uploadImageData)
+        .subscribe((id) => {
+          (id != null)? (this.create(autoJoin, id)):(   this.create(autoJoin, null));
         });
+
+    }else {
+      this.isPicture = false;
     }
   }
 
-  updateAuto(auto: any, idImage: any): void {
-    this.autoService.updateAuto(auto, Number(this.route.snapshot.params.id), idImage)
+  create(auto: any, idImage: any): void {
+    this.autoService.createAuto(auto, idImage)
       .subscribe(data => {
         this.router.navigate(['/auto']);
       });
   }
 
-  get emailBrand() {
+  get emailBrand(){
     return this.inputForm.get('emailBrand');
   }
 
-  get phone() {
+  get phone(){
     return this.inputForm.get('emailBrand');
   }
 
-  get price() {
-    return this.updateForm.get('price');
+  get price(){
+    return this.createForm.get('price');
   }
 }

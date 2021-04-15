@@ -3,10 +3,11 @@
   border-radius: 20px;
   border-collapse: separate;
   border-spacing: 5px;
+  width: 40%;
 }
 
 .table td, .table th {
-  padding: 0px;
+  /*padding: 0;*/
   font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
   font-size: 14px;
   text-align: center;
@@ -28,13 +29,6 @@ th, td {
   padding-right: 2px;
   width: 50px;
 }
-
-/*td {*/
-/*  text-align: center;*/
-/*  height: 100px;*/
-/*  background: #f7f9f8;*/
-/*  padding-right: 2px;*/
-/*}*/
 
 tr {
   width: 50%;

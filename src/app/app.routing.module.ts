@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AutoComponent } from './auto/auto.component';
-import {AddAutoComponent} from './auto/add-auto.component';
-import {EditAutoComponent} from './auto/edit-auto.component';
+import {AddAutoComponent} from './addAuto/add-auto.component';
+import {EditAutoComponent} from './editAuto/edit-auto.component';
 import { HomeComponent } from './home/home.component';
 import {PageAutoComponent} from "./page-auto/page-auto.component";
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
 import {ProfileComponent} from "./profile/profile.component";
-import {MultipleSearchAutoComponent} from "./auto/multiple-search-auto.component";
-import {CompareAutoComponent} from "./auto/compare-auto.component";
+import {SearchAutoComponent} from "./searchAuto/search-auto.component";
+import {CompareAutoComponent} from "./compareAuto/compare-auto.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'add',
     component: AddAutoComponent },
 
-  { path: 'multiple-search-auto', component: MultipleSearchAutoComponent },
+  { path: 'multiple-search-auto', component: SearchAutoComponent },
 
   { path: 'compare-auto', component: CompareAutoComponent },
 

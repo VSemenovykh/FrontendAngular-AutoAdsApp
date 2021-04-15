@@ -6,7 +6,7 @@ import {AutoPicture} from "../models/autopicture.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PictureAutoService} from "../_services/picture-auto.sevice";
 import {AutoService} from "../_services/auto.service";
-import {MyErrorStateMatcher} from "./edit-auto.component";
+import {MyErrorStateMatcher} from "../editAuto/edit-auto.component";
 import {CompareAutoService} from "../_services/compare-auto.service";
 import {DOCUMENT} from "@angular/common";
 
@@ -30,6 +30,7 @@ export class CompareAutoComponent implements OnInit{
 
   isImage: boolean = true;
   isResponse: boolean = true;
+  flag: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -62,7 +63,6 @@ export class CompareAutoComponent implements OnInit{
   handlePageChange(event): void {
     this.page = event;
     this.getAllAuto(event);
-
   }
 
   setActiveTutorial(tutorial, index): void {
@@ -72,6 +72,7 @@ export class CompareAutoComponent implements OnInit{
 
   getAllAuto(page: any): void{
     const params = this.getRequestParams(page, this.pageSize);
+    console.log("page: ", page);
     console.log("params: ", params);
     this.compare.getAllAutoToComparePage(params)
       .subscribe((response) =>{

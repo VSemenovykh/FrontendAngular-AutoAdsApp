@@ -1,4 +1,4 @@
-<h1 class="text-center">Search auto</h1>
+<h1 class="text-center">Search auto ads</h1>
 <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
   <table width="400" height="150" align=center>
     <tr>
@@ -164,16 +164,6 @@
         <th>Transmission</th>
         <th>Body style</th>
         <th>
-          <!-- ?????? -->
-          <div class = "button-compare">
-            <ng-template [ngIf]="isUser || isAdmin || isModerator">
-              <section>
-                <div class="example-button-row">
-                  <button mat-stroked-button>compare</button>
-                </div>
-              </section>
-            </ng-template>
-          </div>
       </tr>
       </thead>
       <tbody>
