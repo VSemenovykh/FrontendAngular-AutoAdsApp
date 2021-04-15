@@ -1,8 +1,8 @@
-.table {
+table {
   border: 1px solid #eaeaea;
   border-radius: 20px;
   border-collapse: separate;
-  border-spacing: 5px;
+  border-spacing: 0px;
   width: 40%;
 }
 
@@ -27,6 +27,7 @@ th, td {
   height: 100px;
   background: #f7f9f8;
   padding-right: 2px;
+  padding-top: 0%;
   width: 50px;
 }
 

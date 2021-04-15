@@ -320,7 +320,7 @@ export class AddAutoComponent {
       uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
       this.imageAutoService.createPictureAuto(uploadImageData)
         .subscribe((id) => {
-          (id != null)? (this.create(autoJoin, id)):(   this.create(autoJoin, null));
+          (id != null) ? (this.create(autoJoin, id)) : (this.create(autoJoin, null));
         });
 
     }else {

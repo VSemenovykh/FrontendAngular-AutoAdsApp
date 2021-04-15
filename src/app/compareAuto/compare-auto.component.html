@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="isUser || isAdmin || isModerator">
   <div>
     <h1 class="text-center">Compare auto</h1>
   </div>
@@ -18,7 +18,7 @@
             <tr><strong>Transmission:</strong></tr>
             <tr><strong>Body style:</strong></tr>
             <tr><strong>Email:</strong></tr>
-            <tr><strong>Phone</strong></tr>
+            <tr><strong>Phone:</strong></tr>
             <tr>
               <div class="example-button-row">
                 <button mat-stroked-button (click)="clearListCompareAuto()">clear</button>

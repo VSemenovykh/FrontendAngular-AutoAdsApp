@@ -9,6 +9,7 @@ import {AutoService} from "../_services/auto.service";
 import {MyErrorStateMatcher} from "../editAuto/edit-auto.component";
 import {CompareAutoService} from "../_services/compare-auto.service";
 import {DOCUMENT} from "@angular/common";
+import {TokenStorageService} from "../_services/token-storage.service";
 
 @Component({
   selector: 'app-compare-auto',
@@ -18,6 +19,7 @@ import {DOCUMENT} from "@angular/common";
 export class CompareAutoComponent implements OnInit{
 
   auto: Array<AutoJoin>;
+  private roles: string[];
   message: string;
   retrievedImage: any;
 
@@ -30,9 +32,13 @@ export class CompareAutoComponent implements OnInit{
 
   isImage: boolean = true;
   isResponse: boolean = true;
-  flag: boolean = true;
+  isLoggedIn: boolean = false;
+  isAdmin: boolean = false;
+  isModerator: boolean = false;
+  isUser: boolean = false;
 
   constructor(
+    private tokenStorageService: TokenStorageService,
     private route: ActivatedRoute,
     private router: Router,
     private compare: CompareAutoService,
@@ -42,6 +48,15 @@ export class CompareAutoComponent implements OnInit{
   ) {  }
 
   ngOnInit(): void {
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    if (this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      this.roles = user.roles;
+
+      this.isAdmin = this.roles.includes('ROLE_ADMIN');
+      this.isModerator = this.roles.includes('ROLE_MODERATOR');
+      this.isUser = this.roles.includes('ROLE_USER');
+    }
     this.getAllAuto(this.page);
   }
 
