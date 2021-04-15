@@ -1,14 +1,19 @@
 table {
-  table-layout:fixed; width:105%; height: 25%;
+  table-layout: fixed;
+  width: 105%;
+  height: 25%;
 }
-kendo-multiselect{
+
+kendo-multiselect {
   width: 100%;
 }
-td{
+
+td {
   align: "center";
 }
-h1, h2{
-  color:navy;
+
+h1, h2 {
+  color: navy;
   font-weight: bold;
 }
 
@@ -32,14 +37,19 @@ section {
   margin: 8px 8px 8px 0;
   width: 15%;
 }
+
 .mat-stroked-button {
-  font-size: 130%;
+  font-size: 12px;
+  padding: 0px 5px;
 }
+
 .example-button-row {
   width: 25%;
 }
-.button{
+
+.button {
   padding-top: 3%;
 }
-
+.button-compare{
+   }
 

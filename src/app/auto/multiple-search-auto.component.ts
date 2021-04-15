@@ -6,6 +6,8 @@ import {TokenStorageService} from "../_services/token-storage.service";
 import {Router} from "@angular/router";
 import {DOCUMENT} from "@angular/common";
 import { GroupResult, groupBy } from '@progress/kendo-data-query';
+import {AutoService} from "../_services/auto.service";
+import {CompareAutoService} from "../_services/compare-auto.service";
 
 @Component({
   selector: 'app-multiple-search-auto',
@@ -179,7 +181,9 @@ export class MultipleSearchAutoComponent implements OnInit{
                 "bodyStyleType": null};
 
   auto: Array<AutoJoin>;
-  listSelectAutoAds = [];  //???
+  neweAuto: AutoJoin = new AutoJoin();
+  listSelectIdAuto = [];  //???
+  listAutoForCompare = [];
 
   private roles: string[];
 
@@ -210,7 +214,9 @@ export class MultipleSearchAutoComponent implements OnInit{
               private tokenStorageService: TokenStorageService,
               public fb: FormBuilder,
               private router: Router,
-              @Inject(DOCUMENT) private _document: Document){
+              @Inject(DOCUMENT) private _document: Document,
+              private autoService: AutoService,
+              private compareAutoService: CompareAutoService){
   }
 
   searchForm = this.fb.group({
@@ -350,20 +356,41 @@ export class MultipleSearchAutoComponent implements OnInit{
 
   onChange(idAuto: any, isChecked: boolean) {
     if (isChecked) {
-      this.listSelectAutoAds.push(idAuto);
+      this.listSelectIdAuto.push(idAuto);
     } else {
-      for(let value of this.listSelectAutoAds) {
+      for(let value of this.listSelectIdAuto) {
         if(value === idAuto){
-          this.listSelectAutoAds.pop();
+          this.listSelectIdAuto.pop();
         }
       }
     }
-    console.log(" this.listSelectAutoAds.indexOf(idAuto): ", this.listSelectAutoAds.indexOf(idAuto));
-    console.log("idAuto: ", idAuto);
+    // console.log(" this.listSelectAutoAds.indexOf(idAuto): ", this.listSelectIdAuto.indexOf(idAuto));
+    // console.log("idAuto: ", idAuto);
   }
 
   //??
   compareAuto(){
+    this.listSelectIdAuto.forEach(idAuto => console.log("idAuto",
+      this.autoService.getAutoById(idAuto)
+        .subscribe(
+          res => {
+            this.neweAuto = res;
+            this.listAutoForCompare.push(this.neweAuto)
+            console.log(" neweAuto",  this.neweAuto);
+            this.compareAutoService.addAutoToCompare(this.neweAuto)
+             .subscribe(
+               data => {
+                console.log(" data",  data);
+              }
+            )
+          }
+        )
+    ));
+    console.log(" this.listAutoForCompare",  this.listAutoForCompare);
 
+      // .subscribe(res =>{
+      //
+      // });
+    this.router.navigate(['/compare-auto']);
   }
 }

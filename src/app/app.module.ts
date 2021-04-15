@@ -5,11 +5,13 @@ import {AppComponent} from './app.component';
 import {AutoComponent} from './auto/auto.component';
 import {AppRoutingModule} from './app.routing.module';
 import {AutoService} from './_services/auto.service';
+import {CompareAutoService} from './_services/compare-auto.service';
 import {HttpClientModule} from '@angular/common/http';
 import {AddAutoComponent} from './auto/add-auto.component';
 import {EditAutoComponent} from './auto/edit-auto.component';
 import {HomeComponent} from './home/home.component';
 import {SearchAutoService} from './_services/search-auto.service';
+import {CompareAutoComponent} from './auto/compare-auto.component'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatIconModule} from "@angular/material/icon";
 import {PictureAutoService} from "./_services/picture-auto.sevice";
@@ -41,7 +43,8 @@ import {MatInputModule} from "@angular/material/input";
     PageAutoComponent,
     RegisterComponent,
     LoginComponent,
-    ProfileComponent
+    ProfileComponent,
+    CompareAutoComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +65,7 @@ import {MatInputModule} from "@angular/material/input";
     MatSelectModule,
     MatInputModule
   ],
-  providers: [AutoService, SearchAutoService, PictureAutoService, authInterceptorProviders],
+  providers: [AutoService, SearchAutoService, PictureAutoService, authInterceptorProviders, CompareAutoService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
