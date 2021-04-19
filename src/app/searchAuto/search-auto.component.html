@@ -1,4 +1,4 @@
-<h1 class="text-center">Search auto</h1>
+<h1 class="text-center">Search auto ads</h1>
 <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
   <table width="400" height="150" align=center>
     <tr>
@@ -133,7 +133,7 @@
       </td>
     </tr>
   </table>
-  <div class = "button">
+  <div class="button">
     <ng-template [ngIf]="isUser || isAdmin || isModerator">
       <section>
         <div class="example-button-row">
@@ -148,7 +148,7 @@
 <br>
 <br>
 <ng-template [ngIf]="isUser || isAdmin || isModerator">
-  <form (ngSubmit)="compareAuto()">
+  <form>
     <table class="table table-striped">
       <thead>
       <tr>
@@ -163,17 +163,6 @@
         <th>Drive</th>
         <th>Transmission</th>
         <th>Body style</th>
-        <th>
-          <!-- ?????? -->
-          <div class = "button">
-            <ng-template [ngIf]="isUser || isAdmin || isModerator">
-              <section>
-                <div class="example-button-row">
-                  <button mat-stroked-button>compare</button>
-                </div>
-              </section>
-            </ng-template>
-          </div>
       </tr>
       </thead>
       <tbody>
@@ -187,36 +176,53 @@
             [class.active]="i == currentIndex"
             (click)="setActiveTutorial(car, i)">
           <td>
-            <ng-template [ngIf]="isImage">
-              <img width="100" height="50" alt={{car.nameModel}} [src]="getImageAuto(car.raster)">
-            </ng-template>
-            <ng-template [ngIf]="!isImage">
-              <p>No photo</p>
-            </ng-template>
+            <div>
+              <ng-template [ngIf]="isImage">
+                <img width="100" height="50" alt={{car.nameModel}} [src]="getImageAuto(car.raster)">
+              </ng-template>
+              <ng-template [ngIf]="!isImage">
+                <p>No photo</p>
+              </ng-template>
+            </div>
           </td>
-          <td><a href="/page-auto" class="nav-link" routerLink="page-auto" (click)="goToSelectAuto(car.idPicture)">
-            {{car.nameBrand}}
-          </a></td>
-          <td><a href="/page-auto" class="nav-link" routerLink="page-auto" (click)="goToSelectAuto(car.idPicture)">
-            {{car.nameModel}} </a>
-          </td>
-          <td>{{car.year}}</td>
-          <td>{{car.color}}</td>
-          <td>{{car.price}}</td>
-          <td>{{car.motorType}}</td>
-          <td>{{car.volume}}</td>
-          <td>{{car.driveType}}</td>
-          <td>{{car.transmissionType}}</td>
-          <td>{{car.bodyStyleType}}</td>
           <td>
-            <input name ="checkbox" type="checkbox" (change)="onChange(car.id, $event.target.checked)" />
+            <div><a href="/page-auto" class="nav-link" routerLink="page-auto" (click)="goToSelectAuto(car.idPicture)">
+              {{car.nameBrand}}
+            </a></div>
+          </td>
+          <td>
+            <div><a href="/page-auto" class="nav-link" routerLink="page-auto" (click)="goToSelectAuto(car.idPicture)">
+              {{car.nameModel}} </a></div>
+          </td>
+          <td>
+            <div>{{car.year}}</div>
+          </td>
+          <td>
+            <div>{{car.color}}</div>
+          </td>
+          <td>
+            <div class="td-price">{{formatPrice(car.price)}}&nbsp;₽</div>
+          </td>
+          <td>
+            <div>{{car.motorType}}</div>
+          </td>
+          <td>
+            <div>{{car.volume}}</div>
+          </td>
+          <td>
+            <div>{{car.driveType}}</div>
+          </td>
+          <td>
+            <div>{{car.transmissionType}}</div>
+          </td>
+          <td>
+            <div>{{car.bodyStyleType}}</div>
           </td>
         </tr>
       </ng-template>
       </tbody>
     </table>
   </form>
-
   <ng-template [ngIf]="!isResponse">
     <div style="text-align: center">
       <p>Not found</p>

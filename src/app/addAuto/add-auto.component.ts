@@ -4,7 +4,7 @@ import {AutoService} from '../_services/auto.service';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from "@angular/forms";
 import {PictureAutoService} from "../_services/picture-auto.sevice";
 import {AutoJoin} from "../models/autojoin.model";
-import {ModelGroup} from '../interface/modelgroup';
+import {ModelGroup} from '../interface/ModelGroup';
 import { ErrorStateMatcher } from '@angular/material/core';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -213,10 +213,12 @@ export class AddAutoComponent {
   matcher = new MyErrorStateMatcher();
 
   message: string;
-  idPicture: number
 
   isPicture: boolean = true;
-  isData: boolean = true;
+  trueData: boolean = true;
+  validateFormatImage: boolean = true;
+  validateSizeImage: boolean = true;
+  trueImage: boolean = true;
 
   constructor(
               private router: Router,
@@ -243,7 +245,9 @@ export class AddAutoComponent {
   });
 
   onSubmit() {
+    console.log("onSubmit()");
     const auto = this.auto;
+    console.log("Start auto: ", auto);
 
     const selectedBrand =  this.brandControl.value;
     if(selectedBrand != null){
@@ -290,6 +294,8 @@ export class AddAutoComponent {
     auto.email = this.inputForm.controls["emailBrand"].value;
     auto.phone = "+7" + this.inputForm.controls["phone"].value;
 
+    console.log("End auto: ", auto);
+
     if ((auto.nameBrand == null)
       || (auto.nameModel == null)
       || (auto.year == null)
@@ -302,37 +308,82 @@ export class AddAutoComponent {
       || (auto.transmissionType == null)
       || (auto.bodyStyleType == null)) {
 
-      this.isData = false;
-
+      this.trueData = false;
     } else {
-
       this.createPicture(this.auto);
     }
   }
 
   public onFileChanged(event) {
+    console.log("onFileChanged()");
+
     this.selectedFile = event.target.files[0];
+    console.log("selectedFile: ", this.selectedFile);
+    console.log("this.selectedFile.name: ", this.selectedFile.name);
+
+    const maxSizeImage = 10485760; //byte
+    console.log("MaxSizeImage: ", maxSizeImage);
+
+    const formatFileJPG = this.selectedFile.name.endsWith(".JPG");
+    const formatFilejpg = this.selectedFile.name.endsWith(".jpg");
+    const formatFilePNG = this.selectedFile.name.endsWith(".PNG");
+    const formatFilepng = this.selectedFile.name.endsWith(".png");
+
+    const conditionOnFormatImage = (formatFileJPG == false && formatFilejpg == false && formatFilePNG == false && formatFilepng == false);
+    const conditionOnMaxSizeImage = this.selectedFile.size > maxSizeImage;
+
+    (conditionOnFormatImage) ? (this.validateFormatImage = false) : this.validateFormatImage = true;
+    (conditionOnMaxSizeImage) ? this.validateSizeImage = false : this.validateSizeImage = true;
+
+    // if( formatFileJPG == false && formatFilejpg == false && formatFilePNG == false && formatFilepng == false){
+    //   this.validateFormatImage = false;
+    // }else{
+    //   this.validateFormatImage = true;
+    // }
+    //
+    // if(this.selectedFile.size > maxSizeImage){
+    //   this.validateSizeImage = false;
+    // }else{
+    //   this.validateSizeImage = true;
+    // }
   }
 
   createPicture(autoJoin): any {
+    console.log("createPicture()");
     const uploadImageData = new FormData();
     if( this.selectedFile != null){
       uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
-      this.imageAutoService.createPictureAuto(uploadImageData)
-        .subscribe((id) => {
-          (id != null)? (this.create(autoJoin, id)):(   this.create(autoJoin, null));
-        });
+      console.log("uploadImageData: ", uploadImageData);
 
+      if(this.validateSizeImage && this.validateFormatImage){
+        this.imageAutoService.createPictureAuto(uploadImageData)
+          .subscribe((id) => {
+            (id != null) ? (this.createAuto(autoJoin, id)) : (this.createAuto(autoJoin, null));
+          });
+        this.trueImage = true;
+      }else{
+        this.trueImage = false;
+      }
+      this.isPicture = true;
     }else {
       this.isPicture = false;
     }
+    console.log("Added image auto to list");
   }
 
-  create(auto: any, idImage: any): void {
-    this.autoService.createAuto(auto, idImage)
-      .subscribe(data => {
-        this.router.navigate(['/auto']);
-      });
+  createAuto(auto: any, idImage: any): void {
+    console.log("createAuto()");
+      if(this.trueImage){
+        this.autoService.createAuto(auto, idImage)
+          .subscribe(data => {
+            console.log("Result created auto: ", data);
+            this.router.navigate(['/auto']);
+          });
+        this.trueImage = true;
+      }else {
+        this.trueImage = false;
+      }
+    console.log("Auto ads successfully to the list");
   }
 
   get emailBrand(){

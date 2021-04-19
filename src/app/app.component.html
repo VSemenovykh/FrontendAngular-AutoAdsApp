@@ -3,21 +3,28 @@
     <a href="#" class="navbar-brand">Auto Ads</a>
     <ul class="navbar-nav mr-auto" routerLinkActive="active">
       <li class="nav-item">
-        <a style="margin-left:10px" href="/home" class="nav-link" routerLink="home">Home </a>
+        <a style="margin-left:10px" href="/home" class="nav-link" routerLink="home" (click)="checkIsListCompareAuto()">Home </a>
       </li>
       <li class="nav-item">
-        <a style="margin-left:15px" href="/auto" class="nav-link" routerLink="auto">List auto</a>
+        <a style="margin-left:15px" href="/auto" class="nav-link" routerLink="auto" (click)="checkIsListCompareAuto()">List
+          auto</a>
       </li>
-        <li class="nav-item">
-          <a style="margin-left:20px" href="/add" class="nav-link" *ngIf="isAdmin || isUser" routerLink="add">Add auto</a>
-        </li>
       <li class="nav-item">
-        <a style="margin-left:30px" href="/multiple-search-auto" class="nav-link" routerLink="multiple-search-auto">Search auto</a>
+        <a style="margin-left:20px" href="/add" class="nav-link" *ngIf="isAdmin || isUser" routerLink="add"
+           (click)="checkIsListCompareAuto()">Add auto</a>
+      </li>
+      <li class="nav-item">
+        <a style="margin-left:30px" href="/multiple-search-auto" class="nav-link" routerLink="multiple-search-auto"
+           (click)="checkIsListCompareAuto()">Search auto</a>
+      </li>
+      <li class="nav-item">
+        <a style="margin-left:40px" href="/compare-auto" class="nav-link" routerLink="compare-auto"
+           *ngIf="isListCompareAuto && (isAdmin || isUser || isModerator)">Compare</a>
       </li>
     </ul>
     <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
       <li class="nav-item">
-        <a style="margin-right:15px" href="/register" class="nav-link" routerLink="register">Create user</a>
+        <a style="margin-right:15px" href="/register" class="nav-link" routerLink="register">Log up</a>
       </li>
       <li class="nav-item">
         <a style="margin-right:5px" href="/login" class="nav-link" routerLink="login">Login</a>

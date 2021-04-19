@@ -1,18 +1,20 @@
 import {Component, Inject, OnInit, ViewChild} from "@angular/core";
-import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder} from "@angular/forms";
 import {AutoJoin} from "../models/autojoin.model";
 import { SearchAutoService } from '../_services/search-auto.service';
 import {TokenStorageService} from "../_services/token-storage.service";
 import {Router} from "@angular/router";
 import {DOCUMENT} from "@angular/common";
 import { GroupResult, groupBy } from '@progress/kendo-data-query';
+import {AutoService} from "../_services/auto.service";
+import {CompareAutoService} from "../_services/compare-auto.service";
 
 @Component({
   selector: 'app-multiple-search-auto',
-  templateUrl: 'multiple-search-auto.component.html',
-  styleUrls: ['multiple-search-auto.component.css']
+  templateUrl: 'search-auto.component.html',
+  styleUrls: ['search-auto.component.css']
 })
-export class MultipleSearchAutoComponent implements OnInit{
+export class SearchAutoComponent implements OnInit{
   @ViewChild('list') list;
 
   // tslint:disable-next-line:max-line-length
@@ -179,14 +181,11 @@ export class MultipleSearchAutoComponent implements OnInit{
                 "bodyStyleType": null};
 
   auto: Array<AutoJoin>;
-  listSelectAutoAds = [];  //???
-
   private roles: string[];
-
   brands: [] = null;
   colors: [] = null;
-  startPrice: any = null;
-  endPrice: any = null;
+  startPrice: number = null;
+  endPrice: number = null;
   motors: [] = null;
   drives: [] = null;
   transmissions: [] = null;
@@ -210,7 +209,9 @@ export class MultipleSearchAutoComponent implements OnInit{
               private tokenStorageService: TokenStorageService,
               public fb: FormBuilder,
               private router: Router,
-              @Inject(DOCUMENT) private _document: Document){
+              @Inject(DOCUMENT) private _document: Document,
+              private autoService: AutoService,
+              private compareAutoService: CompareAutoService){
   }
 
   searchForm = this.fb.group({
@@ -222,21 +223,23 @@ export class MultipleSearchAutoComponent implements OnInit{
   })
 
   ngOnInit(): void{
-
+    console.log("ngOnInit()");
     this.isLoggedIn = !!this.tokenStorageService.getToken();
-
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
       this.roles = user.roles;
+      console.log("user: ", user);
+      console.log("this.roles: ", this.roles);
 
       this.isAdmin = this.roles.includes('ROLE_ADMIN');
       this.isModerator = this.roles.includes('ROLE_MODERATOR');
       this.isUser = this.roles.includes('ROLE_USER');
     }
-
   }
 
   onSubmit(){
+    console.log("onSubmit()");
+    console.log("Start dataSearch: ", this.dataSearch);
     this.dataSearch['nameBrand'] = this.brands;
 
     const selectedModels = this.searchForm.controls["model"].value;
@@ -277,14 +280,14 @@ export class MultipleSearchAutoComponent implements OnInit{
       this.dataSearch['endVolume']  = null;
     }
 
-    console.log("this.dataMultipleSearch: ", this.dataSearch);
+    console.log("End dataSearch: ", this.dataSearch);
+
     if(this.page != 1){
       this.handlePageChange(this.currentPage);
+
     }else{
       this.findCarByDiffCriteriaPage(this.dataSearch);
     }
-
-    // console.log("onChange: ", this.listSelectAutoAds); //???
   }
 
   getRequestParams(page, pageSize): any {
@@ -313,19 +316,26 @@ export class MultipleSearchAutoComponent implements OnInit{
   }
 
   findCarByDiffCriteriaPage(data: any): void{
+    console.log("findCarByDiffCriteriaPage()");
     const params = this.getRequestParams(this.page, this.pageSize);
+    console.log("params: ", params);
     this.searchCarService.searchAutoPage(data, params)
       .subscribe((response) =>{
-        console.log("response", response);
+        console.log("response: ", response);
         if(response != null){
           const {listAutoJoin, totalAutoJoin, currentPage} = response;
           this.auto = listAutoJoin;
           this.count = totalAutoJoin;
           this.currentPage = currentPage;
+          console.log("this.auto : ", this.auto);
+          console.log("this.count: ", this.count);
+          console.log("this.currentPage: ", this.currentPage);
+
           this.isResponse = true;
         }else{
           this.isResponse = false;
         }
+
       }, error => {
         console.log(error);
       });
@@ -347,23 +357,7 @@ export class MultipleSearchAutoComponent implements OnInit{
     this._document.defaultView.location.reload();
   }
 
-
-  onChange(idAuto: any, isChecked: boolean) {
-    if (isChecked) {
-      this.listSelectAutoAds.push(idAuto);
-    } else {
-      for(let value of this.listSelectAutoAds) {
-        if(value === idAuto){
-          this.listSelectAutoAds.pop();
-        }
-      }
-    }
-    console.log(" this.listSelectAutoAds.indexOf(idAuto): ", this.listSelectAutoAds.indexOf(idAuto));
-    console.log("idAuto: ", idAuto);
-  }
-
-  //??
-  compareAuto(){
-
+  formatPrice(price: any): any{
+    return String(price).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
   }
 }

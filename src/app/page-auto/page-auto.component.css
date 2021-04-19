@@ -9,6 +9,7 @@
   position: absolute;
   top: 80px;
   left:50px;
+  width: 400px;
 }
 .image-auto{
   position: absolute;
@@ -59,7 +60,7 @@ section {
 }
 
 .example-button-row {
-  padding-top: 5%;
+  padding-top: 0%;
   display: table-cell;
   width: 490px;
 }
@@ -68,6 +69,29 @@ section {
   margin: 8px 8px 8px 0;
 }
 .mat-stroked-button {
-  font-size: 150%;
+  font-size: 14px;
+}
+
+.price{
+  font-size: 25px;
+}
+
+.div-compare{
+  height: 50px
+}
+
+.mat-form-field {
+  margin-right: 8px;
+}
+
+.no-auto-with-id{
+  font-size: 25px;
+  align-items: center;
+  box-sizing: border-box;
+  width: 40%;
+  height: 100%;
+  text-align: center;
+  margin-top: 200px;
+  margin-left: 30%;
 }
 

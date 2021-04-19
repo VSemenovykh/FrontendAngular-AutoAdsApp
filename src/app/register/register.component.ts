@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log("onSubmit()");
     this.authService.register(this.form).subscribe(
       data => {
         console.log(data);
@@ -27,9 +28,9 @@ export class RegisterComponent implements OnInit {
       },
       err => {
         this.errorMessage = err.error.message;
+        console.log("errorMessage: ", this.errorMessage);
         this.isSignUpFailed = true;
       }
     );
   }
-
 }
