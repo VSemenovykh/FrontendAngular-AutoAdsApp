@@ -80,18 +80,26 @@ export class AutoComponent implements OnInit {
   }
 
   getIndexPage(index: any, sizePage: any): void{
+    console.log("getIndexPage()");
     this.pageSize = sizePage;
     this.page = index;
+    console.log("this.pageSize: ", this.pageSize);
+    console.log("this.page: ", this.page);
     this.loadAutoByPage();
   }
 
   private loadAutoByPage(): void {
-     const params = this.getRequestParams(this.page, this.pageSize);
+    console.log("loadAutoByPage()");
+    const params = this.getRequestParams(this.page, this.pageSize);
+    console.log("params: ", params);
     this.autoService.getAllAutoPage(params).subscribe((response) =>{
       const { listAutoJoin, totalAutoJoin, currentPage } = response;
       this.cars = listAutoJoin;
       this.currentPage = currentPage;
       this.dataLength = totalAutoJoin;
+      console.log("listAutoJoin: ", listAutoJoin);
+      console.log("currentPage: ", currentPage);
+      console.log("totalAutoJoin: ", totalAutoJoin);
     }, error => {
       console.log(error);
     });
@@ -110,9 +118,11 @@ export class AutoComponent implements OnInit {
   }
 
   deleteAuto(car: AutoJoin): void {
+    console.log("deleteAuto()");
     this.autoService.deleteAuto(car)
       .subscribe(data => {
       });
+    console.log("Deleted auto from list");
     this.refreshPage();
   }
 

@@ -181,13 +181,11 @@ export class SearchAutoComponent implements OnInit{
                 "bodyStyleType": null};
 
   auto: Array<AutoJoin>;
-  neweAuto: AutoJoin = new AutoJoin();
-
   private roles: string[];
   brands: [] = null;
   colors: [] = null;
-  startPrice: any = null;
-  endPrice: any = null;
+  startPrice: number = null;
+  endPrice: number = null;
   motors: [] = null;
   drives: [] = null;
   transmissions: [] = null;
@@ -225,10 +223,13 @@ export class SearchAutoComponent implements OnInit{
   })
 
   ngOnInit(): void{
+    console.log("ngOnInit()");
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
       this.roles = user.roles;
+      console.log("user: ", user);
+      console.log("this.roles: ", this.roles);
 
       this.isAdmin = this.roles.includes('ROLE_ADMIN');
       this.isModerator = this.roles.includes('ROLE_MODERATOR');
@@ -237,6 +238,8 @@ export class SearchAutoComponent implements OnInit{
   }
 
   onSubmit(){
+    console.log("onSubmit()");
+    console.log("Start dataSearch: ", this.dataSearch);
     this.dataSearch['nameBrand'] = this.brands;
 
     const selectedModels = this.searchForm.controls["model"].value;
@@ -277,13 +280,14 @@ export class SearchAutoComponent implements OnInit{
       this.dataSearch['endVolume']  = null;
     }
 
+    console.log("End dataSearch: ", this.dataSearch);
+
     if(this.page != 1){
       this.handlePageChange(this.currentPage);
 
     }else{
       this.findCarByDiffCriteriaPage(this.dataSearch);
     }
-
   }
 
   getRequestParams(page, pageSize): any {
@@ -312,16 +316,22 @@ export class SearchAutoComponent implements OnInit{
   }
 
   findCarByDiffCriteriaPage(data: any): void{
+    console.log("findCarByDiffCriteriaPage()");
     const params = this.getRequestParams(this.page, this.pageSize);
+    console.log("params: ", params);
     this.searchCarService.searchAutoPage(data, params)
       .subscribe((response) =>{
+        console.log("response: ", response);
         if(response != null){
           const {listAutoJoin, totalAutoJoin, currentPage} = response;
           this.auto = listAutoJoin;
           this.count = totalAutoJoin;
           this.currentPage = currentPage;
-          this.isResponse = true;
+          console.log("this.auto : ", this.auto);
+          console.log("this.count: ", this.count);
+          console.log("this.currentPage: ", this.currentPage);
 
+          this.isResponse = true;
         }else{
           this.isResponse = false;
         }

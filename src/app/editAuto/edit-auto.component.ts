@@ -252,8 +252,10 @@ export class EditAutoComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log("onSubmit()");
     this.getAuto();
     const auto = this.auto;
+    console.log("Start auto: ", auto);
 
     const selectedBrand = this.brandControl.value;
     if (selectedBrand['name'] != auto.nameBrand && selectedBrand['name'] != undefined) {
@@ -307,13 +309,18 @@ export class EditAutoComponent implements OnInit {
       auto.phone = this.inputForm.controls["phone"].value;
     }
 
+    console.log("End auto: ", auto);
+
     this.uploadPictureAuto();
     this.updateAuto(auto, this.auto.idPicture);
   }
 
   getAuto(): void {
-    this.autoService.getAutoById(Number(this.route.snapshot.params.id))
+    console.log("getAuto()");
+    const idAuto = Number(this.route.snapshot.params.id);
+    this.autoService.getAutoById(idAuto)
       .subscribe((data: AutoJoin) => {
+        console.log("Result: ", data);
         this.auto = data;
         this.brandControl.setValue(data.nameBrand);
         this.modelControl.setValue(data.nameModel);
@@ -340,44 +347,60 @@ export class EditAutoComponent implements OnInit {
   }
 
   public onFileChanged(event) {
+    console.log("onFileChanged()");
+
     this.selectedFile = event.target.files[0];
+    console.log("this.selectedFile: ", this.selectedFile);
+    console.log("this.selectedFile.name: ", this.selectedFile.name);
+
     const maxSizeImage = 10485760; //byte
+    console.log("maxSizeImage: ", maxSizeImage);
+
     const formatFileJPG = this.selectedFile.name.endsWith(".JPG");
     const formatFilejpg = this.selectedFile.name.endsWith(".jpg");
     const formatFilePNG = this.selectedFile.name.endsWith(".PNG");
     const formatFilepng = this.selectedFile.name.endsWith(".png");
 
-    if (formatFileJPG == false && formatFilejpg == false && formatFilePNG == false && formatFilepng == false) {
-      this.validateFormatImage = false;
+    const conditionOnFormatImage = (formatFileJPG == false && formatFilejpg == false && formatFilePNG == false && formatFilepng == false);
+    const conditionOnMaxSizeImage = this.selectedFile.size > maxSizeImage;
 
-    } else {
-      this.validateFormatImage = true;
-    }
+    (conditionOnFormatImage) ? (this.validateFormatImage = false) : this.validateFormatImage = true;
+    (conditionOnMaxSizeImage) ? this.validateSizeImage = false : this.validateSizeImage = true;
 
-    if (this.selectedFile.size > maxSizeImage) {
-      this.validateSizeImage = false;
+    // if (conditionOnFormatImage) {
+    //   this.validateFormatImage = false;
+    // } else {
+    //   this.validateFormatImage = true;
+    // }
 
-    } else {
-      this.validateSizeImage = true;
-    }
+    // if (this.selectedFile.size > maxSizeImage) {
+    //   this.validateSizeImage = false;
+    // } else {
+    //   this.validateSizeImage = true;
+    // }
   }
 
   uploadPictureAuto(): void {
+    console.log("uploadPictureAuto()");
     if (this.selectedFile != null) {
       const uploadImageData = new FormData();
       uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
-      this.updatePictureAuto(uploadImageData, this.auto.idPicture);
+      console.log("uploadImageData: ", uploadImageData);
 
+      this.updatePictureAuto(uploadImageData, this.auto.idPicture);
     } else {
+      console.log("uploadImageData: ", null);
       this.updatePictureAuto(null, this.auto.idPicture);
     }
   }
 
   updatePictureAuto(file: any, id: any): any {
+    console.log("updatePictureAuto");
     if (file != null) {
       if (this.validateSizeImage && this.validateFormatImage) {
         this.imageAutoService.updatePictureAuto(file, id)
           .subscribe(data => {});
+        console.log("Image successfully added!");
       } else {
         this.refreshPage();
       }
@@ -385,8 +408,10 @@ export class EditAutoComponent implements OnInit {
   }
 
   updateAuto(auto: any, idImage: any): void {
+    console.log("updateAuto()");
     this.autoService.updateAuto(auto, auto.id, idImage)
       .subscribe(data => {
+        console.log("Auto ads successfully updated!");
         this.router.navigate(['/auto']);
       });
   }

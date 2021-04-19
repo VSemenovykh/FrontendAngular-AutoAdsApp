@@ -89,9 +89,12 @@ export class PageAutoComponent implements OnInit {
   }
 
   getAutoJoinById(): void {
-    this.autoService.getAutoById(Number(this.route.snapshot.params.id))
+    console.log("getAutoJoinById()");
+    const idAuto = Number(this.route.snapshot.params.id);
+    this.autoService.getAutoById(idAuto)
       .subscribe((data: any) => {
         this.dataAuto = data;
+        console.log("Result: ", data);
         this.dataAuto.price = String(this.dataAuto.price).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
       });
   }
@@ -101,14 +104,17 @@ export class PageAutoComponent implements OnInit {
   }
 
   compareAuto(idAuto: any) {
+    console.log("compareAuto()");
     this.autoService.getAutoById(idAuto)
       .subscribe(
         res => {
           this.neweAuto = res;
+          console.log("Result: ", res);
           this.compareAutoService.addAutoToCompare(this.neweAuto)
             .subscribe(
               data => {
               })
+          console.log("Auto successfully added to the list compare");
           this.isAddCompare = true;
         });
     this.compareAutoService.sendMessage(this.isAddCompare);

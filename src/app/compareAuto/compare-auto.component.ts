@@ -80,19 +80,29 @@ export class CompareAutoComponent implements OnInit{
   }
 
   setActiveTutorial(tutorial, index): void {
+    console.log("setActiveTutorial()");
     this.currentAutoJoin = tutorial;
     this.currentIndex = index;
+    console.log("this.currentAutoJoin : ", this.currentAutoJoin);
+    console.log(" this.currentIndex : ",  this.currentIndex);
   }
 
   getAllAuto(page: any): void {
+    console.log("getAllAuto()");
     const params = this.getRequestParams(page, this.pageSize);
+    console.log("params: ", params);
     this.compare.getAllAutoToComparePage(params)
       .subscribe((response) => {
+        console.log("response: ", response);
         if (response != null) {
           const {listAutoJoin, totalAutoJoin, currentPage} = response;
           this.autoArray = listAutoJoin;
           this.count = totalAutoJoin;
           this.currentPage = currentPage;
+          console.log("this.autoArray: ", this.autoArray);
+          console.log("this.count: ", this.count);
+          console.log("this.currentPage : ", this.currentPage );
+
           this.isResponse = true;
           this.isListCompareAuto = true;
         } else {
@@ -114,16 +124,20 @@ export class CompareAutoComponent implements OnInit{
   }
 
   clearListCompareAuto(): void {
+    console.log("clearListCompareAuto()");
     this.compare.clearListCompareAuto()
       .subscribe(data => {
       });
+    console.log("List successfully cleared!");
     this.refreshPage();
   }
 
   deleteCompareAuto(id: any): void {
+    console.log("deleteCompareAuto()");
     this.compare.deleteCompareAuto(id)
       .subscribe(data => {
       });
+    console.log("Auto successfully deleted");
     this.refreshPage();
   }
 
