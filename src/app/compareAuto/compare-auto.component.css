@@ -135,5 +135,17 @@ h1, h2 {
   width: 25%;
 }
 
+.no-list-compare{
+  font-size: 25px;
+  align-items: center;
+  box-sizing: border-box;
+  width: 23%;
+  height: 100%;
+  text-align: center;
+  margin-top: 200px;
+  margin-left: 40%;
+}
 
-
+.mat-form-field {
+  margin-right: 8px;
+}

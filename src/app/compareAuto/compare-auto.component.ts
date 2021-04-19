@@ -18,10 +18,10 @@ import {TokenStorageService} from "../_services/token-storage.service";
 })
 export class CompareAutoComponent implements OnInit{
 
-  auto: Array<AutoJoin>;
+  autoArray: Array<AutoJoin>;
+  auto: AutoJoin = new AutoJoin();
   private roles: string[];
   message: string;
-  retrievedImage: any;
 
   currentAutoJoin: any;
   currentIndex = -1;
@@ -36,16 +36,15 @@ export class CompareAutoComponent implements OnInit{
   isAdmin: boolean = false;
   isModerator: boolean = false;
   isUser: boolean = false;
+  isListCompareAuto: boolean = true;
 
-  constructor(
-    private tokenStorageService: TokenStorageService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private compare: CompareAutoService,
-    private autoService: AutoService,
-    public fb: FormBuilder,
-    @Inject(DOCUMENT) private _document: Document
-  ) {  }
+  constructor(private tokenStorageService: TokenStorageService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private compare: CompareAutoService,
+              private autoService: AutoService,
+              public fb: FormBuilder,
+              @Inject(DOCUMENT) private _document: Document) {}
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
@@ -85,47 +84,43 @@ export class CompareAutoComponent implements OnInit{
     this.currentIndex = index;
   }
 
-  getAllAuto(page: any): void{
+  getAllAuto(page: any): void {
     const params = this.getRequestParams(page, this.pageSize);
-    console.log("page: ", page);
-    console.log("params: ", params);
     this.compare.getAllAutoToComparePage(params)
-      .subscribe((response) =>{
-        console.log("response", response);
-        if(response != null){
+      .subscribe((response) => {
+        if (response != null) {
           const {listAutoJoin, totalAutoJoin, currentPage} = response;
-          this.auto = listAutoJoin;
-          console.log("compare-auto.component, this.auto: ", this.auto);
+          this.autoArray = listAutoJoin;
           this.count = totalAutoJoin;
           this.currentPage = currentPage;
           this.isResponse = true;
-        }else{
+          this.isListCompareAuto = true;
+        } else {
           this.isResponse = false;
+          this.isListCompareAuto = false;
         }
       }, error => {
         console.log(error);
       });
-
-
   }
 
   getImageAuto(raster: any): string {
     if (this.isImage) {
       return "data:image/png;base64," + raster;
+
     } else {
       this.isImage = false;
     }
   }
 
-  clearListCompareAuto(): void{
+  clearListCompareAuto(): void {
     this.compare.clearListCompareAuto()
       .subscribe(data => {
       });
     this.refreshPage();
-
   }
 
-  deleteCompareAuto(id: any): void{
+  deleteCompareAuto(id: any): void {
     this.compare.deleteCompareAuto(id)
       .subscribe(data => {
       });
@@ -136,4 +131,7 @@ export class CompareAutoComponent implements OnInit{
     this._document.defaultView.location.reload();
   }
 
+  formatPrice(price: any): any {
+    return String(price).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
+  }
 }

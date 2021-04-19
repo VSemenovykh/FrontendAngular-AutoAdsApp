@@ -6,11 +6,24 @@
         <input type="file" (change)="onFileChanged($event)">
       </div>
       <div>
-        {{message}}
+        <ng-template [ngIf]="validateFormatImage">
+          {{message}}
+        </ng-template>
+
+        <ng-template [ngIf]="!validateFormatImage">
+          <div class="image-text-color">
+            <strong>Image format must be: JPG/jpg, PNG/png</strong>
+          </div>
+        </ng-template>
+        <ng-template [ngIf]="!validateSizeImage">
+          <div class="image-text-color">
+            <strong>Image size exceeds 10 MB</strong>
+          </div>
+        </ng-template>
       </div>
     </div>
   </div>
-  <form class = "form-auto-add" [formGroup]="createForm" (ngSubmit)="onSubmit()">
+  <form class="form-auto-add" [formGroup]="createForm" (ngSubmit)="onSubmit()">
     <div class="table-select">
       <table>
         <tr>
@@ -192,12 +205,15 @@
     </form>
   </div>
   <div class="error-message">
-    <ng-template [ngIf]="!isData">
+    <ng-template [ngIf]="!trueData">
       <p class="text-danger">You did not fill in all fields </p>
       <p class="text-danger">Please,fill in all fields</p>
     </ng-template>
     <ng-template [ngIf]="!isPicture">
       <p class="text-danger">Not added photo</p>
+    </ng-template>
+    <ng-template [ngIf]="!trueImage" ]>
+      <p class="text-danger">Choose the correct aspect ratio </p>
     </ng-template>
   </div>
 </div>

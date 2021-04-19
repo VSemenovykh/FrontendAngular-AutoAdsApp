@@ -11,6 +11,10 @@ kendo-multiselect {
 td {
   align: "center";
 }
+.td-price{
+  width: 115%;
+  font-size: 14px;
+}
 
 h1, h2 {
   color: navy;
@@ -50,6 +54,5 @@ section {
 .button {
   padding-top: 3%;
 }
-.button-compare{
-   }
+
 

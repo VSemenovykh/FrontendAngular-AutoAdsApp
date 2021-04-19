@@ -1,20 +1,27 @@
-import { Component } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import { TokenStorageService } from './_services/token-storage.service';
+import {CompareAutoService} from "./_services/compare-auto.service";
+import {DOCUMENT} from "@angular/common";
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   private roles: string[];
-  isLoggedIn = false;
-  isAdmin = false;
-  isModerator = false;
-  isUser = false;
   username: string;
 
-  constructor(private tokenStorageService: TokenStorageService) { }
+  isLoggedIn: boolean = false;
+  isAdmin: boolean =  false;
+  isModerator: boolean = false;
+  isUser: boolean = false;
+  isListCompareAuto : boolean = false;
+
+  constructor(private tokenStorageService: TokenStorageService,
+              private compare: CompareAutoService,
+              private compareAutoService: CompareAutoService,
+              @Inject(DOCUMENT) private _document: Document) { }
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
@@ -29,10 +36,32 @@ export class AppComponent {
 
       this.username = user.username;
     }
+    this.compareAutoService.currentIsAddedCompare.subscribe(isListCompareAuto => this.isListCompareAuto = isListCompareAuto);
+    if(this.isListCompareAuto){
+      this.refreshPage();
+    }
   }
 
   logout(): void {
     this.tokenStorageService.signOut();
     window.location.reload();
+  }
+
+  checkIsListCompareAuto(): void{
+   const params= {"page": 0, "size": 1};
+    this.compare.getAllAutoToComparePage(params)
+      .subscribe((response) =>{
+        if(response != null){
+          this.isListCompareAuto = true;
+        }else {
+          this.isListCompareAuto = false;
+        }
+      }, error => {
+        console.log(error);
+      });
+  }
+
+  refreshPage(): void {
+    this._document.defaultView.location.reload();
   }
 }

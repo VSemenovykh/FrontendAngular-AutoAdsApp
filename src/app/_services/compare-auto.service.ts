@@ -1,9 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 @Injectable()
 export class CompareAutoService {
+
+  private isAddedCompareSource = new BehaviorSubject<boolean>(false);
+  currentIsAddedCompare = this.isAddedCompareSource.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -23,5 +26,9 @@ export class CompareAutoService {
 
   public clearListCompareAuto(): any{
     return this.http.delete(this.compareAutoUrl + '/search/list-compare-auto/clear');
+  }
+
+  public sendMessage(isAddedCompare: boolean) {
+    this.isAddedCompareSource.next(isAddedCompare);
   }
 }

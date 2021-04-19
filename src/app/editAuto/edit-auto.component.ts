@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ModelGroup} from '../interface/ModelGroup';
 import {AutoService} from '../_services/auto.service';
@@ -7,6 +7,7 @@ import {PictureAutoService} from "../_services/picture-auto.sevice";
 import {AutoJoin} from "../models/autojoin.model";
 import {AutoPicture} from "../models/autopicture.model";
 import {ErrorStateMatcher} from "@angular/material/core";
+import {DOCUMENT} from "@angular/common";
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -216,33 +217,38 @@ export class EditAutoComponent implements OnInit {
   message: string;
   retrievedImage: any;
   isPicture: boolean = true;
+  notNegativeId: boolean = true;
+  validateFormatImage: boolean = true;
+  validateSizeImage: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private imageAutoService: PictureAutoService,
     private autoService: AutoService,
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    @Inject(DOCUMENT) private _document: Document
   ) {
   }
 
   inputForm = new FormGroup({
-    emailBrand: new FormControl('', [
-      Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
-    phone: new FormControl('', [
-      Validators.pattern("^\\([0-9]{3}\\)+\\-[0-9]{3}\\-[0-9]{2}-[0-9]{2}$")])
+    emailBrand: new FormControl('', [Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+    phone: new FormControl('', [Validators.pattern("^\\([0-9]{3}\\)+\\-[0-9]{3}\\-[0-9]{2}-[0-9]{2}$")])
   });
 
   updateForm = this.fb.group({
-    price: new FormControl('', [
-      Validators.min(1),
-      Validators.max(1000000000000)]),
+    price: new FormControl('', [Validators.min(1), Validators.max(1000000000000)]),
     numberImage: [null]
   });
 
 
   ngOnInit(): void {
-    this.getAuto();
+    this.auto.id = Number(this.route.snapshot.params.id);
+    if (this.auto.id > -1) {
+      this.getAuto();
+    } else {
+      this.notNegativeId = false;
+    }
   }
 
   onSubmit() {
@@ -250,7 +256,6 @@ export class EditAutoComponent implements OnInit {
     const auto = this.auto;
 
     const selectedBrand = this.brandControl.value;
-    console.log("selectedBrand['name']: ", selectedBrand['name']);
     if (selectedBrand['name'] != auto.nameBrand && selectedBrand['name'] != undefined) {
       auto.nameBrand = selectedBrand['name'];
     }
@@ -336,6 +341,25 @@ export class EditAutoComponent implements OnInit {
 
   public onFileChanged(event) {
     this.selectedFile = event.target.files[0];
+    const maxSizeImage = 10485760; //byte
+    const formatFileJPG = this.selectedFile.name.endsWith(".JPG");
+    const formatFilejpg = this.selectedFile.name.endsWith(".jpg");
+    const formatFilePNG = this.selectedFile.name.endsWith(".PNG");
+    const formatFilepng = this.selectedFile.name.endsWith(".png");
+
+    if (formatFileJPG == false && formatFilejpg == false && formatFilePNG == false && formatFilepng == false) {
+      this.validateFormatImage = false;
+
+    } else {
+      this.validateFormatImage = true;
+    }
+
+    if (this.selectedFile.size > maxSizeImage) {
+      this.validateSizeImage = false;
+
+    } else {
+      this.validateSizeImage = true;
+    }
   }
 
   uploadPictureAuto(): void {
@@ -343,6 +367,7 @@ export class EditAutoComponent implements OnInit {
       const uploadImageData = new FormData();
       uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
       this.updatePictureAuto(uploadImageData, this.auto.idPicture);
+
     } else {
       this.updatePictureAuto(null, this.auto.idPicture);
     }
@@ -350,14 +375,17 @@ export class EditAutoComponent implements OnInit {
 
   updatePictureAuto(file: any, id: any): any {
     if (file != null) {
-      this.imageAutoService.updatePictureAuto(file, id)
-        .subscribe(data => {
-        });
+      if (this.validateSizeImage && this.validateFormatImage) {
+        this.imageAutoService.updatePictureAuto(file, id)
+          .subscribe(data => {});
+      } else {
+        this.refreshPage();
+      }
     }
   }
 
   updateAuto(auto: any, idImage: any): void {
-    this.autoService.updateAuto(auto, Number(this.route.snapshot.params.id), idImage)
+    this.autoService.updateAuto(auto, auto.id, idImage)
       .subscribe(data => {
         this.router.navigate(['/auto']);
       });
@@ -373,5 +401,9 @@ export class EditAutoComponent implements OnInit {
 
   get price() {
     return this.updateForm.get('price');
+  }
+
+  refreshPage(): void {
+    this._document.defaultView.location.reload();
   }
 }

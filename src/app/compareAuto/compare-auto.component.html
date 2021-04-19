@@ -1,98 +1,106 @@
 <div *ngIf="isUser || isAdmin || isModerator">
-  <div>
-    <h1 class="text-center">Compare auto</h1>
-  </div>
-  <div>
-    <form>
-      <ng-template [ngIf]="isResponse">
-        <table class="table table-striped">
-          <td>
-            <tr><strong>Name auto:</strong></tr>
-            <tr><strong>Photo:</strong></tr>
-            <tr><strong>Year:</strong></tr>
-            <tr><strong>Color:</strong></tr>
-            <tr><strong>Price:</strong></tr>
-            <tr><strong>Motor type:</strong></tr>
-            <tr><strong>Volume:</strong></tr>
-            <tr><strong>Drive:</strong></tr>
-            <tr><strong>Transmission:</strong></tr>
-            <tr><strong>Body style:</strong></tr>
-            <tr><strong>Email:</strong></tr>
-            <tr><strong>Phone:</strong></tr>
-            <tr>
-              <div class="example-button-row">
-                <button mat-stroked-button (click)="clearListCompareAuto()">clear</button>
-              </div>
-            </tr>
-          <td *ngFor="let car of auto| paginate : {
+  <ng-template [ngIf]="!isListCompareAuto">
+    <div class="no-list-compare">
+      Click "Add to Compare" &nbsp;on the ads page
+    </div>
+  </ng-template>
+
+  <ng-template [ngIf]="isListCompareAuto">
+    <div>
+      <h1 class="text-center">Compare auto</h1>
+    </div>
+    <div>
+      <form>
+        <ng-template [ngIf]="isResponse">
+          <table class="table table-striped">
+            <td>
+              <tr><strong>Name auto:</strong></tr>
+              <tr><strong>Photo:</strong></tr>
+              <tr><strong>Year:</strong></tr>
+              <tr><strong>Color:</strong></tr>
+              <tr><strong>Price:</strong></tr>
+              <tr><strong>Motor type:</strong></tr>
+              <tr><strong>Volume:</strong></tr>
+              <tr><strong>Drive:</strong></tr>
+              <tr><strong>Transmission:</strong></tr>
+              <tr><strong>Body style:</strong></tr>
+              <tr><strong>Email:</strong></tr>
+              <tr><strong>Phone:</strong></tr>
+              <tr>
+                <div class="example-button-row">
+                  <button mat-stroked-button (click)="clearListCompareAuto()">clear</button>
+                </div>
+              </tr>
+            <td *ngFor="let car of autoArray| paginate : {
                                                         itemsPerPage: pageSize,
                                                         currentPage: page,
                                                         totalItems: count
                                                         };
                                                         let i = index"
-              [class.active]="i == currentIndex"
-              (click)="setActiveTutorial(car, i)">
-            <tr>
-              <td>{{car.nameBrand}} {{car.nameModel}}</td>
-            </tr>
-            <tr>
-              <td>
-                <ng-template [ngIf]="isImage">
-                  <img width="175px" height="105px" alt={{car.nameModel}} [src]="getImageAuto(car.raster)">
-                </ng-template>
-                <ng-template [ngIf]="!isImage">
-                  <p>No photo</p>
-                </ng-template>
-              </td>
-            </tr>
-            <tr>
-              <td>{{car.year}}</td>
-            </tr>
-            <tr>
-              <td>{{car.color}}</td>
-            </tr>
-            <tr>
-              <td>{{car.price}}</td>
-            </tr>
-            <tr>
-              <td>{{car.motorType}}</td>
-            </tr>
-            <tr>
-              <td>{{car.volume}}</td>
-            </tr>
-            <tr>
-              <td>{{car.driveType}}</td>
-            </tr>
-            <tr>
-              <td>{{car.transmissionType}}</td>
-            </tr>
-            <tr>
-              <td>{{car.bodyStyleType}}</td>
-            </tr>
-            <tr>
-              <td>{{car.email}}</td>
-            </tr>
-            <tr>
-              <td>{{car.phone}}</td>
-            </tr>
-            <tr>
-              <td>
-                <button class="button blue">
-                  <span class="material-icons" (click)="deleteCompareAuto(car.id)">delete</span>
-                </button>
-              </td>
-            </tr>
-          </td>
-        </table>
-      </ng-template>
-    </form>
-    <div class="col-md-12" style="text-align: center">
-      <pagination-controls
-        previousLabel="Prev"
-        nextLabel="Next"
-        responsive="true"
-        (pageChange)="handlePageChange($event)"
-      ></pagination-controls>
+                [class.active]="i == currentIndex"
+                (click)="setActiveTutorial(car, i)">
+              <tr>
+                <td>{{car.nameBrand}} {{car.nameModel}}</td>
+              </tr>
+              <tr>
+                <td>
+                  <ng-template [ngIf]="isImage">
+                    <img width="175px" height="105px" alt={{car.nameModel}} [src]="getImageAuto(car.raster)">
+                  </ng-template>
+                  <ng-template [ngIf]="!isImage">
+                    <p>No photo</p>
+                  </ng-template>
+                </td>
+              </tr>
+              <tr>
+                <td>{{car.year}}</td>
+              </tr>
+              <tr>
+                <td>{{car.color}}</td>
+              </tr>
+              <tr>
+                <td>{{formatPrice(car.price)}} &nbsp; ₽</td>
+              </tr>
+              <tr>
+                <td>{{car.motorType}}</td>
+              </tr>
+              <tr>
+                <td>{{car.volume}}</td>
+              </tr>
+              <tr>
+                <td>{{car.driveType}}</td>
+              </tr>
+              <tr>
+                <td>{{car.transmissionType}}</td>
+              </tr>
+              <tr>
+                <td>{{car.bodyStyleType}}</td>
+              </tr>
+              <tr>
+                <td>{{car.email}}</td>
+              </tr>
+              <tr>
+                <td>{{car.phone}}</td>
+              </tr>
+              <tr>
+                <td>
+                  <button class="button blue">
+                    <span class="material-icons" (click)="deleteCompareAuto(car.id)">delete</span>
+                  </button>
+                </td>
+              </tr>
+            </td>
+          </table>
+        </ng-template>
+      </form>
+      <div class="col-md-12" style="text-align: center">
+        <pagination-controls
+          previousLabel="Prev"
+          nextLabel="Next"
+          responsive="true"
+          (pageChange)="handlePageChange($event)"
+        ></pagination-controls>
+      </div>
     </div>
-  </div>
+  </ng-template>
 </div>

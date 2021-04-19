@@ -347,21 +347,7 @@ export class SearchAutoComponent implements OnInit{
     this._document.defaultView.location.reload();
   }
 
-  onChange(idAuto: any, isChecked: boolean) {
-    if (isChecked) {
-      this.compareAuto(idAuto);
-    }
-  }
-
-  compareAuto(idAuto: any){
-      this.autoService.getAutoById(idAuto)
-        .subscribe(
-          res => {
-            this.neweAuto = res;
-            this.compareAutoService.addAutoToCompare(this.neweAuto)
-              .subscribe(
-                data => {
-                })
-          });
+  formatPrice(price: any): any{
+    return String(price).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
   }
 }

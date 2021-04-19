@@ -11,13 +11,16 @@ import {TokenStorageService} from "../_services/token-storage.service";
   templateUrl: 'auto.component.html',
   styleUrls: ['auto.component.css']
 })
+
 export class AutoComponent implements OnInit {
 
   cars: Array<AutoJoin>;
   private roles: string[];
+  columns: string[];
+
   currentPage = 1;
   page = 0;
-  sizeCars: any;
+  dataLength: number;
   pageSize = 5;
 
   isAdmin: boolean = false;
@@ -25,13 +28,6 @@ export class AutoComponent implements OnInit {
   isUser: boolean = false;
   isImage: boolean = true;
   isLoggedIn: boolean = false;
-
-  columns: string[];
-  dataSource: Array<AutoJoin>;
-
-  // drop(event: CdkDragDrop<string[]>) {
-  //   moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
-  // }
 
   constructor(
               private router: Router,
@@ -62,7 +58,7 @@ export class AutoComponent implements OnInit {
     }
 
     if(this.page != 1){
-      this.getIndexPage(this.page);
+      this.getIndexPage(this.page, this.pageSize);
     }else{
       this.loadAutoByPage();
     }
@@ -83,18 +79,19 @@ export class AutoComponent implements OnInit {
     return params;
   }
 
-  getIndexPage(index: any): void{
+  getIndexPage(index: any, sizePage: any): void{
+    this.pageSize = sizePage;
     this.page = index;
     this.loadAutoByPage();
   }
 
   private loadAutoByPage(): void {
-    const params = this.getRequestParams(this.page, this.pageSize);
+     const params = this.getRequestParams(this.page, this.pageSize);
     this.autoService.getAllAutoPage(params).subscribe((response) =>{
       const { listAutoJoin, totalAutoJoin, currentPage } = response;
       this.cars = listAutoJoin;
       this.currentPage = currentPage;
-      this.sizeCars = totalAutoJoin;
+      this.dataLength = totalAutoJoin;
     }, error => {
       console.log(error);
     });
@@ -125,5 +122,9 @@ export class AutoComponent implements OnInit {
 
   goToSelectAuto(idAuto: any): void {
     this.router.navigate(['/page-auto', idAuto]);
+  }
+
+  formatPrice(price: any): any{
+    return String(price).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
   }
 }

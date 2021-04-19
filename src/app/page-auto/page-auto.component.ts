@@ -1,8 +1,12 @@
-import { Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PictureAutoService} from "../_services/picture-auto.sevice";
 import {AutoPicture} from "../models/autopicture.model";
 import {AutoService} from "../_services/auto.service";
+import {AutoJoin} from "../models/autojoin.model";
+import {CompareAutoService} from "../_services/compare-auto.service";
+import {DOCUMENT} from "@angular/common";
+import {TokenStorageService} from "../_services/token-storage.service";
 
 @Component({
   selector: 'app-page-auto',
@@ -11,7 +15,7 @@ import {AutoService} from "../_services/auto.service";
 })
 export class PageAutoComponent implements OnInit {
 
-  auto = {"id": null,
+  dataAuto = {"id": null,
           "idPicture": null,
           "raster": null,
           "email": null,
@@ -27,41 +31,90 @@ export class PageAutoComponent implements OnInit {
           "transmissionType": null,
           "bodyStyleType": null};
 
-  retrievedImage: any;
+  neweAuto: AutoJoin = new AutoJoin();
   pictureAuto: AutoPicture = new AutoPicture();
+  retrievedImage: any;
+  private roles: string[];
+
+  isLoggedIn: boolean = false;
+  isAdmin: boolean = false;
+  isModerator: boolean = false;
+  isUser: boolean = false;
   isPicture: boolean = true;
+  isAddCompare: boolean = false;
+  notNegativeId: boolean = true;
 
   constructor(
+             private tokenStorageService: TokenStorageService,
              private route: ActivatedRoute,
              private router: Router,
              private autoService: AutoService,
-             private imageAutoService: PictureAutoService
+             private imageAutoService: PictureAutoService,
+             private compareAutoService: CompareAutoService,
+             @Inject(DOCUMENT) private _document: Document
             ) {
   }
 
-  ngOnInit(): void{
-    this.getImage(Number(this.route.snapshot.params.id));
-    this.getAutoJoinById();
+  ngOnInit(): void {
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    if (this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      this.roles = user.roles;
+
+      this.isAdmin = this.roles.includes('ROLE_ADMIN');
+      this.isModerator = this.roles.includes('ROLE_MODERATOR');
+      this.isUser = this.roles.includes('ROLE_USER');
+    }
+
+    this.dataAuto.id = Number(this.route.snapshot.params.id);
+    if (this.dataAuto.id > -1) {
+      this.getImage(this.dataAuto.id);
+      this.getAutoJoinById();
+
+    } else {
+      this.notNegativeId = false;
+    }
+
+    this.compareAutoService.currentIsAddedCompare.subscribe(isAddedCompare => this.isAddCompare = isAddedCompare);
   }
 
   getImage(id: any): void {
-      this.imageAutoService.getPictureAutoByIdAuto(id)
-        .subscribe(
-          res => {
-            this.pictureAuto = res;
-            (this.pictureAuto != null)?(this.retrievedImage = "data:image/png;base64," + this.pictureAuto.raster):( this.isPicture = false);
-          }
+    this.imageAutoService.getPictureAutoByIdAuto(id)
+      .subscribe(
+        res => {
+          this.pictureAuto = res;
+          (this.pictureAuto != null) ? (this.retrievedImage = "data:image/png;base64," + this.pictureAuto.raster) : (this.isPicture = false);
+        }
       );
   }
 
-  getAutoJoinById(): void{
+  getAutoJoinById(): void {
     this.autoService.getAutoById(Number(this.route.snapshot.params.id))
-      .subscribe( (data: any) => {
-        this.auto = data;
+      .subscribe((data: any) => {
+        this.dataAuto = data;
+        this.dataAuto.price = String(this.dataAuto.price).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
       });
   }
 
-  goBack(): void{
+  goBack(): void {
     this.router.navigate(['/auto']);
+  }
+
+  compareAuto(idAuto: any) {
+    this.autoService.getAutoById(idAuto)
+      .subscribe(
+        res => {
+          this.neweAuto = res;
+          this.compareAutoService.addAutoToCompare(this.neweAuto)
+            .subscribe(
+              data => {
+              })
+          this.isAddCompare = true;
+        });
+    this.compareAutoService.sendMessage(this.isAddCompare);
+  }
+
+  goToCompare(): void {
+    this.router.navigate(['/compare-auto']);
   }
 }
