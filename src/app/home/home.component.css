@@ -3,12 +3,11 @@ th {
   border-bottom: 2px solid #f7f9f8;
   border-right: 30px solid #f7f9f8;
   border-left: 30px solid #f7f9f8;
-  /*  color: #039; */
   padding: 8px 2px;
 }
+
 td {
   border-right: 30px solid #f7f9f8;
   border-left: 30px solid #f7f9f8;
-  /*  color: #669;*/
   padding: 12px 2px;
 }

@@ -229,25 +229,25 @@ export class AddAutoComponent {
   }
 
   createForm = this.fb.group({
-    price: new FormControl('',[
+    price: new FormControl('', [
       Validators.required,
       Validators.min(1),
       Validators.max(1000000000000)])
   })
 
   inputForm = new FormGroup({
-    emailBrand: new FormControl('',[
+    emailBrand: new FormControl('', [
       Validators.required,
       Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
-    phone: new FormControl('',[
+
+    phone: new FormControl('', [
       Validators.required,
-    Validators.pattern("^\\([0-9]{3}\\)+\\-[0-9]{3}\\-[0-9]{2}-[0-9]{2}$")])
+      Validators.pattern("^\\([0-9]{3}\\)+\\-[0-9]{3}\\-[0-9]{2}-[0-9]{2}$")])
   });
 
   onSubmit() {
     console.log("onSubmit()");
     const auto = this.auto;
-    console.log("Start auto: ", auto);
 
     const selectedBrand =  this.brandControl.value;
     if(selectedBrand != null){
@@ -294,8 +294,6 @@ export class AddAutoComponent {
     auto.email = this.inputForm.controls["emailBrand"].value;
     auto.phone = "+7" + this.inputForm.controls["phone"].value;
 
-    console.log("End auto: ", auto);
-
     if ((auto.nameBrand == null)
       || (auto.nameModel == null)
       || (auto.year == null)
@@ -334,55 +332,55 @@ export class AddAutoComponent {
 
     (conditionOnFormatImage) ? (this.validateFormatImage = false) : this.validateFormatImage = true;
     (conditionOnMaxSizeImage) ? this.validateSizeImage = false : this.validateSizeImage = true;
-
-    // if( formatFileJPG == false && formatFilejpg == false && formatFilePNG == false && formatFilepng == false){
-    //   this.validateFormatImage = false;
-    // }else{
-    //   this.validateFormatImage = true;
-    // }
-    //
-    // if(this.selectedFile.size > maxSizeImage){
-    //   this.validateSizeImage = false;
-    // }else{
-    //   this.validateSizeImage = true;
-    // }
   }
 
   createPicture(autoJoin): any {
     console.log("createPicture()");
     const uploadImageData = new FormData();
-    if( this.selectedFile != null){
+    if (this.selectedFile != null) {
       uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
-      console.log("uploadImageData: ", uploadImageData);
 
-      if(this.validateSizeImage && this.validateFormatImage){
+      if (this.validateSizeImage && this.validateFormatImage) {
         this.imageAutoService.createPictureAuto(uploadImageData)
-          .subscribe((id) => {
-            (id != null) ? (this.createAuto(autoJoin, id)) : (this.createAuto(autoJoin, null));
-          });
+          .subscribe(
+            (id) => {
+              (id != null) ? (this.createAuto(autoJoin, id)) : (this.createAuto(autoJoin, null));
+            },
+            error => {
+              console.log("error: ", error);
+            }
+          );
+
         this.trueImage = true;
-      }else{
+      } else {
         this.trueImage = false;
       }
+
       this.isPicture = true;
-    }else {
+    } else {
       this.isPicture = false;
     }
+
     console.log("Added image auto to list");
   }
 
   createAuto(auto: any, idImage: any): void {
     console.log("createAuto()");
-      if(this.trueImage){
-        this.autoService.createAuto(auto, idImage)
-          .subscribe(data => {
-            console.log("Result created auto: ", data);
+    if (this.trueImage) {
+      this.autoService.createAuto(auto, idImage)
+        .subscribe(
+          data => {
             this.router.navigate(['/auto']);
+          },
+          error => {
+            console.log("error: ", error);
           });
-        this.trueImage = true;
-      }else {
-        this.trueImage = false;
-      }
+
+      this.trueImage = true;
+    } else {
+      this.trueImage = false;
+    }
+
     console.log("Auto ads successfully to the list");
   }
 

@@ -31,6 +31,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import {MatInputModule} from "@angular/material/input";
+import {NotFoundComponent} from "./erros/not-found.component"
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import {MatInputModule} from "@angular/material/input";
     RegisterComponent,
     LoginComponent,
     ProfileComponent,
-    CompareAutoComponent
+    CompareAutoComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

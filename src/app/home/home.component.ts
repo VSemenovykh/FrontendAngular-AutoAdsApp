@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -9,12 +9,12 @@ export class HomeComponent implements OnInit {
 
   content: string;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
     this.content = 'hello!';
   }
-
 
   reloadPage(): void {
     window.location.reload();
