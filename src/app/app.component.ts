@@ -8,6 +8,7 @@ import {DOCUMENT} from "@angular/common";
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css']
 })
+
 export class AppComponent implements OnInit{
   private roles: string[];
   username: string;
@@ -35,9 +36,13 @@ export class AppComponent implements OnInit{
       this.isUser = this.roles.includes('ROLE_USER');
 
       this.username = user.username;
+
+      this.checkIsListCompareAuto();
     }
+
     this.compareAutoService.currentIsAddedCompare.subscribe(isListCompareAuto => this.isListCompareAuto = isListCompareAuto);
-    if(this.isListCompareAuto){
+
+    if (this.isListCompareAuto) {
       this.refreshPage();
     }
   }
@@ -47,18 +52,20 @@ export class AppComponent implements OnInit{
     window.location.reload();
   }
 
-  checkIsListCompareAuto(): void{
-   const params= {"page": 0, "size": 1};
+  checkIsListCompareAuto(): void {
+    const params = {"page": 0, "size": 1, "idUser": this.tokenStorageService.getUser().id};
     this.compare.getAllAutoToComparePage(params)
-      .subscribe((response) =>{
-        if(response != null){
-          this.isListCompareAuto = true;
-        }else {
-          this.isListCompareAuto = false;
-        }
-      }, error => {
-        console.log(error);
-      });
+      .subscribe(
+        (response) => {
+          if (response != null) {
+            this.isListCompareAuto = true;
+          } else {
+            this.isListCompareAuto = false;
+          }
+        },
+        error => {
+          console.log(error);
+        });
   }
 
   refreshPage(): void {

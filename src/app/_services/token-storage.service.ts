@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
 
@@ -7,7 +8,8 @@ const USER_KEY = 'auth-user';
 })
 export class TokenStorageService {
 
-  constructor() { }
+  constructor() {
+  }
 
   signOut(): void {
     window.sessionStorage.clear();
@@ -31,7 +33,7 @@ export class TokenStorageService {
     return JSON.parse(sessionStorage.getItem(USER_KEY));
   }
 
-  public userRoles(role: string): any{
+  public userRoles(role: string): any {
     const user = JSON.parse(window.sessionStorage.getItem(USER_KEY));
     const userRoles = user.roles;
     const typeRole = userRoles.includes(role);

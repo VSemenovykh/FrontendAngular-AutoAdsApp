@@ -247,7 +247,7 @@ export class EditAutoComponent implements OnInit {
     if (this.auto.id > -1) {
       this.getAuto();
     } else {
-      this.notNegativeId = false;
+      this.router.navigate(['/404']);
     }
   }
 
@@ -255,7 +255,6 @@ export class EditAutoComponent implements OnInit {
     console.log("onSubmit()");
     this.getAuto();
     const auto = this.auto;
-    console.log("Start auto: ", auto);
 
     const selectedBrand = this.brandControl.value;
     if (selectedBrand['name'] != auto.nameBrand && selectedBrand['name'] != undefined) {
@@ -309,31 +308,32 @@ export class EditAutoComponent implements OnInit {
       auto.phone = this.inputForm.controls["phone"].value;
     }
 
-    console.log("End auto: ", auto);
-
-    this.uploadPictureAuto();
-    this.updateAuto(auto, this.auto.idPicture);
+    this.loadPictureAuto();
+    this.editAuto(auto, this.auto.idPicture);
   }
 
   getAuto(): void {
     console.log("getAuto()");
     const idAuto = Number(this.route.snapshot.params.id);
     this.autoService.getAutoById(idAuto)
-      .subscribe((data: AutoJoin) => {
-        console.log("Result: ", data);
-        this.auto = data;
-        this.brandControl.setValue(data.nameBrand);
-        this.modelControl.setValue(data.nameModel);
-        this.yearControl.setValue(data.year);
-        this.colorControl.setValue(data.color);
-        this.updateForm.controls["price"].setValue(data.price);
-        this.motorControl.setValue(data.motorType);
-        this.volumeControl.setValue(data.volume);
-        this.driveControl.setValue(data.driveType);
-        this.transmissionControl.setValue(data.transmissionType);
-        this.bodyStyleControl.setValue(data.bodyStyleType);
-        this.getPictureAuto(data.idPicture);
-      });
+      .subscribe(
+        (data: AutoJoin) => {
+          this.auto = data;
+          this.brandControl.setValue(data.nameBrand);
+          this.modelControl.setValue(data.nameModel);
+          this.yearControl.setValue(data.year);
+          this.colorControl.setValue(data.color);
+          this.updateForm.controls["price"].setValue(data.price);
+          this.motorControl.setValue(data.motorType);
+          this.volumeControl.setValue(data.volume);
+          this.driveControl.setValue(data.driveType);
+          this.transmissionControl.setValue(data.transmissionType);
+          this.bodyStyleControl.setValue(data.bodyStyleType);
+          this.getPictureAuto(data.idPicture);
+        },
+        error => {
+          console.log("error: ", error);
+        });
   }
 
   getPictureAuto(id: any): void {
@@ -342,6 +342,9 @@ export class EditAutoComponent implements OnInit {
         res => {
           this.autoPicture = res;
           (this.autoPicture != null) ? (this.retrievedImage = "data:image/png;base64," + this.autoPicture.raster) : (this.isPicture = false);
+        },
+        error => {
+          console.log("error: ", error);
         }
       );
   }
@@ -366,39 +369,25 @@ export class EditAutoComponent implements OnInit {
 
     (conditionOnFormatImage) ? (this.validateFormatImage = false) : this.validateFormatImage = true;
     (conditionOnMaxSizeImage) ? this.validateSizeImage = false : this.validateSizeImage = true;
-
-    // if (conditionOnFormatImage) {
-    //   this.validateFormatImage = false;
-    // } else {
-    //   this.validateFormatImage = true;
-    // }
-
-    // if (this.selectedFile.size > maxSizeImage) {
-    //   this.validateSizeImage = false;
-    // } else {
-    //   this.validateSizeImage = true;
-    // }
   }
 
-  uploadPictureAuto(): void {
-    console.log("uploadPictureAuto()");
+  loadPictureAuto(): void {
+    console.log("loadPictureAuto()");
     if (this.selectedFile != null) {
       const uploadImageData = new FormData();
       uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
-      console.log("uploadImageData: ", uploadImageData);
 
-      this.updatePictureAuto(uploadImageData, this.auto.idPicture);
+      this.editPictureAuto(uploadImageData, this.auto.idPicture);
     } else {
-      console.log("uploadImageData: ", null);
-      this.updatePictureAuto(null, this.auto.idPicture);
+      this.editPictureAuto(null, this.auto.idPicture);
     }
   }
 
-  updatePictureAuto(file: any, id: any): any {
-    console.log("updatePictureAuto");
+  editPictureAuto(file: any, id: any): any {
+    console.log("editPictureAuto");
     if (file != null) {
       if (this.validateSizeImage && this.validateFormatImage) {
-        this.imageAutoService.updatePictureAuto(file, id)
+        this.imageAutoService.editPictureAuto(file, id)
           .subscribe(data => {});
         console.log("Image successfully added!");
       } else {
@@ -407,13 +396,17 @@ export class EditAutoComponent implements OnInit {
     }
   }
 
-  updateAuto(auto: any, idImage: any): void {
-    console.log("updateAuto()");
-    this.autoService.updateAuto(auto, auto.id, idImage)
-      .subscribe(data => {
-        console.log("Auto ads successfully updated!");
-        this.router.navigate(['/auto']);
-      });
+  editAuto(auto: any, idImage: any): void {
+    console.log("editAuto()");
+    this.autoService.editAuto(auto, auto.id, idImage)
+      .subscribe(
+        data => {
+          console.log("Auto ads successfully edited!");
+          this.router.navigate(['/page-auto', auto.id]);
+        },
+        error => {
+          console.log("error: ", error);
+        });
   }
 
   get emailBrand() {

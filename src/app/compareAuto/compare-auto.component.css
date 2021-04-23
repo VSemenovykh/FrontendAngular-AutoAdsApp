@@ -119,7 +119,8 @@ h1, h2 {
 
 .example-button-row {
   display: table-cell;
-  width: 490px;
+  /*width: 490px;*/
+  width: 25%;
 }
 
 .span .example-button-row .mat-button-base {
@@ -131,11 +132,8 @@ h1, h2 {
   font-size: 130%;
 }
 
-.example-button-row {
-  width: 25%;
-}
 
-.no-list-compare{
+.no-list-compare {
   font-size: 25px;
   align-items: center;
   box-sizing: border-box;

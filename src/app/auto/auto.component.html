@@ -19,54 +19,57 @@
     </ng-container>
 
     <ng-container matColumnDef="brand">
-      <th mat-header-cell cdkDrag *matHeaderCellDef> brand</th>
+      <th class="head-table" mat-header-cell cdkDrag *matHeaderCellDef> Brand</th>
       <td mat-cell *matCellDef="let element">
-        <a href="/page-auto"
-           class="nav-link"
-           routerLink="page-auto"
-           (click)="goToSelectAuto(element.idPicture)">
-          {{element.nameBrand}}
-        </a>
+        <div class="div-ceil-tbody">
+          <a href="/page-auto"
+             class="nav-link"
+             routerLink="page-auto"
+             (click)="goToSelectAuto(element.idPicture)">
+            {{element.nameBrand}}
+          </a>
+        </div>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="model">
-      <th mat-header-cell cdkDrag *matHeaderCellDef> model</th>
+      <th class="head-table " mat-header-cell cdkDrag *matHeaderCellDef> Model</th>
       <td mat-cell *matCellDef="let element">
-        <a href="/page-auto"
-           class="nav-link"
-           routerLink="page-auto"
-           (click)="goToSelectAuto(element.idPicture)">
-          {{element.nameModel}}
-        </a>
+        <div class="div-ceil-tbody">
+          <a href="/page-auto"
+             class="nav-link"
+             routerLink="page-auto"
+             (click)="goToSelectAuto(element.idPicture)">
+            {{element.nameModel}}
+          </a>
+        </div>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="year">
-      <th mat-header-cell cdkDrag *matHeaderCellDef> year</th>
-      <td mat-cell *matCellDef="let element"> {{element.year}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="price">
-      <th mat-header-cell cdkDrag *matHeaderCellDef> price</th>
-      <td mat-cell *matCellDef="let element"> {{formatPrice(element.price)}}&nbsp;₽</td>
-    </ng-container>
-
-    <ng-container matColumnDef="update" *ngIf="isModerator || isAdmin">
-      <th mat-header-cell cdkDrag *matHeaderCellDef> update</th>
+      <th class="head-table" mat-header-cell cdkDrag *matHeaderCellDef> Year</th>
       <td mat-cell *matCellDef="let element">
-        <button class="button blue">
-          <span class="material-icons" (click)="goToUpdate(element.id)">update</span>
-        </button>
+        <div class="div-ceil-tbody">
+          {{element.year}}
+        </div>
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="delete" *ngIf="isModerator || isAdmin">
-      <th mat-header-cell cdkDrag *matHeaderCellDef> delete</th>
+    <ng-container matColumnDef="price">
+      <th class="head-table" mat-header-cell cdkDrag *matHeaderCellDef> Price</th>
       <td mat-cell *matCellDef="let element">
-        <button class="button blue">
-          <span class="material-icons" (click)="deleteAuto(element)">delete</span>
-        </button>
+        <div class="div-ceil-tbody">
+          {{formatPrice(element.price)}}&nbsp;₽
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="body style">
+      <th class="head-table" mat-header-cell cdkDrag *matHeaderCellDef> Body style</th>
+      <td mat-cell *matCellDef="let element">
+        <div class="div-ceil-tbody">
+          {{formatPrice(element.bodyStyleType)}}
+        </div>
       </td>
     </ng-container>
 
@@ -82,7 +85,3 @@
                  (page)="getIndexPage($event.pageIndex, $event.pageSize)">
   </mat-paginator>
 </div>
-
-<!-- [pageIndex]="0"
-                 [pageSize]="sizeCars"-->
-

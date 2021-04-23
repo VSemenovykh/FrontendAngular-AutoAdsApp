@@ -1,5 +1,5 @@
 <ng-template [ngIf]="notNegativeId">
-  <div class="content">
+  <div class="content" *ngIf="!isDelete">
     <div class="image-auto">
       <div class="container row">
         <div class="col-md-12">
@@ -19,8 +19,14 @@
             <div class="div-compare" *ngIf="isAdmin || isUser || isModerator">
               <section>
                 <div class="example-button-row">
-                  <button mat-stroked-button (click)="compareAuto(dataAuto.id)">add to compare</button>
-                  <button mat-stroked-button style="margin-left:10px" (click)="goToCompare()" *ngIf="isAddCompare">go to compare</button>
+                  <button mat-stroked-button (click)="compareAuto(dataAuto.id)" *ngIf="!isAddCompare">add to compare
+                  </button>
+                  <button mat-stroked-button (click)="compareAuto(dataAuto.id)" *ngIf="isAddCompare" disabled>add to
+                    compare
+                  </button>
+                  <button mat-stroked-button style="margin-left:10px" (click)="goToCompare()" *ngIf="isAddCompare">go to
+                    compare
+                  </button>
                 </div>
               </section>
               <div *ngIf="isAddCompare">
@@ -51,7 +57,9 @@
           <strong>
             <td>Price:</td>
           </strong>
-          <td><div  class = "price">{{dataAuto.price}}&nbsp;₽</div></td>
+          <td>
+            <div class="price">{{dataAuto.price}}&nbsp;₽</div>
+          </td>
         </tr>
         <tr>
           <strong>
@@ -85,11 +93,21 @@
         </tr>
       </table>
     </div>
+    <div class="buttons-control">
+      <div class="button-delete" *ngIf="isAdmin">
+        <button mat-stroked-button class="button blue" (click)="deleteAuto(dataAuto)">
+          <span class="material-icons"> delete </span>
+        </button>
+      </div>
+      <div class="button-edit" *ngIf="isAdmin || isModerator">
+        <button mat-stroked-button class="button blue" (click)="goToEdit(dataAuto.id)">
+          <mat-icon> edit</mat-icon>
+        </button>
+      </div>
+    </div>
   </div>
-</ng-template>
-<ng-template [ngIf]="!notNegativeId">
-  <div class="no-auto-with-id">
-    Auto with id = {{dataAuto.id}} does not exist!
+  <div class="text-deleted-auto" *ngIf="isDelete">
+    <p>Successfully removed</p>
   </div>
 </ng-template>
 

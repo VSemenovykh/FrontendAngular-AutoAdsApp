@@ -5,20 +5,21 @@ import {Observable} from "rxjs";
 @Injectable()
 export class PictureAutoService {
 
-  constructor(private http: HttpClient) {}
-
-  private pictureUrl = 'http://localhost:8080/api/auth';
-
-  public getPictureAutoByIdAuto(idAuto: any): Observable<any>{
-    return this.http.get(this.pictureUrl + '/pictureAuto/idAuto/' + idAuto);
+  constructor(private http: HttpClient) {
   }
 
-  public createPictureAuto(pictureAuto: any): any{
-    return this.http.post(this.pictureUrl + '/pictureAuto', pictureAuto);
+  private pictureUrlAll = 'http://localhost:8080/api/all';
+
+  public getPictureAutoByIdAuto(idAuto: any): Observable<any> {
+    return this.http.get(this.pictureUrlAll + '/pictureAuto/idAuto/' + idAuto);
   }
 
-  public updatePictureAuto(pictureAuto: any, idImage: any): any{
-    return (pictureAuto != null )?(this.http.put(this.pictureUrl + '/pictureAuto/update/' + idImage, pictureAuto)):this.http.put(this.pictureUrl + '/update/' + idImage, null);
+  public createPictureAuto(pictureAuto: any): any {
+    return this.http.post(this.pictureUrlAll + '/pictureAuto', pictureAuto);
+  }
+
+  public editPictureAuto(pictureAuto: any, idImage: any): any {
+    return (pictureAuto != null) ? (this.http.put(this.pictureUrlAll + '/pictureAuto/update/' + idImage, pictureAuto)) : this.http.put(this.pictureUrlAll + '/update/' + idImage, null);
   }
 }
 

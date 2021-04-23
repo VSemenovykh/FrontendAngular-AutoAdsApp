@@ -50,12 +50,7 @@ export class AutoComponent implements OnInit {
       this.isUser = this.roles.includes('ROLE_USER');
     }
 
-    if(this.isAdmin || this.isModerator){
-      this.columns = ['photo', 'brand', 'model', 'year', 'price', 'update', 'delete'];
-    }
-    else{
-      this.columns  = ['photo', 'brand', 'model', 'year', 'price'];
-    }
+    this.columns = ['photo', 'brand', 'model', 'year', 'price', 'body style' ];
 
     if(this.page != 1){
       this.getIndexPage(this.page, this.pageSize);
@@ -83,8 +78,6 @@ export class AutoComponent implements OnInit {
     console.log("getIndexPage()");
     this.pageSize = sizePage;
     this.page = index;
-    console.log("this.pageSize: ", this.pageSize);
-    console.log("this.page: ", this.page);
     this.loadAutoByPage();
   }
 
@@ -92,17 +85,17 @@ export class AutoComponent implements OnInit {
     console.log("loadAutoByPage()");
     const params = this.getRequestParams(this.page, this.pageSize);
     console.log("params: ", params);
-    this.autoService.getAllAutoPage(params).subscribe((response) =>{
-      const { listAutoJoin, totalAutoJoin, currentPage } = response;
-      this.cars = listAutoJoin;
-      this.currentPage = currentPage;
-      this.dataLength = totalAutoJoin;
-      console.log("listAutoJoin: ", listAutoJoin);
-      console.log("currentPage: ", currentPage);
-      console.log("totalAutoJoin: ", totalAutoJoin);
-    }, error => {
-      console.log(error);
-    });
+    this.autoService.getAllAutoPage(params)
+      .subscribe(
+        (response) => {
+          const {listAutoJoin, totalAutoJoin, currentPage} = response;
+          this.cars = listAutoJoin;
+          this.currentPage = currentPage;
+          this.dataLength = totalAutoJoin;
+        },
+        error => {
+          console.log(error);
+        });
   }
 
   refreshPage(): void {
@@ -117,24 +110,11 @@ export class AutoComponent implements OnInit {
     }
   }
 
-  deleteAuto(car: AutoJoin): void {
-    console.log("deleteAuto()");
-    this.autoService.deleteAuto(car)
-      .subscribe(data => {
-      });
-    console.log("Deleted auto from list");
-    this.refreshPage();
-  }
-
-  goToUpdate(id: number): void {
-    this.router.navigate(['/update', id]);
-  }
-
   goToSelectAuto(idAuto: any): void {
     this.router.navigate(['/page-auto', idAuto]);
   }
 
-  formatPrice(price: any): any{
+  formatPrice(price: any): any {
     return String(price).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
   }
 }

@@ -15,23 +15,8 @@ import {TokenStorageService} from "../_services/token-storage.service";
 })
 export class PageAutoComponent implements OnInit {
 
-  dataAuto = {"id": null,
-          "idPicture": null,
-          "raster": null,
-          "email": null,
-          "phone": null,
-          "nameBrand": null,
-          "nameModel": null,
-          "year": null,
-          "color": null,
-          "price": null,
-          "motorType": null,
-          "volume": null,
-          "driveType": null,
-          "transmissionType": null,
-          "bodyStyleType": null};
-
-  neweAuto: AutoJoin = new AutoJoin();
+  dataAuto: AutoJoin = new AutoJoin();
+  dataAutoToCompare: AutoJoin = new AutoJoin();
   pictureAuto: AutoPicture = new AutoPicture();
   retrievedImage: any;
   private roles: string[];
@@ -42,6 +27,7 @@ export class PageAutoComponent implements OnInit {
   isUser: boolean = false;
   isPicture: boolean = true;
   isAddCompare: boolean = false;
+  isDelete: boolean = false;
   notNegativeId: boolean = true;
 
   constructor(
@@ -51,6 +37,7 @@ export class PageAutoComponent implements OnInit {
              private autoService: AutoService,
              private imageAutoService: PictureAutoService,
              private compareAutoService: CompareAutoService,
+             private token: TokenStorageService,
              @Inject(DOCUMENT) private _document: Document
             ) {
   }
@@ -68,14 +55,28 @@ export class PageAutoComponent implements OnInit {
 
     this.dataAuto.id = Number(this.route.snapshot.params.id);
     if (this.dataAuto.id > -1) {
-      this.getImage(this.dataAuto.id);
       this.getAutoJoinById();
+      this.getImage(this.dataAuto.id);
+
+      if (!this.isAddCompare) {
+        this.checkIsAddedCompareAuto();
+      }
 
     } else {
-      this.notNegativeId = false;
+      this.router.navigate(['/404']);
     }
 
     this.compareAutoService.currentIsAddedCompare.subscribe(isAddedCompare => this.isAddCompare = isAddedCompare);
+  }
+
+  getAutoJoinById(): void {
+    console.log("getAutoJoinById()");
+    const idAuto = Number(this.route.snapshot.params.id);
+    this.autoService.getAutoById(idAuto)
+      .subscribe((data: any) => {
+        this.dataAuto = data;
+        this.dataAuto.price = String(this.dataAuto.price).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
+      });
   }
 
   getImage(id: any): void {
@@ -88,39 +89,70 @@ export class PageAutoComponent implements OnInit {
       );
   }
 
-  getAutoJoinById(): void {
-    console.log("getAutoJoinById()");
-    const idAuto = Number(this.route.snapshot.params.id);
-    this.autoService.getAutoById(idAuto)
-      .subscribe((data: any) => {
-        this.dataAuto = data;
-        console.log("Result: ", data);
-        this.dataAuto.price = String(this.dataAuto.price).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
-      });
-  }
-
   goBack(): void {
     this.router.navigate(['/auto']);
   }
 
   compareAuto(idAuto: any) {
     console.log("compareAuto()");
+    const params = {"idUser": this.tokenStorageService.getUser().id};
     this.autoService.getAutoById(idAuto)
       .subscribe(
         res => {
-          this.neweAuto = res;
-          console.log("Result: ", res);
-          this.compareAutoService.addAutoToCompare(this.neweAuto)
+          this.dataAutoToCompare = res;
+          this.compareAutoService.addAutoToCompare(this.dataAutoToCompare, params)
             .subscribe(
               data => {
-              })
-          console.log("Auto successfully added to the list compare");
-          this.isAddCompare = true;
+                console.log("Auto successfully added to the list compare");
+                this.isAddCompare = true;
+              },
+              error => {
+                console.log("error 403: ", error);
+              }
+            );
+          this.compareAutoService.sendMessage(this.isAddCompare);
+        })
+  }
+
+  checkIsAddedCompareAuto(): void {
+    const params = {"idAuto": this.dataAuto.id, "idUser": this.tokenStorageService.getUser().id};
+    this.compareAutoService.getCompareAutoByIdAuto(params)
+      .subscribe(
+        res => {
+          if (res != null) {
+            this.isAddCompare = true;
+          }
+        },
+        error => {
+          this.isAddCompare = false;
+          console.log("error 404: ", error);
         });
-    this.compareAutoService.sendMessage(this.isAddCompare);
   }
 
   goToCompare(): void {
     this.router.navigate(['/compare-auto']);
+  }
+
+  deleteAuto(car: AutoJoin): void {
+    console.log("deleteAuto()");
+    this.autoService.deleteAuto(car)
+      .subscribe(
+        data => {
+        },
+        error => {
+          console.log("error: ", error);
+        });
+    console.log("Deleted auto from list");
+
+    this.isDelete = true;
+    this.goToListAutoAds();
+  }
+
+  goToListAutoAds(): void {
+    this.router.navigate(['/auto']);
+  }
+
+  goToEdit(id: number): void {
+    this.router.navigate(['/update', id]);
   }
 }

@@ -1,59 +1,57 @@
 import {Component, Inject, OnInit, ViewChild} from "@angular/core";
 import {FormBuilder} from "@angular/forms";
 import {AutoJoin} from "../models/autojoin.model";
-import { SearchAutoService } from '../_services/search-auto.service';
+import {SearchAutoService} from '../_services/search-auto.service';
 import {TokenStorageService} from "../_services/token-storage.service";
 import {Router} from "@angular/router";
 import {DOCUMENT} from "@angular/common";
-import { GroupResult, groupBy } from '@progress/kendo-data-query';
-import {AutoService} from "../_services/auto.service";
-import {CompareAutoService} from "../_services/compare-auto.service";
+import {GroupResult, groupBy} from '@progress/kendo-data-query';
 
 @Component({
   selector: 'app-multiple-search-auto',
   templateUrl: 'search-auto.component.html',
   styleUrls: ['search-auto.component.css']
 })
-export class SearchAutoComponent implements OnInit{
+export class SearchAutoComponent implements OnInit {
   @ViewChild('list') list;
 
   // tslint:disable-next-line:max-line-length
   brandList: Array<string> = ['AUDI', 'FORD', 'HONDA', 'HYUNDAI', 'BMW', 'MERCEDES-BENZ', 'KIA'];
 
   modelList: Array<any> = [
-    { name: 'A3', category: 'Model', subcategory: 'AUDI' },
-    { name: 'A4', category: 'Model', subcategory: 'AUDI' },
-    { name: 'A8', category: 'Model', subcategory: 'AUDI' },
+    {name: 'A3', category: 'Model', subcategory: 'AUDI'},
+    {name: 'A4', category: 'Model', subcategory: 'AUDI'},
+    {name: 'A8', category: 'Model', subcategory: 'AUDI'},
 
-    { name: 'FIESTA', category: 'Model', subcategory: 'FORD' },
-    { name: 'FOCUS', category: 'Model', subcategory: 'FORD' },
-    { name: 'MONDEO', category: 'Model', subcategory: 'FORD' },
+    {name: 'FIESTA', category: 'Model', subcategory: 'FORD'},
+    {name: 'FOCUS', category: 'Model', subcategory: 'FORD'},
+    {name: 'MONDEO', category: 'Model', subcategory: 'FORD'},
 
-    { name: 'ACCORD', category: 'Model', subcategory: 'HONDA' },
-    { name: 'CROSSTOUR', category: 'Model', subcategory: 'HONDA' },
-    { name: 'JAZZ', category: 'Model', subcategory: 'HONDA' },
+    {name: 'ACCORD', category: 'Model', subcategory: 'HONDA'},
+    {name: 'CROSSTOUR', category: 'Model', subcategory: 'HONDA'},
+    {name: 'JAZZ', category: 'Model', subcategory: 'HONDA'},
 
-    { name: 'SOLARIS', category: 'Model', subcategory: 'HYUNDAI' },
-    { name: 'ELANTRA', category: 'Model', subcategory: 'HYUNDAI' },
-    { name: 'SONATA', category: 'Model', subcategory: 'HYUNDAI' },
+    {name: 'SOLARIS', category: 'Model', subcategory: 'HYUNDAI'},
+    {name: 'ELANTRA', category: 'Model', subcategory: 'HYUNDAI'},
+    {name: 'SONATA', category: 'Model', subcategory: 'HYUNDAI'},
 
-    { name: 'M5', category: 'Model', subcategory: 'BMW' },
-    { name: 'M6', category: 'Model', subcategory: 'BMW' },
-    { name: 'M8', category: 'Model', subcategory: 'BMW' },
+    {name: 'M5', category: 'Model', subcategory: 'BMW'},
+    {name: 'M6', category: 'Model', subcategory: 'BMW'},
+    {name: 'M8', category: 'Model', subcategory: 'BMW'},
 
-    { name: 'GLE AMG', category: 'Model', subcategory: 'MERCEDES-BENZ' },
-    { name: 'MAYBACH GLS', category: 'Model', subcategory: 'MERCEDES-BENZ' },
-    { name: 'AMG GT', category: 'Model', subcategory: 'MERCEDES-BENZ' },
+    {name: 'GLE AMG', category: 'Model', subcategory: 'MERCEDES-BENZ'},
+    {name: 'MAYBACH GLS', category: 'Model', subcategory: 'MERCEDES-BENZ'},
+    {name: 'AMG GT', category: 'Model', subcategory: 'MERCEDES-BENZ'},
 
-    { name: 'CERATO', category: 'Model', subcategory: 'KIA' },
-    { name: 'K5', category: 'Model', subcategory: 'KIA' },
-    { name: 'RIO X', category: 'Model', subcategory: 'KIA' }
+    {name: 'CERATO', category: 'Model', subcategory: 'KIA'},
+    {name: 'K5', category: 'Model', subcategory: 'KIA'},
+    {name: 'RIO X', category: 'Model', subcategory: 'KIA'}
   ];
 
   groupedModel: GroupResult[] = groupBy(this.modelList, [{field: 'subcategory'}]);
 
   colorList: Array<string> = ['WHITE', 'SILVER', 'GRAY', 'BLACK', 'RED', 'MAROON', 'NAVY', 'YELLOW', 'OLIVE', 'LIME',
-                              'GREEN', 'AQUA','TEAL','BLUE', 'FUCHSIA', 'PURPLE', 'BROWN'];
+    'GREEN', 'AQUA', 'TEAL', 'BLUE', 'FUCHSIA', 'PURPLE', 'BROWN'];
 
   driveList: Array<string> = ['AWD', 'FWD', 'RWD'];
 
@@ -64,16 +62,16 @@ export class SearchAutoComponent implements OnInit{
   motorList: Array<string> = ['DIESEL', 'ELECTRIC', 'GASOLINE'];
 
   startYears = [
-    {id: 0,  name: 'all'},
-    {id: 1,  name: "2000"},
-    {id: 2,  name: "2001"},
-    {id: 3,  name: "2002"},
-    {id: 4,  name: "2003"},
-    {id: 5,  name: "2004"},
-    {id: 6,  name: "2005"},
-    {id: 7,  name: "2006"},
-    {id: 8,  name: "2007"},
-    {id: 9,  name: "2008"},
+    {id: 0, name: 'all'},
+    {id: 1, name: "2000"},
+    {id: 2, name: "2001"},
+    {id: 3, name: "2002"},
+    {id: 4, name: "2003"},
+    {id: 5, name: "2004"},
+    {id: 6, name: "2005"},
+    {id: 7, name: "2006"},
+    {id: 8, name: "2007"},
+    {id: 9, name: "2008"},
     {id: 10, name: "2009"},
     {id: 11, name: "2010"},
     {id: 12, name: "2011"},
@@ -90,16 +88,16 @@ export class SearchAutoComponent implements OnInit{
   ];
 
   endYears = [
-    {id: 0,  name: 'all'},
-    {id: 1,  name: "2000"},
-    {id: 2,  name: "2001"},
-    {id: 3,  name: "2002"},
-    {id: 4,  name: "2003"},
-    {id: 5,  name: "2004"},
-    {id: 6,  name: "2005"},
-    {id: 7,  name: "2006"},
-    {id: 8,  name: "2007"},
-    {id: 9,  name: "2008"},
+    {id: 0, name: 'all'},
+    {id: 1, name: "2000"},
+    {id: 2, name: "2001"},
+    {id: 3, name: "2002"},
+    {id: 4, name: "2003"},
+    {id: 5, name: "2004"},
+    {id: 6, name: "2005"},
+    {id: 7, name: "2006"},
+    {id: 8, name: "2007"},
+    {id: 9, name: "2008"},
     {id: 10, name: "2009"},
     {id: 11, name: "2010"},
     {id: 12, name: "2011"},
@@ -116,15 +114,15 @@ export class SearchAutoComponent implements OnInit{
   ];
 
   startVolumes = [
-    {id: 0,  name: "all"},
-    {id: 2,  name: "0.2"},
-    {id: 3,  name: "0.4"},
-    {id: 4,  name: "0.6"},
-    {id: 5,  name: "0.8"},
-    {id: 6,  name: "1.0"},
-    {id: 7,  name: "1.2"},
-    {id: 8,  name: "1.4"},
-    {id: 9,  name: "1.6"},
+    {id: 0, name: "all"},
+    {id: 2, name: "0.2"},
+    {id: 3, name: "0.4"},
+    {id: 4, name: "0.6"},
+    {id: 5, name: "0.8"},
+    {id: 6, name: "1.0"},
+    {id: 7, name: "1.2"},
+    {id: 8, name: "1.4"},
+    {id: 9, name: "1.6"},
     {id: 10, name: "1.8"},
     {id: 11, name: "2.0"},
     {id: 12, name: "2.2"},
@@ -141,15 +139,15 @@ export class SearchAutoComponent implements OnInit{
   ];
 
   endVolumes = [
-    {id: 0,  name: "all"},
-    {id: 2,  name: "0.2"},
-    {id: 3,  name: "0.4"},
-    {id: 4,  name: "0.6"},
-    {id: 5,  name: "0.8"},
-    {id: 6,  name: "1.0"},
-    {id: 7,  name: "1.2"},
-    {id: 8,  name: "1.4"},
-    {id: 9,  name: "1.6"},
+    {id: 0, name: "all"},
+    {id: 2, name: "0.2"},
+    {id: 3, name: "0.4"},
+    {id: 4, name: "0.6"},
+    {id: 5, name: "0.8"},
+    {id: 6, name: "1.0"},
+    {id: 7, name: "1.2"},
+    {id: 8, name: "1.4"},
+    {id: 9, name: "1.6"},
     {id: 10, name: "1.8"},
     {id: 11, name: "2.0"},
     {id: 12, name: "2.2"},
@@ -164,21 +162,23 @@ export class SearchAutoComponent implements OnInit{
     {id: 21, name: "5.5"},
   ];
 
-  dataSearch = {"id": null,
-                "raster": null,
-                "nameBrand": null,
-                "nameModel": null,
-                "startYear": null,
-                "endYear": null,
-                "color":null,
-                "startPrice": null,
-                "endPrice": null,
-                "motorType": null,
-                "startVolume": null,
-                "endVolume": null,
-                "driveType": null,
-                "transmissionType": null,
-                "bodyStyleType": null};
+  dataSearch = {
+    "id": null,
+    "raster": null,
+    "nameBrand": null,
+    "nameModel": null,
+    "startYear": null,
+    "endYear": null,
+    "color": null,
+    "startPrice": null,
+    "endPrice": null,
+    "motorType": null,
+    "startVolume": null,
+    "endVolume": null,
+    "driveType": null,
+    "transmissionType": null,
+    "bodyStyleType": null
+  };
 
   auto: Array<AutoJoin>;
   private roles: string[];
@@ -209,9 +209,7 @@ export class SearchAutoComponent implements OnInit{
               private tokenStorageService: TokenStorageService,
               public fb: FormBuilder,
               private router: Router,
-              @Inject(DOCUMENT) private _document: Document,
-              private autoService: AutoService,
-              private compareAutoService: CompareAutoService){
+              @Inject(DOCUMENT) private _document: Document){
   }
 
   searchForm = this.fb.group({
@@ -222,14 +220,12 @@ export class SearchAutoComponent implements OnInit{
     model: null
   })
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     console.log("ngOnInit()");
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
       this.roles = user.roles;
-      console.log("user: ", user);
-      console.log("this.roles: ", this.roles);
 
       this.isAdmin = this.roles.includes('ROLE_ADMIN');
       this.isModerator = this.roles.includes('ROLE_MODERATOR');
@@ -237,13 +233,12 @@ export class SearchAutoComponent implements OnInit{
     }
   }
 
-  onSubmit(){
+  onSubmit() {
     console.log("onSubmit()");
-    console.log("Start dataSearch: ", this.dataSearch);
     this.dataSearch['nameBrand'] = this.brands;
 
     const selectedModels = this.searchForm.controls["model"].value;
-    if(selectedModels != null){
+    if (selectedModels != null) {
       const selectedModelNames = selectedModels.map(model => model.name);
       this.dataSearch['nameModel'] = selectedModelNames;
     }
@@ -261,31 +256,29 @@ export class SearchAutoComponent implements OnInit{
     this.dataSearch['bodyStyleType'] = this.bodyStyles;
 
     this.dataSearch['startYear'] = this.searchForm.controls["startYear"].value;
-    if(this.dataSearch['startYear'] == "all"){
+    if (this.dataSearch['startYear'] == "all") {
       this.dataSearch['startYear'] = null;
     }
 
     this.dataSearch['endYear'] = this.searchForm.controls["endYear"].value;
-    if( this.dataSearch['endYear'] == "all"){
+    if (this.dataSearch['endYear'] == "all") {
       this.dataSearch['endYear'] = null;
     }
 
     this.dataSearch['startVolume'] = this.searchForm.controls["startVolume"].value;
-    if(this.dataSearch['startVolume'] == "all"){
+    if (this.dataSearch['startVolume'] == "all") {
       this.dataSearch['startVolume'] = null;
     }
 
     this.dataSearch['endVolume'] = this.searchForm.controls["endVolume"].value;
-    if( this.dataSearch['endVolume']  == "all"){
-      this.dataSearch['endVolume']  = null;
+    if (this.dataSearch['endVolume'] == "all") {
+      this.dataSearch['endVolume'] = null;
     }
 
-    console.log("End dataSearch: ", this.dataSearch);
-
-    if(this.page != 1){
+    if (this.page != 1) {
       this.handlePageChange(this.currentPage);
 
-    }else{
+    } else {
       this.findCarByDiffCriteriaPage(this.dataSearch);
     }
   }
@@ -315,30 +308,28 @@ export class SearchAutoComponent implements OnInit{
     this.currentIndex = index;
   }
 
-  findCarByDiffCriteriaPage(data: any): void{
+  findCarByDiffCriteriaPage(data: any): void {
     console.log("findCarByDiffCriteriaPage()");
     const params = this.getRequestParams(this.page, this.pageSize);
     console.log("params: ", params);
     this.searchCarService.searchAutoPage(data, params)
-      .subscribe((response) =>{
-        console.log("response: ", response);
-        if(response != null){
-          const {listAutoJoin, totalAutoJoin, currentPage} = response;
-          this.auto = listAutoJoin;
-          this.count = totalAutoJoin;
-          this.currentPage = currentPage;
-          console.log("this.auto : ", this.auto);
-          console.log("this.count: ", this.count);
-          console.log("this.currentPage: ", this.currentPage);
+      .subscribe(
+        (response) => {
+          if (response != null) {
+            const {listAutoJoin, totalAutoJoin, currentPage} = response;
+            this.auto = listAutoJoin;
+            this.count = totalAutoJoin;
+            this.currentPage = currentPage;
 
-          this.isResponse = true;
-        }else{
-          this.isResponse = false;
-        }
+            this.isResponse = true;
+          } else {
+            this.isResponse = false;
+          }
 
-      }, error => {
-        console.log(error);
-      });
+        },
+        error => {
+          console.log(error);
+        });
   }
 
   getImageAuto(raster: any): string {
@@ -353,11 +344,11 @@ export class SearchAutoComponent implements OnInit{
     this.router.navigate(['/page-auto', idAuto]);
   }
 
-  reset():void{
+  reset(): void {
     this._document.defaultView.location.reload();
   }
 
-  formatPrice(price: any): any{
+  formatPrice(price: any): any {
     return String(price).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
   }
 }

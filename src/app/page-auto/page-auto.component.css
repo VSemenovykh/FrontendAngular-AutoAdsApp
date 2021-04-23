@@ -1,37 +1,40 @@
-.content{
+.content {
   position: relative;
   top: 15px;
   left: 20px;
   width: 250px;
   height: 180px;
 }
-.info-auto{
+
+.info-auto {
   position: absolute;
   top: 80px;
-  left:50px;
+  left: 50px;
   width: 400px;
 }
-.image-auto{
+
+.image-auto {
   position: absolute;
   top: 80px;
   left: 200%;
 }
-.border-image-auto{
+
+.border-image-auto {
   width: 600px;
   height: 300px;
   border: 1px solid #ccc;
 }
 
-.contact{
+.contact {
 
 }
 
-h1{
+h1 {
   color: #525254;
   font-weight: bold;
 }
 
-h2{
+h2 {
   color: #525254;
 }
 
@@ -42,6 +45,7 @@ th {
   border-left: 30px solid #f7f9f8;
   padding: 8px 2px;
 }
+
 td {
   border-right: 30px solid #f7f9f8;
   border-left: 0% solid #f7f9f8;
@@ -68,15 +72,16 @@ section {
 .example-button-row .mat-button-base {
   margin: 8px 8px 8px 0;
 }
+
 .mat-stroked-button {
   font-size: 14px;
 }
 
-.price{
+.price {
   font-size: 25px;
 }
 
-.div-compare{
+.div-compare {
   height: 50px
 }
 
@@ -84,7 +89,7 @@ section {
   margin-right: 8px;
 }
 
-.no-auto-with-id{
+.no-auto-with-id {
   font-size: 25px;
   align-items: center;
   box-sizing: border-box;
@@ -94,4 +99,27 @@ section {
   margin-top: 200px;
   margin-left: 30%;
 }
+
+.buttons-control {
+  position: absolute;
+  margin: 10% 25% 0 205%;
+  width: 70%;
+  height: 25%;
+}
+
+.button-delete {
+  position: absolute;
+  margin-left: 45%;
+}
+
+.button-edit {
+  position: absolute;
+  margin-left: 0%;
+}
+
+.text-deleted-auto {
+  width: 50%;
+  font-size: 25px;
+}
+
 

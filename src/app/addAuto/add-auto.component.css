@@ -1,4 +1,4 @@
-.content{
+.content {
   position: relative;
   top: 15px;
   left: 20px;
@@ -6,30 +6,31 @@
   height: 180px;
 }
 
-.auto-add{
+.auto-add {
   position: absolute;
   top: 40%;
-  left:50px;
+  left: 50px;
   width: 250%;
 }
-.form-auto-add{
+
+.form-auto-add {
   width: 240%;
   height: 100%;
 }
 
-.table-select{
+.table-select {
   padding-top: 10%;
   width: 200%;
 }
 
-.contact{
+.contact {
   position: relative;
   margin-top: 10%;
   left: 250%;
   width: 100%
 }
 
-.error-message{
+.error-message {
   position: absolute;
   top: 230%;
   left: 240%;
@@ -44,22 +45,23 @@ th {
   border-left: 30px solid #f7f9f8;
   padding: 8px 2px;
 }
+
 td {
   border-right: 30px solid #f7f9f8;
   border-left: 30px solid #f7f9f8;
   padding: 12px 2px;
 }
 
-h1, h2{
-  color:navy;
+h1, h2 {
+  color: navy;
   font-weight: bold;
 }
 
-p{
+p {
   font-size: 22px;
 }
 
-select{
+select {
   width: 100%;
 }
 
@@ -82,6 +84,7 @@ section {
 .example-button-row .mat-button-base {
   margin: 8px 8px 8px 0;
 }
+
 .mat-stroked-button {
   font-size: 160%;
 }
@@ -104,11 +107,11 @@ section {
   width: 100%;
 }
 
-.image-text-color{
+.image-text-color {
   color: #e90719;
   padding-left: 5px;
 }
 
-.image-validate{
+.image-validate {
   padding-left: 20%;
 }

@@ -6,6 +6,7 @@ th {
   /*  color: #039; */
   padding: 8px 2px;
 }
+
 td {
   border-right: 30px solid #f7f9f8;
   border-left: 30px solid #f7f9f8;
@@ -13,35 +14,38 @@ td {
   padding: 12px 2px;
 }
 
-h1, h2{
-  color:navy;
+h1, h2 {
+  color: navy;
   font-weight: bold;
 }
 
-.content{
+.content {
   position: relative;
   top: 15px;
   /*margin-left: 5%;*/
   width: 114%;
   height: 400px;
 }
-.update-auto{
+
+.update-auto {
   position: absolute;
   top: 15%;
 }
-.image-auto{
+
+.image-auto {
   position: absolute;
   top: 6%;
   left: 110%;
 }
-.border-image-auto{
+
+.border-image-auto {
   position: fixed;
   width: 560px;
   height: 300px;
   border: 1px solid #ccc;
 }
 
-.form-contact{
+.form-contact {
   padding-top: 2%;
 }
 
@@ -64,6 +68,7 @@ section {
 .example-button-row .mat-button-base {
   margin: 8px 8px 8px 0;
 }
+
 .mat-stroked-button {
   font-size: 160%;
 }
@@ -85,7 +90,8 @@ section {
 .phone-full-width {
   width: 100%;
 }
-.no-auto-with-id{
+
+.no-auto-with-id {
   font-size: 25px;
   align-items: center;
   box-sizing: border-box;
@@ -96,7 +102,7 @@ section {
   margin-left: 30%;
 }
 
-.image-text-color{
+.image-text-color {
   color: #e90719;
   padding-left: 5px;
 }
