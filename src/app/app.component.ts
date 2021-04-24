@@ -53,19 +53,23 @@ export class AppComponent implements OnInit{
   }
 
   checkIsListCompareAuto(): void {
-    const params = {"page": 0, "size": 1, "idUser": this.tokenStorageService.getUser().id};
-    this.compare.getAllAutoToComparePage(params)
-      .subscribe(
-        (response) => {
-          if (response != null) {
-            this.isListCompareAuto = true;
-          } else {
-            this.isListCompareAuto = false;
-          }
-        },
-        error => {
-          console.log(error);
-        });
+    console.log("checkIsListCompareAuto():");
+    if(this.tokenStorageService.getUser() != null){
+      console.log("this.tokenStorageService.getUser().id: ", this.tokenStorageService.getUser().id);
+      const params = {"page": 0, "size": 1, "idUser": this.tokenStorageService.getUser().id};
+      this.compare.getAllAutoToComparePage(params)
+        .subscribe(
+          (response) => {
+            if (response != null) {
+              this.isListCompareAuto = true;
+            } else {
+              this.isListCompareAuto = false;
+            }
+          },
+          error => {
+            console.log(error);
+          });
+    }
   }
 
   refreshPage(): void {
