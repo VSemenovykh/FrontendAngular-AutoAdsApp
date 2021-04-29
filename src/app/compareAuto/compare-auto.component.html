@@ -1,13 +1,13 @@
 <div *ngIf="isUser || isAdmin || isModerator">
   <ng-template [ngIf]="!isListCompareAuto">
-    <div class="no-list-compare">
+    <div class="empty-list-compare">
       Click "Add to Compare" &nbsp;on the ads page
     </div>
   </ng-template>
 
   <ng-template [ngIf]="isListCompareAuto">
     <div>
-      <h1 class="text-center">Compare auto</h1>
+      <h1 class="header-center">Compare auto</h1>
     </div>
     <div>
       <form>

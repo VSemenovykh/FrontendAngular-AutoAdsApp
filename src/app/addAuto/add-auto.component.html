@@ -1,6 +1,6 @@
 <div class="content">
-  <h1 class="text-center">Add auto ads</h1>
-  <div class="auto-add">
+  <h1 class="header-center">Add auto ads</h1>
+  <div class="add-auto-ads">
     <div class="container row">
       <div class="col-md-6">
         <input type="file" (change)="onFileChanged($event)">
@@ -9,21 +9,20 @@
         <ng-template [ngIf]="validateFormatImage">
           {{message}}
         </ng-template>
-
         <ng-template [ngIf]="!validateFormatImage">
-          <div class="image-text-color">
+          <div class="color-text-image">
             <strong>Image format must be: JPG/jpg, PNG/png</strong>
           </div>
         </ng-template>
         <ng-template [ngIf]="!validateSizeImage">
-          <div class="image-text-color">
+          <div class="color-text-image">
             <strong>Image size exceeds 10 MB</strong>
           </div>
         </ng-template>
       </div>
     </div>
   </div>
-  <form class="form-auto-add" [formGroup]="createForm" (ngSubmit)="onSubmit()">
+  <form class="form-add-auto-ads" [formGroup]="createForm" (ngSubmit)="onSubmit()">
     <div class="table-select">
       <table>
         <tr>
@@ -135,7 +134,7 @@
         </tr>
         <tr>
           <td>
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="full-width-price">
               <mat-label>Price</mat-label>
               <input type="text" matInput [formControl]="price" [errorStateMatcher]="matcher">
               <mat-error *ngIf="price.hasError('required')">
@@ -145,7 +144,7 @@
                 Price must be more <strong>1</strong>
               </mat-error>
               <mat-error *ngIf="price.hasError('max')">
-                Price must be less <strong>1 000 000 000 000</strong>
+                Price must be less <strong>1 000 000 000</strong>
               </mat-error>
             </mat-form-field>
           </td>
@@ -165,7 +164,7 @@
       </table>
     </div>
     <section>
-      <div class="example-button-row">
+      <div class="button-create">
         <button mat-stroked-button>create</button>
       </div>
     </section>
@@ -174,7 +173,7 @@
     <form [formGroup]="inputForm">
       <table>
         <tr>
-          <mat-form-field class="email-full-width">
+          <mat-form-field class="full-width-email">
             <mat-label>Email</mat-label>
             <input type="email" matInput [formControl]="emailBrand" placeholder="Ex. pat@example.com">
             <mat-error *ngIf="emailBrand.hasError('pattern') && !emailBrand.hasError('pattern')">
@@ -186,11 +185,11 @@
           </mat-form-field>
         </tr>
         <tr>
-          <mat-form-field class="phone-full-width">
+          <mat-form-field class="full-width-phone">
             <mat-label>Telephone</mat-label>
             <span matPrefix>+7 &nbsp;</span>
             <input type="text"
-                   matInput placeholder="(555)-555-12-34"
+                   matInput placeholder="(000)-000-00-00"
                    [class.is-invalid]="inputForm.get('phone').invalid && inputForm.get('phone').touched"
                    class="form-control"
                    formControlName="phone">
@@ -204,15 +203,15 @@
       </table>
     </form>
   </div>
-  <div class="error-message">
-    <ng-template [ngIf]="!trueData">
+  <div class="message-error">
+    <ng-template [ngIf]="!isData">
       <p class="text-danger">You did not fill in all fields </p>
       <p class="text-danger">Please,fill in all fields</p>
     </ng-template>
     <ng-template [ngIf]="!isPicture">
       <p class="text-danger">Not added photo</p>
     </ng-template>
-    <ng-template [ngIf]="!trueImage" ]>
+    <ng-template [ngIf]="!trueImage">
       <p class="text-danger">Choose the correct aspect ratio </p>
     </ng-template>
   </div>

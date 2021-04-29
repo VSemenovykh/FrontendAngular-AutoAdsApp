@@ -6,21 +6,14 @@
   height: 180px;
 }
 
-.auto-add {
-  position: absolute;
-  top: 40%;
-  left: 50px;
-  width: 250%;
+
+h1, h2 {
+  color: navy;
+  font-weight: bold;
 }
 
-.form-auto-add {
-  width: 240%;
-  height: 100%;
-}
-
-.table-select {
-  padding-top: 10%;
-  width: 200%;
+p {
+  font-size: 22px;
 }
 
 .contact {
@@ -30,7 +23,24 @@
   width: 100%
 }
 
-.error-message {
+.add-auto-ads {
+  position: absolute;
+  top: 40%;
+  left: 50px;
+  width: 250%;
+}
+
+.form-add-auto-ads {
+  width: 240%;
+  height: 100%;
+}
+
+.table-select {
+  padding-top: 10%;
+  width: 200%;
+}
+
+.message-error {
   position: absolute;
   top: 230%;
   left: 240%;
@@ -52,15 +62,6 @@ td {
   padding: 12px 2px;
 }
 
-h1, h2 {
-  color: navy;
-  font-weight: bold;
-}
-
-p {
-  font-size: 22px;
-}
-
 select {
   width: 100%;
 }
@@ -76,12 +77,12 @@ section {
   min-width: 120px;
 }
 
-.example-button-row {
+.button-create {
   display: table-cell;
   width: 490px;
 }
 
-.example-button-row .mat-button-base {
+.button-create .mat-button-base {
   margin: 8px 8px 8px 0;
 }
 
@@ -95,19 +96,19 @@ section {
   width: 100%;
 }
 
-.price-full-width {
+.full-width-price {
   width: 100%;
 }
 
-.email-full-width {
+.full-width-email {
   width: 100%;
 }
 
-.phone-full-width {
+.full-width-phone {
   width: 100%;
 }
 
-.image-text-color {
+.color-text-image {
   color: #e90719;
   padding-left: 5px;
 }

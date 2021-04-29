@@ -6,7 +6,7 @@
   height: 180px;
 }
 
-.info-auto {
+.specifications-auto {
   position: absolute;
   top: 80px;
   left: 50px;
@@ -63,13 +63,13 @@ section {
   min-width: 120px;
 }
 
-.example-button-row {
+.button-edit-auto-ads {
   padding-top: 0%;
   display: table-cell;
   width: 490px;
 }
 
-.example-button-row .mat-button-base {
+.button-edit-auto-ads .mat-button-base {
   margin: 8px 8px 8px 0;
 }
 
@@ -89,7 +89,7 @@ section {
   margin-right: 8px;
 }
 
-.no-auto-with-id {
+.text-no-auto-ads {
   font-size: 25px;
   align-items: center;
   box-sizing: border-box;
@@ -117,7 +117,7 @@ section {
   margin-left: 0%;
 }
 
-.text-deleted-auto {
+.text-deleted-auto-ads {
   width: 50%;
   font-size: 25px;
 }

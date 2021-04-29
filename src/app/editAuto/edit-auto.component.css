@@ -60,12 +60,12 @@ section {
   min-width: 120px;
 }
 
-.example-button-row {
+.button-edit-auto-ads {
   display: table-cell;
   width: 490px;
 }
 
-.example-button-row .mat-button-base {
+.button-edit-auto-ads .mat-button-base {
   margin: 8px 8px 8px 0;
 }
 
@@ -83,15 +83,15 @@ section {
   width: 100%;
 }
 
-.email-full-width {
+.full-width-email {
   width: 100%;
 }
 
-.phone-full-width {
+.full-width-phone {
   width: 100%;
 }
 
-.no-auto-with-id {
+.text-no-auto-ads {
   font-size: 25px;
   align-items: center;
   box-sizing: border-box;
@@ -102,7 +102,7 @@ section {
   margin-left: 30%;
 }
 
-.image-text-color {
+.color-text-image {
   color: #e90719;
   padding-left: 5px;
 }

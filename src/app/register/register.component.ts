@@ -27,11 +27,15 @@ export class RegisterComponent implements OnInit {
           console.log(data);
           this.isSuccessful = true;
           this.isSignUpFailed = false;
+          if(data == null){
+            this.isSuccessful = false;
+          }
         },
         err => {
+          this.isSuccessful = false;
+          this.isSignUpFailed = true;
           this.errorMessage = err.error.message;
           console.log("errorMessage: ", this.errorMessage);
-          this.isSignUpFailed = true;
         }
       );
   }
