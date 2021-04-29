@@ -1,4 +1,4 @@
-<h1 class="text-center">Search auto ads</h1>
+<h1 class="header-center">Search auto ads</h1>
 <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
   <table width="400" height="150" align=center>
     <tr>
@@ -133,10 +133,10 @@
       </td>
     </tr>
   </table>
-  <div class="button">
+  <div class="buttons">
     <ng-template [ngIf]="isUser || isAdmin || isModerator">
       <section>
-        <div class="example-button-row">
+        <div class="button-find-and-reset">
           <button mat-stroked-button>find</button>
           <button style="margin-left:20px" mat-stroked-button (click)="reset()">reset</button>
         </div>

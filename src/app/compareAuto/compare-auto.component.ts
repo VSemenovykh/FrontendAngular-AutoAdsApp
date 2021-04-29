@@ -139,10 +139,9 @@ export class CompareAutoComponent implements OnInit{
     console.log("params: ", params);
     this.compare.deleteCompareAuto(id, params)
       .subscribe(
-        data => {
-        },
+        data => {},
         error => {
-          console.log("error: ", error);
+          console.log("Error: ", error);
         });
 
     console.log("Auto successfully deleted");

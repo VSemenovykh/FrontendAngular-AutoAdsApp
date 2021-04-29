@@ -94,12 +94,8 @@ export class AutoComponent implements OnInit {
           this.dataLength = totalAutoJoin;
         },
         error => {
-          console.log(error);
+          console.log("Error: ",error);
         });
-  }
-
-  refreshPage(): void {
-    this._document.defaultView.location.reload();
   }
 
   getImageAuto(raster: any): string {

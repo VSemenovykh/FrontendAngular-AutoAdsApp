@@ -42,7 +42,7 @@ input {
   font-size: 20px;
 }
 
-.button {
+.buttons {
   border: none;
   outline: none;
   display: inline-block;
@@ -55,11 +55,11 @@ input {
   border-radius: 50px;
 }
 
-.button i {
+.buttons i {
   margin-right: 4px;
 }
 
-.button + .button {
+.buttons + .buttons {
   margin-left: 6px;
 }
 
@@ -87,15 +87,15 @@ button {
   width: 50%;
 }
 
-.button:hover {
+.buttons:hover {
   box-shadow: 0 1px 3px rgb(255, 252, 252);
 }
 
-.button:hover.blue {
+.buttons:hover.blue {
   background: #c8c8c8;
 }
 
-.button:active {
+.buttons:active {
   box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.2);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }

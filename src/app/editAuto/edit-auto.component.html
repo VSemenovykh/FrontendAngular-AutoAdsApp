@@ -11,18 +11,18 @@
             {{message}}
           </ng-template>
           <ng-template [ngIf]="!validateFormatImage">
-            <div class="image-text-color">
+            <div class="color-text-image">
               <strong>Image format must be: JPG/jpg, PNG/png</strong>
             </div>
           </ng-template>
           <ng-template [ngIf]="!validateSizeImage">
-            <div class="image-text-color">
+            <div class="color-text-image">
               <strong>Image size exceeds 10 MB</strong>
             </div>
           </ng-template>
         </div>
       </div>
-      <form class="form-auto-add" [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+      <form class="form-add-auto-ads" [formGroup]="updateForm" (ngSubmit)="onSubmit()">
         <div class="table-select">
           <table>
             <tr>
@@ -152,7 +152,7 @@
           </table>
         </div>
         <section>
-          <div class="example-button-row">
+          <div class="button-edit-auto-ads">
             <button mat-stroked-button>edit</button>
           </div>
         </section>

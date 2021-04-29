@@ -18,7 +18,7 @@
             </p>
             <div class="div-compare" *ngIf="isAdmin || isUser || isModerator">
               <section>
-                <div class="example-button-row">
+                <div class="button-compare-auto">
                   <button mat-stroked-button (click)="compareAuto(dataAuto.id)" *ngIf="!isAddCompare">add to compare
                   </button>
                   <button mat-stroked-button (click)="compareAuto(dataAuto.id)" *ngIf="isAddCompare" disabled>add to
@@ -37,7 +37,7 @@
         </div>
       </div>
     </div>
-    <div class="info-auto">
+    <div class="specifications-auto">
       <h1>{{dataAuto.nameBrand}} - {{dataAuto.nameModel}}</h1>
       <h2> Сar specifications: </h2>
       <table>
@@ -95,18 +95,18 @@
     </div>
     <div class="buttons-control">
       <div class="button-delete" *ngIf="isAdmin">
-        <button mat-stroked-button class="button blue" (click)="deleteAuto(dataAuto)">
+        <button mat-stroked-button class="buttons blue" (click)="deleteAuto(dataAuto)">
           <span class="material-icons"> delete </span>
         </button>
       </div>
       <div class="button-edit" *ngIf="isAdmin || isModerator">
-        <button mat-stroked-button class="button blue" (click)="goToEdit(dataAuto.id)">
+        <button mat-stroked-button class="buttons blue" (click)="goToEdit(dataAuto.id)">
           <mat-icon> edit</mat-icon>
         </button>
       </div>
     </div>
   </div>
-  <div class="text-deleted-auto" *ngIf="isDelete">
+  <div class="text-deleted-auto-ads" *ngIf="isDelete">
     <p>Successfully removed</p>
   </div>
 </ng-template>

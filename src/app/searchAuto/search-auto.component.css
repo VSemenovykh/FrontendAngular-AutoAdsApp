@@ -33,12 +33,12 @@ section {
   min-width: 120px;
 }
 
-.example-button-row {
+.button-edit-auto-ads {
   display: table-cell;
   width: 490px;
 }
 
-.example-button-row .mat-button-base {
+.button-edit-auto-ads .mat-button-base {
   margin: 8px 8px 8px 0;
   width: 15%;
 }
@@ -48,11 +48,11 @@ section {
   padding: 0px 5px;
 }
 
-.example-button-row {
+.button-edit-auto-ads {
   width: 25%;
 }
 
-.button {
+.buttons {
   padding-top: 3%;
 }
 

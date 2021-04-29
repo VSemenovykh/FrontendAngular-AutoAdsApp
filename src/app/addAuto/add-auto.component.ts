@@ -215,7 +215,7 @@ export class AddAutoComponent {
   message: string;
 
   isPicture: boolean = true;
-  trueData: boolean = true;
+  isData: boolean = true;
   validateFormatImage: boolean = true;
   validateSizeImage: boolean = true;
   trueImage: boolean = true;
@@ -232,7 +232,7 @@ export class AddAutoComponent {
     price: new FormControl('', [
       Validators.required,
       Validators.min(1),
-      Validators.max(1000000000000)])
+      Validators.max(1000000000)])
   })
 
   inputForm = new FormGroup({
@@ -306,7 +306,7 @@ export class AddAutoComponent {
       || (auto.transmissionType == null)
       || (auto.bodyStyleType == null)) {
 
-      this.trueData = false;
+      this.isData = false;
     } else {
       this.createPicture(this.auto);
     }
