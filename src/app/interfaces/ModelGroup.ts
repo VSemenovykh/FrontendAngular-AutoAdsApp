@@ -1,4 +1,4 @@
-import { Model } from '../interface/model';
+import { Model } from './/model';
 
 export interface ModelGroup {
   disabled?: boolean;

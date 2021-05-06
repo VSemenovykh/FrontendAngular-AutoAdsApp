@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from "rxjs";
 
 @Injectable()
-export class SearchAutoService {
+export class SearchAutoAdsService {
 
   constructor(private http: HttpClient) {
   }

@@ -4,7 +4,7 @@ import {AutoJoin} from '../models/autojoin.model';
 import {Observable} from 'rxjs';
 
 @Injectable()
-export class AutoService {
+export class AutoAdsService {
 
   constructor(private http: HttpClient) {
   }

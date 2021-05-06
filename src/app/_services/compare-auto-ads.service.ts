@@ -6,7 +6,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
   providedIn: 'root'
 })
 @Injectable()
-export class CompareAutoService {
+export class CompareAutoAdsService {
 
   private isAddedCompareSource = new BehaviorSubject<boolean>(false);
   currentIsAddedCompare = this.isAddedCompareSource.asObservable();

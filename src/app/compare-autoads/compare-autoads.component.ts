@@ -2,17 +2,17 @@ import {Component, Inject, OnInit} from "@angular/core";
 import {FormBuilder} from "@angular/forms";
 import {AutoJoin} from "../models/autojoin.model";
 import {ActivatedRoute, Router} from "@angular/router";
-import {AutoService} from "../_services/auto.service";
-import {CompareAutoService} from "../_services/compare-auto.service";
+import {AutoAdsService} from "../_services/auto-ads.service";
+import {CompareAutoAdsService} from "../_services/compare-auto-ads.service";
 import {DOCUMENT} from "@angular/common";
 import {TokenStorageService} from "../_services/token-storage.service";
 
 @Component({
   selector: 'app-compare-auto',
-  templateUrl: 'compare-auto.component.html',
-  styleUrls: ['compare-auto.component.css']
+  templateUrl: 'compare-autoads.component.html',
+  styleUrls: ['compare-autoads.component.css']
 })
-export class CompareAutoComponent implements OnInit{
+export class CompareAutoadsComponent implements OnInit{
 
   autoArray: Array<AutoJoin>;
   auto: AutoJoin = new AutoJoin();
@@ -38,8 +38,8 @@ export class CompareAutoComponent implements OnInit{
   constructor(private tokenStorageService: TokenStorageService,
               private route: ActivatedRoute,
               private router: Router,
-              private compare: CompareAutoService,
-              private autoService: AutoService,
+              private compare: CompareAutoAdsService,
+              private autoAdsService: AutoAdsService,
               public fb: FormBuilder,
               @Inject(DOCUMENT) private _document: Document) {}
 

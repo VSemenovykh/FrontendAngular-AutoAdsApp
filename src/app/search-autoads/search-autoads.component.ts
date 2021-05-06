@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit, ViewChild} from "@angular/core";
 import {FormBuilder} from "@angular/forms";
 import {AutoJoin} from "../models/autojoin.model";
-import {SearchAutoService} from '../_services/search-auto.service';
+import {SearchAutoAdsService} from '../_services/search-auto-ads.service';
 import {TokenStorageService} from "../_services/token-storage.service";
 import {Router} from "@angular/router";
 import {DOCUMENT} from "@angular/common";
@@ -9,10 +9,10 @@ import {GroupResult, groupBy} from '@progress/kendo-data-query';
 
 @Component({
   selector: 'app-multiple-search-auto',
-  templateUrl: 'search-auto.component.html',
-  styleUrls: ['search-auto.component.css']
+  templateUrl: 'search-autoads.component.html',
+  styleUrls: ['search-autoads.component.css']
 })
-export class SearchAutoComponent implements OnInit {
+export class SearchAutoadsComponent implements OnInit {
  // @ViewChild('list') list;
 
   // tslint:disable-next-line:max-line-length
@@ -205,7 +205,7 @@ export class SearchAutoComponent implements OnInit {
   isImage: boolean = true;
   isResponse: boolean = true;
 
-  constructor(private searchCarService: SearchAutoService,
+  constructor(private searchCarService: SearchAutoAdsService,
               private tokenStorageService: TokenStorageService,
               public fb: FormBuilder,
               private router: Router,
@@ -341,7 +341,7 @@ export class SearchAutoComponent implements OnInit {
   }
 
   goToSelectAuto(idAuto: any): void {
-    this.router.navigate(['/page-auto', idAuto]);
+    this.router.navigate(['/page-auto-ads', idAuto]);
   }
 
   reset(): void {

@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import { TokenStorageService } from './_services/token-storage.service';
-import {CompareAutoService} from "./_services/compare-auto.service";
+import {CompareAutoAdsService} from "./_services/compare-auto-ads.service";
 import {DOCUMENT} from "@angular/common";
 
 @Component({
@@ -20,8 +20,8 @@ export class AppComponent implements OnInit{
   isListCompareAuto : boolean = false;
 
   constructor(private tokenStorageService: TokenStorageService,
-              private compare: CompareAutoService,
-              private compareAutoService: CompareAutoService,
+              private compare: CompareAutoAdsService,
+              private compareAutoService: CompareAutoAdsService,
               @Inject(DOCUMENT) private _document: Document) { }
 
   ngOnInit(): void {

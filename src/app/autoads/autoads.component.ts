@@ -2,17 +2,17 @@ import {Component, OnInit, Inject, ViewChild, AfterViewInit} from '@angular/core
 import {Router} from '@angular/router';
 import {DOCUMENT} from '@angular/common';
 import {AutoJoin} from '../models/autojoin.model';
-import {AutoService} from '../_services/auto.service';
+import {AutoAdsService} from '../_services/auto-ads.service';
 import {PictureAutoService} from "../_services/picture-auto.sevice";
 import {TokenStorageService} from "../_services/token-storage.service";
 
 @Component({
   selector: 'app-auto',
-  templateUrl: 'auto.component.html',
-  styleUrls: ['auto.component.css']
+  templateUrl: 'autoads.component.html',
+  styleUrls: ['autoads.component.css']
 })
 
-export class AutoComponent implements OnInit {
+export class AutoadsComponent implements OnInit {
 
   cars: Array<AutoJoin>;
   private roles: string[];
@@ -31,7 +31,7 @@ export class AutoComponent implements OnInit {
 
   constructor(
               private router: Router,
-              private autoService: AutoService,
+              private autoAdsService: AutoAdsService,
               private tokenStorageService: TokenStorageService,
               private imageAutoService: PictureAutoService,
               @Inject(DOCUMENT) private _document: Document
@@ -85,7 +85,7 @@ export class AutoComponent implements OnInit {
     console.log("loadAutoByPage()");
     const params = this.getRequestParams(this.page, this.pageSize);
     console.log("params: ", params);
-    this.autoService.getAllAutoPage(params)
+    this.autoAdsService.getAllAutoPage(params)
       .subscribe(
         (response) => {
           const {listAutoJoin, totalAutoJoin, currentPage} = response;
@@ -107,7 +107,7 @@ export class AutoComponent implements OnInit {
   }
 
   goToSelectAuto(idAuto: any): void {
-    this.router.navigate(['/page-auto', idAuto]);
+    this.router.navigate(['/page-auto-ads', idAuto]);
   }
 
   formatPrice(price: any): any {

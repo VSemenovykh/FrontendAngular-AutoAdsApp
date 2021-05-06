@@ -6,7 +6,7 @@
         <a style="margin-left:10px" href="/home" class="nav-link" routerLink="home" (click)="checkIsListCompareAuto()">Home </a>
       </li>
       <li class="nav-item">
-        <a style="margin-left:15px" href="/auto" class="nav-link" routerLink="auto" (click)="checkIsListCompareAuto()">List
+        <a style="margin-left:15px" href="/auto-ads" class="nav-link" routerLink="auto-ads" (click)="checkIsListCompareAuto()">List
           auto</a>
       </li>
       <li class="nav-item">
@@ -14,11 +14,11 @@
            (click)="checkIsListCompareAuto()">Add auto</a>
       </li>
       <li class="nav-item">
-        <a style="margin-left:30px" href="/multiple-search-auto" class="nav-link" routerLink="multiple-search-auto"
+        <a style="margin-left:30px" href="/search-auto-ads" class="nav-link" routerLink="search-auto-ads"
            (click)="checkIsListCompareAuto()">Search auto</a>
       </li>
       <li class="nav-item">
-        <a style="margin-left:40px" href="/compare-auto" class="nav-link" routerLink="compare-auto"
+        <a style="margin-left:40px" href="/compare-auto-ads" class="nav-link" routerLink="compare-auto-ads"
            *ngIf="isListCompareAuto && (isAdmin || isUser || isModerator)">Compare</a>
       </li>
     </ul>

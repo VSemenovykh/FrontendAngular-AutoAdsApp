@@ -1,10 +1,10 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import {AutoService} from '../_services/auto.service';
+import {AutoAdsService} from '../_services/auto-ads.service';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from "@angular/forms";
 import {PictureAutoService} from "../_services/picture-auto.sevice";
 import {AutoJoin} from "../models/autojoin.model";
-import {ModelGroup} from '../interface/ModelGroup';
+import {ModelGroup} from '../interfaces/ModelGroup';
 import { ErrorStateMatcher } from '@angular/material/core';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -16,11 +16,11 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 @Component({
   selector: 'app-add-auto',
-  templateUrl: 'add-auto.component.html',
-  styleUrls: ['add-auto.component.css']
+  templateUrl: 'add-autoads.component.html',
+  styleUrls: ['add-autoads.component.css']
 })
 
-export class AddAutoComponent {
+export class AddAutoadsComponent {
 
   brandControl = new FormControl('', Validators.required);
   brands = [
@@ -222,7 +222,7 @@ export class AddAutoComponent {
 
   constructor(
               private router: Router,
-              private autoService: AutoService,
+              private autoAdsService: AutoAdsService,
               private imageAutoService: PictureAutoService,
               public fb: FormBuilder
              ){
@@ -367,10 +367,10 @@ export class AddAutoComponent {
   createAuto(auto: any, idImage: any): void {
     console.log("createAuto()");
     if (this.trueImage) {
-      this.autoService.createAuto(auto, idImage)
+      this.autoAdsService.createAuto(auto, idImage)
         .subscribe(
           data => {
-            this.router.navigate(['/auto']);
+            this.router.navigate(['/auto-ads']);
           },
           error => {
             console.log("error: ", error);

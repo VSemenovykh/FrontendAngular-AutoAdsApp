@@ -2,26 +2,26 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
-import {AutoComponent} from './auto/auto.component';
+import {AutoadsComponent} from './autoads/autoads.component';
 import {AppRoutingModule} from './app.routing.module';
-import {AutoService} from './_services/auto.service';
-import {CompareAutoService} from './_services/compare-auto.service';
+import {AutoAdsService} from './_services/auto-ads.service';
+import {CompareAutoAdsService} from './_services/compare-auto-ads.service';
 import {HttpClientModule} from '@angular/common/http';
-import {AddAutoComponent} from './addAuto/add-auto.component';
-import {EditAutoComponent} from './editAuto/edit-auto.component';
+import {AddAutoadsComponent} from './add-autoads/add-autoads.component';
+import {EditAutoadsComponent} from './edit-autoads/edit-autoads.component';
 import {HomeComponent} from './home/home.component';
-import {SearchAutoService} from './_services/search-auto.service';
-import {CompareAutoComponent} from './compareAuto/compare-auto.component'
+import {SearchAutoAdsService} from './_services/search-auto-ads.service';
+import {CompareAutoadsComponent} from './compare-autoads/compare-autoads.component'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatIconModule} from "@angular/material/icon";
 import {PictureAutoService} from "./_services/picture-auto.sevice";
-import {PageAutoComponent} from "./page-auto/page-auto.component";
+import {PageAutoadsComponent} from "./page-autoads/page-autoads.component";
 import {RegisterComponent} from "./register/register.component";
 import {LoginComponent} from "./login/login.component";
 import {authInterceptorProviders} from "./_helpers/auth.interceptor";
 import {ProfileComponent} from "./profile/profile.component";
 import {NgxPaginationModule} from 'ngx-pagination';
-import {SearchAutoComponent} from "./searchAuto/search-auto.component";
+import {SearchAutoadsComponent} from "./search-autoads/search-autoads.component";
 import {DropDownsModule} from '@progress/kendo-angular-dropdowns';
 import {LabelModule} from '@progress/kendo-angular-label';
 import {MatTableModule} from "@angular/material/table";
@@ -36,16 +36,16 @@ import {NotFoundComponent} from "./erros/not-found.component"
 @NgModule({
   declarations: [
     AppComponent,
-    AutoComponent,
-    AddAutoComponent,
-    EditAutoComponent,
+    AutoadsComponent,
+    AddAutoadsComponent,
+    EditAutoadsComponent,
     HomeComponent,
-    SearchAutoComponent,
-    PageAutoComponent,
+    SearchAutoadsComponent,
+    PageAutoadsComponent,
     RegisterComponent,
     LoginComponent,
     ProfileComponent,
-    CompareAutoComponent,
+    CompareAutoadsComponent,
     NotFoundComponent
   ],
   imports: [
@@ -67,7 +67,7 @@ import {NotFoundComponent} from "./erros/not-found.component"
     MatSelectModule,
     MatInputModule
   ],
-  providers: [AutoService, SearchAutoService, PictureAutoService, authInterceptorProviders, CompareAutoService],
+  providers: [AutoAdsService, SearchAutoAdsService, PictureAutoService, authInterceptorProviders, CompareAutoAdsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

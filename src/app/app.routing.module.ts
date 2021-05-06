@@ -1,44 +1,18 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AutoComponent} from './auto/auto.component';
-import {AddAutoComponent} from './addAuto/add-auto.component';
-import {EditAutoComponent} from './editAuto/edit-auto.component';
+import {AutoadsComponent} from './autoads/autoads.component';
+import {AddAutoadsComponent} from './add-autoads/add-autoads.component';
+import {EditAutoadsComponent} from './edit-autoads/edit-autoads.component';
 import {HomeComponent} from './home/home.component';
-import {PageAutoComponent} from "./page-auto/page-auto.component";
+import {PageAutoadsComponent} from "./page-autoads/page-autoads.component";
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
 import {ProfileComponent} from "./profile/profile.component";
-import {SearchAutoComponent} from "./searchAuto/search-auto.component";
-import {CompareAutoComponent} from "./compareAuto/compare-auto.component";
+import {SearchAutoadsComponent} from "./search-autoads/search-autoads.component";
+import {CompareAutoadsComponent} from "./compare-autoads/compare-autoads.component";
 import {NotFoundComponent} from "./erros/not-found.component";
 
 const routes: Routes = [
-  {path: 'home', component: HomeComponent},
-
-  {
-    path: 'auto',
-    component: AutoComponent, children: [{
-      path: 'update/:id',
-      component: EditAutoComponent
-    }]
-  },
-
-  {
-    path: 'update/:id',
-    component: EditAutoComponent
-  },
-
-  {
-    path: 'add',
-    component: AddAutoComponent
-  },
-
-  {path: 'multiple-search-auto', component: SearchAutoComponent},
-
-  {path: 'compare-auto', component: CompareAutoComponent},
-
-  {path: 'page-auto/:id', component: PageAutoComponent},
-
   {path: 'home', component: HomeComponent},
 
   {path: 'login', component: LoginComponent},
@@ -46,6 +20,30 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
 
   {path: 'profile', component: ProfileComponent},
+
+  {
+    path: 'auto-ads',
+    component: AutoadsComponent, children: [{
+      path: 'edit/:id',
+      component: EditAutoadsComponent
+    }]
+  },
+
+  {
+    path: 'edit/:id',
+    component: EditAutoadsComponent
+  },
+
+  {
+    path: 'add',
+    component: AddAutoadsComponent
+  },
+
+  {path: 'search-auto-ads', component: SearchAutoadsComponent},
+
+  {path: 'compare-auto-ads', component: CompareAutoadsComponent},
+
+  {path: 'page-auto-ads/:id', component: PageAutoadsComponent},
 
   {path: '404', component: NotFoundComponent},
 

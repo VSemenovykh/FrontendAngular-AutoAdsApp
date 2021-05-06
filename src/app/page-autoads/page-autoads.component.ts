@@ -2,18 +2,18 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PictureAutoService} from "../_services/picture-auto.sevice";
 import {AutoPicture} from "../models/autopicture.model";
-import {AutoService} from "../_services/auto.service";
+import {AutoAdsService} from "../_services/auto-ads.service";
 import {AutoJoin} from "../models/autojoin.model";
-import {CompareAutoService} from "../_services/compare-auto.service";
+import {CompareAutoAdsService} from "../_services/compare-auto-ads.service";
 import {DOCUMENT} from "@angular/common";
 import {TokenStorageService} from "../_services/token-storage.service";
 
 @Component({
   selector: 'app-page-auto',
-  templateUrl: 'page-auto.component.html',
-  styleUrls: ['page-auto.component.css']
+  templateUrl: 'page-autoads.component.html',
+  styleUrls: ['page-autoads.component.css']
 })
-export class PageAutoComponent implements OnInit {
+export class PageAutoadsComponent implements OnInit {
 
   dataAuto: AutoJoin = new AutoJoin();
   dataAutoToCompare: AutoJoin = new AutoJoin();
@@ -34,9 +34,9 @@ export class PageAutoComponent implements OnInit {
              private tokenStorageService: TokenStorageService,
              private route: ActivatedRoute,
              private router: Router,
-             private autoService: AutoService,
+             private autoAdsService: AutoAdsService,
              private imageAutoService: PictureAutoService,
-             private compareAutoService: CompareAutoService,
+             private compareAutoService: CompareAutoAdsService,
              private token: TokenStorageService,
              @Inject(DOCUMENT) private _document: Document
             ) {
@@ -72,7 +72,7 @@ export class PageAutoComponent implements OnInit {
   getAutoJoinById(): void {
     console.log("getAutoJoinById()");
     const idAuto = Number(this.route.snapshot.params.id);
-    this.autoService.getAutoById(idAuto)
+    this.autoAdsService.getAutoById(idAuto)
       .subscribe((data: any) => {
         this.dataAuto = data;
         this.dataAuto.price = String(this.dataAuto.price).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
@@ -96,7 +96,7 @@ export class PageAutoComponent implements OnInit {
   compareAuto(idAuto: any) {
     console.log("compareAuto()");
     const params = {"idUser": this.tokenStorageService.getUser().id};
-    this.autoService.getAutoById(idAuto)
+    this.autoAdsService.getAutoById(idAuto)
       .subscribe(
         res => {
           this.dataAutoToCompare = res;
@@ -130,12 +130,12 @@ export class PageAutoComponent implements OnInit {
   }
 
   goToCompare(): void {
-    this.router.navigate(['/compare-auto']);
+    this.router.navigate(['/compare-auto-ads']);
   }
 
   deleteAuto(car: AutoJoin): void {
     console.log("deleteAuto()");
-    this.autoService.deleteAuto(car)
+    this.autoAdsService.deleteAuto(car)
       .subscribe(
         data => {
         },
@@ -149,10 +149,10 @@ export class PageAutoComponent implements OnInit {
   }
 
   goToListAutoAds(): void {
-    this.router.navigate(['/auto']);
+    this.router.navigate(['/auto-ads']);
   }
 
   goToEdit(id: number): void {
-    this.router.navigate(['/update', id]);
+    this.router.navigate(['/edit', id]);
   }
 }

@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {ModelGroup} from '../interface/ModelGroup';
-import {AutoService} from '../_services/auto.service';
+import {ModelGroup} from '../interfaces/ModelGroup';
+import {AutoAdsService} from '../_services/auto-ads.service';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from "@angular/forms";
 import {PictureAutoService} from "../_services/picture-auto.sevice";
 import {AutoJoin} from "../models/autojoin.model";
@@ -18,10 +18,10 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 @Component({
   selector: 'app-edit-auto',
-  templateUrl: 'edit-auto.component.html',
-  styleUrls: ['edit-auto.component.css']
+  templateUrl: 'edit-autoads.component.html',
+  styleUrls: ['edit-autoads.component.css']
 })
-export class EditAutoComponent implements OnInit {
+export class EditAutoadsComponent implements OnInit {
 
   brandControl = new FormControl('');
   brands = [
@@ -225,7 +225,7 @@ export class EditAutoComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private imageAutoService: PictureAutoService,
-    private autoService: AutoService,
+    private autoAdsService: AutoAdsService,
     public fb: FormBuilder,
     @Inject(DOCUMENT) private _document: Document
   ) {
@@ -315,7 +315,7 @@ export class EditAutoComponent implements OnInit {
   getAuto(): void {
     console.log("getAuto()");
     const idAuto = Number(this.route.snapshot.params.id);
-    this.autoService.getAutoById(idAuto)
+    this.autoAdsService.getAutoById(idAuto)
       .subscribe(
         (data: AutoJoin) => {
           this.auto = data;
@@ -398,7 +398,7 @@ export class EditAutoComponent implements OnInit {
 
   editAuto(auto: any, idImage: any): void {
     console.log("editAuto()");
-    this.autoService.editAuto(auto, auto.id, idImage)
+    this.autoAdsService.editAuto(auto, auto.id, idImage)
       .subscribe(
         data => {
           console.log("Auto ads successfully edited!");
