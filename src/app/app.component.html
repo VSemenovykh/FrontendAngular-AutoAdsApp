@@ -10,7 +10,7 @@
           auto</a>
       </li>
       <li class="nav-item">
-        <a style="margin-left:20px" href="/add" class="nav-link" *ngIf="isAdmin || isUser" routerLink="add"
+        <a style="margin-left:20px" href="/add" class="nav-link" *ngIf="isAdmin || isModerator || isUser" routerLink="add"
            (click)="checkIsListCompareAuto()">Add auto</a>
       </li>
       <li class="nav-item">

@@ -67,7 +67,7 @@
           [(ngModel)]="form.password"
           required
           minlength="6"
-          maxlength="120"
+          maxlength="32"
           #password="ngModel"
         />
         <div class="alert-danger" *ngIf="f.submitted && password.invalid">
@@ -76,7 +76,7 @@
             Password must be at least 6 characters
           </div>
           <div *ngIf="password.errors.maxlength">
-            Password must be at no more 120 characters
+            Password must be at no more 32 characters
           </div>
         </div>
       </div>

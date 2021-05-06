@@ -191,7 +191,7 @@ export class SearchAutoComponent implements OnInit {
   transmissions: [] = null;
   bodyStyles: [] = null;
 
-  currentAutoJoin: any;
+  currentAutoAds: any;
   currentIndex = -1;
   currentPage = 1;
   page = 1;
@@ -304,7 +304,7 @@ export class SearchAutoComponent implements OnInit {
   }
 
   setActiveTutorial(tutorial, index): void {
-    this.currentAutoJoin = tutorial;
+    this.currentAutoAds = tutorial;
     this.currentIndex = index;
   }
 
@@ -316,9 +316,9 @@ export class SearchAutoComponent implements OnInit {
       .subscribe(
         (response) => {
           if (response != null) {
-            const {listAutoJoin, totalAutoJoin, currentPage} = response;
-            this.auto = listAutoJoin;
-            this.count = totalAutoJoin;
+            const {listAutoAds, totalAutoAds, currentPage} = response;
+            this.auto = listAutoAds;
+            this.count = totalAutoAds;
             this.currentPage = currentPage;
 
             this.isResponse = true;

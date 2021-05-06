@@ -11,7 +11,7 @@ export class SearchAutoService {
   private searchUrlAll = 'http://localhost:8080/api/all';
 
   public searchAutoPage(data: any, params: any): Observable<any> {
-    return this.http.post(this.searchUrlAll + '/search/page', data, {params});
+    return this.http.post(this.searchUrlAll + '/search', data, {params});
   }
 }
 
