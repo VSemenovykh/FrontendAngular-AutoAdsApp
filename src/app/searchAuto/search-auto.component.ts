@@ -13,7 +13,7 @@ import {GroupResult, groupBy} from '@progress/kendo-data-query';
   styleUrls: ['search-auto.component.css']
 })
 export class SearchAutoComponent implements OnInit {
-  @ViewChild('list') list;
+ // @ViewChild('list') list;
 
   // tslint:disable-next-line:max-line-length
   brandList: Array<string> = ['AUDI', 'FORD', 'HONDA', 'HYUNDAI', 'BMW', 'MERCEDES-BENZ', 'KIA'];
