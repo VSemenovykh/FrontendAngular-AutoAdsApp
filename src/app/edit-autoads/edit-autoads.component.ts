@@ -8,6 +8,7 @@ import {AutoJoin} from "../models/autojoin.model";
 import {AutoPicture} from "../models/autopicture.model";
 import {ErrorStateMatcher} from "@angular/material/core";
 import {DOCUMENT} from "@angular/common";
+import {defined} from "@progress/kendo-angular-inputs/dist/es2015/numerictextbox/utils";
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -305,17 +306,18 @@ export class EditAutoadsComponent implements OnInit {
     }
 
     if (this.inputForm.controls["phone"].value != '') {
-      auto.phone = this.inputForm.controls["phone"].value;
+      auto.phone = "+7" + this.inputForm.controls["phone"].value;
     }
 
-    this.loadPictureAuto();
-    this.editAuto(auto, this.auto.idPicture);
+    this.loadImageAuto();
+    this.editAutoAds(auto, this.auto.idPicture);
   }
 
+  /*Get auto ads for edit*/
   getAuto(): void {
     console.log("getAuto()");
     const idAuto = Number(this.route.snapshot.params.id);
-    this.autoAdsService.getAutoById(idAuto)
+    this.autoAdsService.getAutoAdsById(idAuto)
       .subscribe(
         (data: AutoJoin) => {
           this.auto = data;
@@ -329,15 +331,16 @@ export class EditAutoadsComponent implements OnInit {
           this.driveControl.setValue(data.driveType);
           this.transmissionControl.setValue(data.transmissionType);
           this.bodyStyleControl.setValue(data.bodyStyleType);
-          this.getPictureAuto(data.idPicture);
+          this.getImageAuto(data.idPicture);
         },
         error => {
           console.log("error: ", error);
         });
   }
 
-  getPictureAuto(id: any): void {
-    this.imageAutoService.getPictureAutoByIdAuto(id)
+  /*Get picture auto*/
+  getImageAuto(id: any): void {
+    this.imageAutoService.getImageAutoByIdAuto(id)
       .subscribe(
         res => {
           this.autoPicture = res;
@@ -349,6 +352,7 @@ export class EditAutoadsComponent implements OnInit {
       );
   }
 
+  /*Load new picture auto from client API*/
   public onFileChanged(event) {
     console.log("onFileChanged()");
 
@@ -371,23 +375,25 @@ export class EditAutoadsComponent implements OnInit {
     (conditionOnMaxSizeImage) ? this.validateSizeImage = false : this.validateSizeImage = true;
   }
 
-  loadPictureAuto(): void {
+  /*Load image auto for update*/
+  loadImageAuto(): void {
     console.log("loadPictureAuto()");
     if (this.selectedFile != null) {
       const uploadImageData = new FormData();
       uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
 
-      this.editPictureAuto(uploadImageData, this.auto.idPicture);
+      this.updateImageAuto(uploadImageData, this.auto.idPicture);
     } else {
-      this.editPictureAuto(null, this.auto.idPicture);
+      this.updateImageAuto(null, this.auto.idPicture);
     }
   }
 
-  editPictureAuto(file: any, id: any): any {
+  /*Update image auto*/
+  updateImageAuto(file: any, id: any): any {
     console.log("editPictureAuto");
     if (file != null) {
       if (this.validateSizeImage && this.validateFormatImage) {
-        this.imageAutoService.editPictureAuto(file, id)
+        this.imageAutoService.editImageAuto(file, id)
           .subscribe(data => {});
         console.log("Image successfully added!");
       } else {
@@ -396,13 +402,15 @@ export class EditAutoadsComponent implements OnInit {
     }
   }
 
-  editAuto(auto: any, idImage: any): void {
+  /*Edit auto ads*/
+  editAutoAds(auto: any, idImage: any): void {
     console.log("editAuto()");
-    this.autoAdsService.editAuto(auto, auto.id, idImage)
+    console.log("edit auto: ", auto);
+    this.autoAdsService.editAutoAds(auto, auto.id, idImage)
       .subscribe(
         data => {
           console.log("Auto ads successfully edited!");
-          this.router.navigate(['/page-auto', auto.id]);
+          this.router.navigate(['/page-auto-ads', auto.id]);
         },
         error => {
           console.log("error: ", error);

@@ -24,11 +24,11 @@ export class CompareAutoAdsService {
     return this.http.get(this.compareAutoUrlAll + '/search/compare-auto', {params});
   }
 
-  public addAutoToCompare(compareAuto: any, params): Observable<any> {
+  public addAutoAdsToListCompare(compareAuto: any, params): Observable<any> {
     return this.http.post(this.compareAutoUrlAll + '/add-auto-to-compare', compareAuto, {params});
   }
 
-  public deleteCompareAuto(idAuto: any, params): any {
+  public deleteAutoAdsFromCompareByIdAuto(idAuto: any, params): any {
     return this.http.delete(this.compareAutoUrlAll + '/search/list-compare-auto/' + idAuto, {params});
   }
 

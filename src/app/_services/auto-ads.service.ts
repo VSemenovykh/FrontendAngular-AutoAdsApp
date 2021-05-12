@@ -17,19 +17,19 @@ export class AutoAdsService {
     return this.http.get(this.autoUrlAll, {params});
   }
 
-  public getAutoById(id: number): Observable<any> {
+  public getAutoAdsById(id: number): Observable<any> {
     return this.http.get(this.autoUrlAll + '/join/' + id);
   }
 
-  public deleteAuto(car: AutoJoin): Observable<any> {
+  public deleteAutoAds(car: AutoJoin): Observable<any> {
     return this.http.delete(this.autoUrlAdmin + '/' + car.id);
   }
 
-  public editAuto(data: any, idAuto: number, idImage: any): Observable<any> {
+  public editAutoAds(data: any, idAuto: number, idImage: any): Observable<any> {
     return this.http.put(this.autoUrlAll + '/' + idAuto, data, {params: new HttpParams().set('idImage', idImage)});
   }
 
-  public createAuto(auto: any, idImage: any): Observable<any> {
+  public addAutoAds(auto: any, idImage: any): Observable<any> {
     return this.http.post(this.autoUrlAll + '/add', auto, {params: new HttpParams().set('idImage', idImage)});
   }
 }

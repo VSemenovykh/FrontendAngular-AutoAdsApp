@@ -83,6 +83,7 @@ export class CompareAutoadsComponent implements OnInit{
     this.currentIndex = index;
   }
 
+  /*Get list auto ads from compare*/
   getAllAuto(page: any): void {
     console.log("getAllAuto()");
     const params = this.getRequestParams(page, this.pageSize);
@@ -109,6 +110,7 @@ export class CompareAutoadsComponent implements OnInit{
         });
   }
 
+  /*Get picture auto by idAuto*/
   getImageAuto(raster: any): string {
     if (this.isImage) {
       return "data:image/png;base64," + raster;
@@ -118,6 +120,7 @@ export class CompareAutoadsComponent implements OnInit{
     }
   }
 
+  /*Delete all auto ads from list compare auto*/
   clearListCompareAuto(): void {
     console.log("clearListCompareAuto()");
     const params = {"idUser": this.idUser};
@@ -133,11 +136,12 @@ export class CompareAutoadsComponent implements OnInit{
     this.refreshPage();
   }
 
-  deleteCompareAuto(id: any): void {
+  /*Delete auto ads from list compare auto*/
+  deleteAutoAdsFromListCompareAuto(id: any): void {
     console.log("deleteCompareAuto()");
     const params = {"idUser": this.idUser};
     console.log("params: ", params);
-    this.compare.deleteCompareAuto(id, params)
+    this.compare.deleteAutoAdsFromCompareByIdAuto(id, params)
       .subscribe(
         data => {},
         error => {
@@ -152,6 +156,7 @@ export class CompareAutoadsComponent implements OnInit{
     this._document.defaultView.location.reload();
   }
 
+  /*Format price. Ex.: 7 000 000 Р*/
   formatPrice(price: any): any {
     return String(price).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
   }

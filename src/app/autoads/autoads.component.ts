@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject, ViewChild, AfterViewInit} from '@angular/core';
+import {Component, OnInit, Inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {DOCUMENT} from '@angular/common';
 import {AutoJoin} from '../models/autojoin.model';
@@ -81,6 +81,7 @@ export class AutoadsComponent implements OnInit {
     this.loadAutoByPage();
   }
 
+  /*Load list auto ads from server*/
   private loadAutoByPage(): void {
     console.log("loadAutoByPage()");
     const params = this.getRequestParams(this.page, this.pageSize);
@@ -98,6 +99,7 @@ export class AutoadsComponent implements OnInit {
         });
   }
 
+  /*Get picture auto by idAuto*/
   getImageAuto(raster: any): string {
     if (this.isImage) {
       return "data:image/png;base64," + raster;
@@ -110,6 +112,7 @@ export class AutoadsComponent implements OnInit {
     this.router.navigate(['/page-auto-ads', idAuto]);
   }
 
+  /*format price. Ex.: 7 000 000 Р*/
   formatPrice(price: any): any {
     return String(price).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
   }

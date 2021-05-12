@@ -19,9 +19,9 @@
             <div class="div-compare" *ngIf="isAdmin || isUser || isModerator">
               <section>
                 <div class="button-compare-auto">
-                  <button mat-stroked-button (click)="compareAuto(dataAuto.id)" *ngIf="!isAddCompare">add to compare
+                  <button mat-stroked-button (click)="addAutoAdsToListCompare(dataAuto.id)" *ngIf="!isAddCompare">add to compare
                   </button>
-                  <button mat-stroked-button (click)="compareAuto(dataAuto.id)" *ngIf="isAddCompare" disabled>add to
+                  <button mat-stroked-button (click)="addAutoAdsToListCompare(dataAuto.id)" *ngIf="isAddCompare" disabled>add to
                     compare
                   </button>
                   <button mat-stroked-button style="margin-left:10px" (click)="goToCompare()" *ngIf="isAddCompare">go to
@@ -58,7 +58,7 @@
             <td>Price:</td>
           </strong>
           <td>
-            <div class="price">{{dataAuto.price}}&nbsp;₽</div>
+            <div class="price">{{price}}&nbsp;₽</div>
           </td>
         </tr>
         <tr>
@@ -95,7 +95,7 @@
     </div>
     <div class="buttons-control">
       <div class="button-delete" *ngIf="isAdmin">
-        <button mat-stroked-button class="buttons blue" (click)="deleteAuto(dataAuto)">
+        <button mat-stroked-button class="buttons blue" (click)="deleteAutoAds(dataAuto)">
           <span class="material-icons"> delete </span>
         </button>
       </div>

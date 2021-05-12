@@ -19,6 +19,7 @@ export class PageAutoadsComponent implements OnInit {
   dataAutoToCompare: AutoJoin = new AutoJoin();
   pictureAuto: AutoPicture = new AutoPicture();
   retrievedImage: any;
+  price: string;
   private roles: string[];
 
   isLoggedIn: boolean = false;
@@ -55,11 +56,11 @@ export class PageAutoadsComponent implements OnInit {
 
     this.dataAuto.id = Number(this.route.snapshot.params.id);
     if (this.dataAuto.id > -1) {
-      this.getAutoJoinById();
+      this.getAutoAdsById();
       this.getImage(this.dataAuto.id);
 
       if (!this.isAddCompare) {
-        this.checkIsAddedCompareAuto();
+        this.checkIsAddedCompareAutoAds();
       }
 
     } else {
@@ -69,18 +70,20 @@ export class PageAutoadsComponent implements OnInit {
     this.compareAutoService.currentIsAddedCompare.subscribe(isAddedCompare => this.isAddCompare = isAddedCompare);
   }
 
-  getAutoJoinById(): void {
-    console.log("getAutoJoinById()");
+  /*Get auto ads by id*/
+  getAutoAdsById(): void {
+    console.log("getAutoAdsById()");
     const idAuto = Number(this.route.snapshot.params.id);
-    this.autoAdsService.getAutoById(idAuto)
+    this.autoAdsService.getAutoAdsById(idAuto)
       .subscribe((data: any) => {
         this.dataAuto = data;
-        this.dataAuto.price = String(this.dataAuto.price).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
+        this.price = String(this.dataAuto.price).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
       });
   }
 
+  /*Get picture auto by idAuto*/
   getImage(id: any): void {
-    this.imageAutoService.getPictureAutoByIdAuto(id)
+    this.imageAutoService.getImageAutoByIdAuto(id)
       .subscribe(
         res => {
           this.pictureAuto = res;
@@ -93,14 +96,16 @@ export class PageAutoadsComponent implements OnInit {
     this.router.navigate(['/auto']);
   }
 
-  compareAuto(idAuto: any) {
-    console.log("compareAuto()");
+  /*Add select auto ads to list compare auto ads*/
+  addAutoAdsToListCompare(idAuto: any) {
+    console.log("addAutoAdsToListCompare()");
     const params = {"idUser": this.tokenStorageService.getUser().id};
-    this.autoAdsService.getAutoById(idAuto)
+    this.autoAdsService.getAutoAdsById(idAuto)
       .subscribe(
         res => {
           this.dataAutoToCompare = res;
-          this.compareAutoService.addAutoToCompare(this.dataAutoToCompare, params)
+          console.log("this.dataAutoToCompare: ", this.dataAutoToCompare);
+          this.compareAutoService.addAutoAdsToListCompare(this.dataAutoToCompare, params)
             .subscribe(
               data => {
                 console.log("Auto successfully added to the list compare");
@@ -114,7 +119,8 @@ export class PageAutoadsComponent implements OnInit {
         })
   }
 
-  checkIsAddedCompareAuto(): void {
+  /*Check exist added auto ads */
+  checkIsAddedCompareAutoAds(): void {
     const params = {"idAuto": this.dataAuto.id, "idUser": this.tokenStorageService.getUser().id};
     this.compareAutoService.getCompareAutoByIdAuto(params)
       .subscribe(
@@ -133,9 +139,10 @@ export class PageAutoadsComponent implements OnInit {
     this.router.navigate(['/compare-auto-ads']);
   }
 
-  deleteAuto(car: AutoJoin): void {
-    console.log("deleteAuto()");
-    this.autoAdsService.deleteAuto(car)
+  /*Delete auto ads from list auto ads*/
+  deleteAutoAds(car: AutoJoin): void {
+    console.log("deleteAutoAds()");
+    this.autoAdsService.deleteAutoAds(car)
       .subscribe(
         data => {
         },

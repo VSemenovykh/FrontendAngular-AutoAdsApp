@@ -1,11 +1,11 @@
-import {Component, Inject, OnInit, ViewChild} from "@angular/core";
+import {Component, Inject, OnInit} from "@angular/core";
 import {FormBuilder} from "@angular/forms";
 import {AutoJoin} from "../models/autojoin.model";
 import {SearchAutoAdsService} from '../_services/search-auto-ads.service';
 import {TokenStorageService} from "../_services/token-storage.service";
 import {Router} from "@angular/router";
 import {DOCUMENT} from "@angular/common";
-import {GroupResult, groupBy} from '@progress/kendo-data-query';
+import {groupBy, GroupResult} from '@progress/kendo-data-query';
 
 @Component({
   selector: 'app-multiple-search-auto',
@@ -13,8 +13,6 @@ import {GroupResult, groupBy} from '@progress/kendo-data-query';
   styleUrls: ['search-autoads.component.css']
 })
 export class SearchAutoadsComponent implements OnInit {
- // @ViewChild('list') list;
-
   // tslint:disable-next-line:max-line-length
   brandList: Array<string> = ['AUDI', 'FORD', 'HONDA', 'HYUNDAI', 'BMW', 'MERCEDES-BENZ', 'KIA'];
 
@@ -57,7 +55,8 @@ export class SearchAutoadsComponent implements OnInit {
 
   transmissionList: Array<string> = ['HYBRID', 'AUTOMATIC', 'MANUAL', 'CVT', 'DSG'];
 
-  bodyStyleList: Array<string> = ['COUPE', 'HATCHBACK', 'MINIVAN', 'SUV', 'SEDAN', 'STATION WAGON'];
+  bodyStyleList: Array<string> = ['COUPE', 'HATCHBACK', 'MINIVAN', 'SUV', 'SEDAN', 'STATION WAGON', 'LIFTBACK', 'LANDAU',
+                                  'PICKUP TRUCK', 'PICKUP','SPORTS CAR','CABRIOLET','CONVERTIBLE','TWO-DOOR SEDAN','LIMOUSINE','CROSSOVER'];
 
   motorList: Array<string> = ['DIESEL', 'ELECTRIC', 'GASOLINE'];
 
@@ -162,7 +161,7 @@ export class SearchAutoadsComponent implements OnInit {
     {id: 21, name: "5.5"},
   ];
 
-  dataSearch = {
+  dataSearchAutoAds = {
     "id": null,
     "raster": null,
     "nameBrand": null,
@@ -221,9 +220,8 @@ export class SearchAutoadsComponent implements OnInit {
   })
 
   ngOnInit(): void {
-    console.log("ngOnInit()");
-    this.isLoggedIn = !!this.tokenStorageService.getToken();
-    if (this.isLoggedIn) {
+    // this.isLoggedIn = !!this.tokenStorageService.getToken();
+    if (!!this.tokenStorageService.getToken()) {
       const user = this.tokenStorageService.getUser();
       this.roles = user.roles;
 
@@ -235,51 +233,57 @@ export class SearchAutoadsComponent implements OnInit {
 
   onSubmit() {
     console.log("onSubmit()");
-    this.dataSearch['nameBrand'] = this.brands;
 
-    const selectedModels = this.searchForm.controls["model"].value;
-    if (selectedModels != null) {
-      const selectedModelNames = selectedModels.map(model => model.name);
-      this.dataSearch['nameModel'] = selectedModelNames;
-    }
-
-    this.dataSearch['startYear'] = this.startYears;
-    this.dataSearch['endYear'] = this.endYears;
-    this.dataSearch['color'] = this.colors;
-    this.dataSearch['startPrice'] = this.startPrice;
-    this.dataSearch['endPrice'] = this.endPrice;
-    this.dataSearch['motorType'] = this.motors;
-    this.dataSearch['startVolume'] = this.startVolumes;
-    this.dataSearch['endVolume'] = this.endVolumes;
-    this.dataSearch['driveType'] = this.drives;
-    this.dataSearch['transmissionType'] = this.transmissions;
-    this.dataSearch['bodyStyleType'] = this.bodyStyles;
-
-    this.dataSearch['startYear'] = this.searchForm.controls["startYear"].value;
-    if (this.dataSearch['startYear'] == "all") {
-      this.dataSearch['startYear'] = null;
-    }
-
-    this.dataSearch['endYear'] = this.searchForm.controls["endYear"].value;
-    if (this.dataSearch['endYear'] == "all") {
-      this.dataSearch['endYear'] = null;
-    }
-
-    this.dataSearch['startVolume'] = this.searchForm.controls["startVolume"].value;
-    if (this.dataSearch['startVolume'] == "all") {
-      this.dataSearch['startVolume'] = null;
-    }
-
-    this.dataSearch['endVolume'] = this.searchForm.controls["endVolume"].value;
-    if (this.dataSearch['endVolume'] == "all") {
-      this.dataSearch['endVolume'] = null;
-    }
+    this.formSelectCriteriaAuto();
 
     if (this.page != 1) {
       this.handlePageChange(this.currentPage);
 
     } else {
-      this.findCarByDiffCriteriaPage(this.dataSearch);
+      /*default */
+      this.findAutoAdsByDiffCriteria(this.dataSearchAutoAds);
+    }
+  }
+
+  /*Display form select criteria auto*/
+  formSelectCriteriaAuto(): void{
+    this.dataSearchAutoAds['nameBrand'] = this.brands;
+
+    const selectedModels = this.searchForm.controls["model"].value;
+    if (selectedModels != null) {
+      this.dataSearchAutoAds['nameModel'] = selectedModels.map(model => model.name);
+    }
+
+    this.dataSearchAutoAds['startYear'] = this.startYears;
+    this.dataSearchAutoAds['endYear'] = this.endYears;
+    this.dataSearchAutoAds['color'] = this.colors;
+    this.dataSearchAutoAds['startPrice'] = this.startPrice;
+    this.dataSearchAutoAds['endPrice'] = this.endPrice;
+    this.dataSearchAutoAds['motorType'] = this.motors;
+    this.dataSearchAutoAds['startVolume'] = this.startVolumes;
+    this.dataSearchAutoAds['endVolume'] = this.endVolumes;
+    this.dataSearchAutoAds['driveType'] = this.drives;
+    this.dataSearchAutoAds['transmissionType'] = this.transmissions;
+    this.dataSearchAutoAds['bodyStyleType'] = this.bodyStyles;
+
+    this.dataSearchAutoAds['startYear'] = this.searchForm.controls["startYear"].value;
+    if (this.dataSearchAutoAds['startYear'] == "all") {
+      this.dataSearchAutoAds['startYear'] = null;
+    }
+
+    this.dataSearchAutoAds['endYear'] = this.searchForm.controls["endYear"].value;
+    if (this.dataSearchAutoAds['endYear'] == "all") {
+      this.dataSearchAutoAds['endYear'] = null;
+    }
+
+    this.dataSearchAutoAds['startVolume'] = this.searchForm.controls["startVolume"].value;
+    if (this.dataSearchAutoAds['startVolume'] == "all") {
+      this.dataSearchAutoAds['startVolume'] = null;
+    }
+
+    this.dataSearchAutoAds['endVolume'] = this.searchForm.controls["endVolume"].value;
+    if (this.dataSearchAutoAds['endVolume'] == "all") {
+      this.dataSearchAutoAds['endVolume'] = null;
     }
   }
 
@@ -300,7 +304,7 @@ export class SearchAutoadsComponent implements OnInit {
 
   handlePageChange(event): void {
     this.page = event;
-    this.findCarByDiffCriteriaPage(this.dataSearch);
+    this.findAutoAdsByDiffCriteria(this.dataSearchAutoAds);
   }
 
   setActiveTutorial(tutorial, index): void {
@@ -308,30 +312,35 @@ export class SearchAutoadsComponent implements OnInit {
     this.currentIndex = index;
   }
 
-  findCarByDiffCriteriaPage(data: any): void {
-    console.log("findCarByDiffCriteriaPage()");
+  /*Search auto ads by difference criteria auto */
+  findAutoAdsByDiffCriteria(data: any): void {
+    console.log("findAutoAdsByDiffCriteria()");
     const params = this.getRequestParams(this.page, this.pageSize);
+
     console.log("params: ", params);
-    this.searchCarService.searchAutoPage(data, params)
-      .subscribe(
-        (response) => {
-          if (response != null) {
-            const {listAutoAds, totalAutoAds, currentPage} = response;
-            this.auto = listAutoAds;
-            this.count = totalAutoAds;
-            this.currentPage = currentPage;
+    if (data != null) {
+      this.searchCarService.searchAutoPage(data, params)
+        .subscribe(
+          (response) => {
+            if (response != null) {
+              const {listAutoAds, totalAutoAds, currentPage} = response;
+              this.auto = listAutoAds;
+              this.count = totalAutoAds;
+              this.currentPage = currentPage;
 
-            this.isResponse = true;
-          } else {
-            this.isResponse = false;
-          }
+              this.isResponse = true;
+            } else {
+              this.isResponse = false;
+            }
 
-        },
-        error => {
-          console.log(error);
-        });
+          },
+          error => {
+            console.log(error);
+          });
+    }
   }
 
+  /*Get picture auto by idAuto*/
   getImageAuto(raster: any): string {
     if (this.isImage) {
       return "data:image/png;base64," + raster;
@@ -340,7 +349,7 @@ export class SearchAutoadsComponent implements OnInit {
     }
   }
 
-  goToSelectAuto(idAuto: any): void {
+  goToPageAutoAds(idAuto: any): void {
     this.router.navigate(['/page-auto-ads', idAuto]);
   }
 
@@ -348,6 +357,7 @@ export class SearchAutoadsComponent implements OnInit {
     this._document.defaultView.location.reload();
   }
 
+  /*Format price. Ex: 7 000 000 Р*/
   formatPrice(price: any): any {
     return String(price).replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
   }

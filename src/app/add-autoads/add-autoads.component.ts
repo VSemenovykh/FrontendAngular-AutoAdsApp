@@ -228,6 +228,7 @@ export class AddAutoadsComponent {
              ){
   }
 
+  /*Form for create auto ads*/
   createForm = this.fb.group({
     price: new FormControl('', [
       Validators.required,
@@ -235,10 +236,12 @@ export class AddAutoadsComponent {
       Validators.max(1000000000)])
   })
 
+
   inputForm = new FormGroup({
     emailBrand: new FormControl('', [
       Validators.required,
-      Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]
+    ),
 
     phone: new FormControl('', [
       Validators.required,
@@ -302,16 +305,16 @@ export class AddAutoadsComponent {
       || (auto.color == null)
       || (auto.price == null)
       || (auto.driveType == null)
-      || (auto.driveType == null)
       || (auto.transmissionType == null)
       || (auto.bodyStyleType == null)) {
 
       this.isData = false;
     } else {
-      this.createPicture(this.auto);
+      this.addImageAuto(this.auto);
     }
   }
 
+  /*Load picture auto from client API*/
   public onFileChanged(event) {
     console.log("onFileChanged()");
 
@@ -334,17 +337,18 @@ export class AddAutoadsComponent {
     (conditionOnMaxSizeImage) ? this.validateSizeImage = false : this.validateSizeImage = true;
   }
 
-  createPicture(autoJoin): any {
+  /*Add new picture auto*/
+  addImageAuto(autoJoin): any {
     console.log("createPicture()");
     const uploadImageData = new FormData();
     if (this.selectedFile != null) {
       uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
 
       if (this.validateSizeImage && this.validateFormatImage) {
-        this.imageAutoService.createPictureAuto(uploadImageData)
+        this.imageAutoService.addImageAuto(uploadImageData)
           .subscribe(
             (id) => {
-              (id != null) ? (this.createAuto(autoJoin, id)) : (this.createAuto(autoJoin, null));
+              (id != null) ? (this.addAutoAds(autoJoin, id)) : (this.addAutoAds(autoJoin, null));
             },
             error => {
               console.log("error: ", error);
@@ -364,10 +368,12 @@ export class AddAutoadsComponent {
     console.log("Added image auto to list");
   }
 
-  createAuto(auto: any, idImage: any): void {
+  /*Add new auto ads to list auto ads*/
+  addAutoAds(auto: any, idImage: any): void {
     console.log("createAuto()");
+    console.log("Auto: ", auto);
     if (this.trueImage) {
-      this.autoAdsService.createAuto(auto, idImage)
+      this.autoAdsService.addAutoAds(auto, idImage)
         .subscribe(
           data => {
             this.router.navigate(['/auto-ads']);

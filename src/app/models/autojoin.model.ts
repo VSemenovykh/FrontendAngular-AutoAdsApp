@@ -8,9 +8,9 @@ export class AutoJoin {
   nameModel: string = null;
   year: string = null;
   color: string = null;
-  price: string = null;
+  price: any = null;
   motorType: string = null;
-  volume: string = null;
+  volume: number = null;
   driveType: string = null;
   transmissionType: string = null;
   bodyStyleType: string = null;

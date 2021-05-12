@@ -10,15 +10,15 @@ export class PictureAutoService {
 
   private pictureUrlAll = 'http://localhost:8080/api/all';
 
-  public getPictureAutoByIdAuto(idAuto: any): Observable<any> {
+  public getImageAutoByIdAuto(idAuto: any): Observable<any> {
     return this.http.get(this.pictureUrlAll + '/pictureAuto/idAuto/' + idAuto);
   }
 
-  public createPictureAuto(pictureAuto: any): any {
+  public addImageAuto(pictureAuto: any): any {
     return this.http.post(this.pictureUrlAll + '/pictureAuto', pictureAuto);
   }
 
-  public editPictureAuto(pictureAuto: any, idImage: any): any {
+  public editImageAuto(pictureAuto: any, idImage: any): any {
     return (pictureAuto != null) ? (this.http.put(this.pictureUrlAll + '/pictureAuto/update/' + idImage, pictureAuto)) : this.http.put(this.pictureUrlAll + '/update/' + idImage, null);
   }
 }
