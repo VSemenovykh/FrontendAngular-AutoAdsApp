@@ -28,7 +28,7 @@ export class CompareAutoAdsService {
     return this.http.post(this.compareAutoUrlAll + '/add-auto-to-compare', compareAuto, {params});
   }
 
-  public deleteAutoAdsFromCompareByIdAuto(idAuto: any, params): any {
+  public deleteCompareAuto(idAuto: any, params): any {
     return this.http.delete(this.compareAutoUrlAll + '/search/list-compare-auto/' + idAuto, {params});
   }
 

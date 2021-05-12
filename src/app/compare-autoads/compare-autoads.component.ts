@@ -141,7 +141,7 @@ export class CompareAutoadsComponent implements OnInit{
     console.log("deleteCompareAuto()");
     const params = {"idUser": this.idUser};
     console.log("params: ", params);
-    this.compare.deleteAutoAdsFromCompareByIdAuto(id, params)
+    this.compare.deleteCompareAuto(id, params)
       .subscribe(
         data => {},
         error => {
