@@ -11,3 +11,16 @@ td {
   border-left: 30px solid #f7f9f8;
   padding: 12px 2px;
 }
+
+.header-center {
+  text-align: center !important;
+}
+
+h2 {
+  font-size: 2.0em;
+  margin: 20px 0 0 0;
+  font-weight: 400;
+  color: #0707b1;
+  font-weight: bold;
+}
+
