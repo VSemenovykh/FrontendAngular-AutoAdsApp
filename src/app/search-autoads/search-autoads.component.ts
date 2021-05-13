@@ -316,7 +316,6 @@ export class SearchAutoadsComponent implements OnInit {
   findAutoAdsByDiffCriteria(data: any): void {
     console.log("findAutoAdsByDiffCriteria()");
     const params = this.getRequestParams(this.page, this.pageSize);
-
     console.log("params: ", params);
     if (data != null) {
       this.searchCarService.searchAutoPage(data, params)
@@ -331,6 +330,7 @@ export class SearchAutoadsComponent implements OnInit {
               this.isResponse = true;
             } else {
               this.isResponse = false;
+              this.count = 0;
             }
 
           },
