@@ -12,6 +12,8 @@ export class RegisterComponent implements OnInit {
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
+  messageVerify: string;
+  isVerify: boolean = false;
 
   constructor(private authService: AuthService) {
   }
@@ -37,6 +39,21 @@ export class RegisterComponent implements OnInit {
           this.errorMessage = err.error.message;
           console.log("errorMessage: ", this.errorMessage);
         }
+      );
+  }
+
+  verify(): void{
+    this.authService.verify()
+      .subscribe(
+        message => {
+          this.messageVerify = message;
+          this.isVerify = true
+        },
+        // err => {
+        //   this.isVerify = false;
+        //   this.errorMessage = err.error.message;
+        //   console.log("errorMessage: ", this.errorMessage);
+        // }
       );
   }
 }

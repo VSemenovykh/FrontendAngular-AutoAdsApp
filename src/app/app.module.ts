@@ -32,6 +32,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import {MatInputModule} from "@angular/material/input";
 import {NotFoundComponent} from "./erros/not-found.component"
+import {InfoModifyAutoAdsService} from "./_services/info-modify-auto-ads.service";
 
 @NgModule({
   declarations: [
@@ -67,7 +68,7 @@ import {NotFoundComponent} from "./erros/not-found.component"
     MatSelectModule,
     MatInputModule
   ],
-  providers: [AutoAdsService, SearchAutoAdsService, PictureAutoService, authInterceptorProviders, CompareAutoAdsService],
+  providers: [AutoAdsService, SearchAutoAdsService, PictureAutoService, authInterceptorProviders, CompareAutoAdsService, InfoModifyAutoAdsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

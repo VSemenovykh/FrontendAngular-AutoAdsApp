@@ -13,6 +13,13 @@
   width: 400px;
 }
 
+.info-create-moddify{
+  position: absolute;
+  top: 482px;
+  /*left: 50px;*/
+  width: 400px;
+}
+
 .image-auto {
   position: absolute;
   top: 80px;
@@ -107,14 +114,19 @@ section {
   height: 25%;
 }
 
-.button-delete {
+.button-edit {
+  position: absolute;
+  margin-left: 0%;
+}
+
+.button-edit-info {
   position: absolute;
   margin-left: 45%;
 }
 
-.button-edit {
+.button-change-info {
   position: absolute;
-  margin-left: 0%;
+  margin-left: 90%;
 }
 
 .text-deleted-auto-ads {

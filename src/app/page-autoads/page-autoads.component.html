@@ -92,9 +92,17 @@
           <td>{{dataAuto.bodyStyleType}}</td>
         </tr>
       </table>
+      <div class="info-create-moddify">
+        <p>
+          <strong>Create user: </strong> {{dataAuto.username}}&nbsp;  <strong>adding date: </strong> {{dataAuto.addingDate}}
+        </p>
+        <p *ngIf="isInfoModify">
+          <strong>Modify user: </strong>{{changeHistoryAutoAds.username}}&nbsp; <strong>modifying date: </strong>  {{changeHistoryAutoAds.changeData}}
+        </p>
+      </div>
     </div>
     <div class="buttons-control">
-      <div class="button-delete" *ngIf="isAdmin">
+      <div class="button-edit-info" *ngIf="isAdmin">
         <button mat-stroked-button class="buttons blue" (click)="deleteAutoAds(dataAuto)">
           <span class="material-icons"> delete </span>
         </button>
@@ -104,6 +112,11 @@
           <mat-icon> edit</mat-icon>
         </button>
       </div>
+<!--      <div class="button-change-info" *ngIf="isAdmin">-->
+<!--        <button mat-stroked-button class="buttons blue" (click)="goToListChangeHistoryAutoAds(dataAuto.id)">-->
+<!--          Change info-->
+<!--        </button>-->
+<!--      </div>-->
     </div>
   </div>
   <div class="text-deleted-auto-ads" *ngIf="isDelete">

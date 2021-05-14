@@ -97,6 +97,7 @@ export class CompareAutoadsComponent implements OnInit{
             this.autoArray = listAutoJoin;
             this.count = totalAutoJoin;
             this.currentPage = currentPage;
+            console.log("this.autoArray: ", this.autoArray);
 
             this.isResponse = true;
             this.isListCompareAuto = true;

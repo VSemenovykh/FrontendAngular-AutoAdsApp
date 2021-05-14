@@ -6,6 +6,7 @@ import {PictureAutoService} from "../_services/picture-auto.sevice";
 import {AutoJoin} from "../models/autojoin.model";
 import {ModelGroup} from '../interfaces/ModelGroup';
 import { ErrorStateMatcher } from '@angular/material/core';
+import {TokenStorageService} from "../_services/token-storage.service";
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -211,7 +212,7 @@ export class AddAutoadsComponent {
   auto: AutoJoin = new AutoJoin();
   selectedFile: File;
   matcher = new MyErrorStateMatcher();
-
+  private roles: string[];
   message: string;
 
   isPicture: boolean = true;
@@ -219,12 +220,14 @@ export class AddAutoadsComponent {
   validateFormatImage: boolean = true;
   validateSizeImage: boolean = true;
   trueImage: boolean = true;
+  isLoggedIn: boolean = false;
 
   constructor(
               private router: Router,
               private autoAdsService: AutoAdsService,
               private imageAutoService: PictureAutoService,
-              public fb: FormBuilder
+              public fb: FormBuilder,
+              private tokenStorageService: TokenStorageService
              ){
   }
 
@@ -251,6 +254,13 @@ export class AddAutoadsComponent {
   onSubmit() {
     console.log("onSubmit()");
     const auto = this.auto;
+
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+
+    if (this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      auto.username = user.username;
+    }
 
     const selectedBrand =  this.brandControl.value;
     if(selectedBrand != null){
@@ -372,6 +382,7 @@ export class AddAutoadsComponent {
   addAutoAds(auto: any, idImage: any): void {
     console.log("createAuto()");
     console.log("Auto: ", auto);
+    auto.idPicture = idImage;
     if (this.trueImage) {
       this.autoAdsService.addAutoAds(auto, idImage)
         .subscribe(

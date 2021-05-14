@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 const AUTH_API = 'http://localhost:8080/api/auth/';
+const VERIFY_USER = 'http://localhost:8080/api/verify';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -29,5 +30,9 @@ export class AuthService {
       email: user.email,
       password: user.password
     }, httpOptions);
+  }
+
+  verify(): Observable<any>{
+    return this.http.get(VERIFY_USER, httpOptions);
   }
 }

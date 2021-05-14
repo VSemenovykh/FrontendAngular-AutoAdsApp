@@ -89,8 +89,11 @@
       </div>
     </form>
 
-    <div class="alert alert-success" *ngIf="isSuccessful">
-      Your registration is successful!
+    <div class="alert alert-info" *ngIf="isSuccessful">
+      Congratulations, your account has been verified
+      <div class="message" (click)="verify()" *ngIf="!isVerify">Please check your email to verify your account</div>
+      <div *ngIf="isVerify"> The user {{form.username}} has not passed  verify! </div>
     </div>
+
   </div>
 </div>

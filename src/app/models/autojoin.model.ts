@@ -2,6 +2,7 @@ export class AutoJoin {
   id: number = null;
   idPicture: number = null;
   raster: any = null;
+  username: string = null;
   email: string = null;
   phone: string = null;
   nameBrand: string = null;
@@ -14,4 +15,5 @@ export class AutoJoin {
   driveType: string = null;
   transmissionType: string = null;
   bodyStyleType: string = null;
+  addingDate: string = null;
 }

@@ -50,7 +50,7 @@ export class AutoadsComponent implements OnInit {
       this.isUser = this.roles.includes('ROLE_USER');
     }
 
-    this.columns = ['photo', 'brand', 'model', 'year', 'price', 'body style' ];
+    this.columns = ['photo', 'brand', 'model', 'year', 'price', 'body style',  'author', 'addingDate'];
 
     if(this.page != 1){
       this.getIndexPage(this.page, this.pageSize);
