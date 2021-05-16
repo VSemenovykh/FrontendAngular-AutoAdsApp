@@ -21,11 +21,15 @@ export class NotVerifyComponent implements OnInit {
   reVerifacationEmail(): any{
     const email = String(this.route.snapshot.queryParams["email"]);
     console.log("email: ", email);
-    this.authService.requestSendVerifyUserEmail(email).subscribe(
-      message => {
-        this.message = message;
-        console.log("this.message: ", this.message);
-      }
-    );
+    if(email != 'undefined'){
+      this.authService.requestSendVerifyUserEmail(email).subscribe(
+        message => {
+          this.message = message;
+          console.log("this.message: ", this.message);
+        }
+      );
+    }else{
+      console.log("Error: email not define");
+    }
   }
 }

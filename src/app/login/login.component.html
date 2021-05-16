@@ -1,4 +1,4 @@
-<ng-template [ngIf]="isVerifyEnabled">
+<!--<ng-template [ngIf]="isVerifyEnabled">-->
   <div class="col-md-12">
     <div class="card card-container">
       <img
@@ -13,6 +13,9 @@
         #f="ngForm"
         novalidate
       >
+        <div class="alert alert-success" *ngIf="isVerifyEnabled">
+          Verification was successful!
+        </div>
         <div class="form-group">
           <label for="username">Username</label>
           <input
@@ -82,12 +85,12 @@
           </div>
         </div>
       </form>
-      <div class="alert alert-success" *ngIf="isLoggedIn" [routerLink]="goToHome()">
-      </div>
+<!--      <div class="alert alert-success" *ngIf="isLoggedIn && isVerifyEnabled" [routerLink]="goToHome()">-->
+<!--      </div>-->
     </div>
   </div>
+<!--</ng-template>-->
 
-</ng-template>
-<ng-template [ngIf]="!isVerifyEnabled">
-  <p class="message" (click)="sendVerifyUserEmail()">verification email</p>
-</ng-template>
+<!--<ng-template [ngIf]="!isVerifyEnabled">-->
+<!--  <p class="message" (click)="sendVerifyUserEmail()">verification email</p>-->
+<!--</ng-template>-->

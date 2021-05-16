@@ -1,9 +1,9 @@
 .message:hover {
   text-decoration: none;
-  background: #d4d4d4;
+  background: #c8cff6;
   display: inline-block;
   cursor: pointer;
-  margin-top: 95px;
+  /*margin-top: 95px;*/
   height: 40px;
 }
 
@@ -12,7 +12,7 @@
   align-items: center;
   box-sizing: border-box;
   width: 50%;
-  height: 100%;
+  height: 40px;
   text-align: center;
   margin-top: 98px;
   margin-left: 25%;

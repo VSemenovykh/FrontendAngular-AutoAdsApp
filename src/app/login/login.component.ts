@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   username: string;
   email: string;
   message: string;
+  isLogin: boolean = true;
 
   constructor(private authService: AuthService,
               private tokenStorage: TokenStorageService,
@@ -29,23 +30,28 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("this.isVerifyEnabled: ", this.isVerifyEnabled);
-    this.isVerifyEnabled = Boolean(String(this.route.snapshot.params.isVerifyEnabled));
-    console.log("this.isVerifyEnabled: ", this.isVerifyEnabled);
+    this.isVerifyEnabled = (String(this.route.snapshot.queryParams['verifyEnabled'])) == 'true';
+    this.username = String(this.route.snapshot.queryParams['username']);
 
-    if (this.tokenStorage.getToken()) {
-      this.isLoggedIn = true;
-      this.roles = this.tokenStorage.getUser().roles;
-      const user = this.tokenStorage.getUser();
+    console.log("isVerifyEnabled: ", this.isVerifyEnabled);
+    if (this.isVerifyEnabled) {
+      this.isVerify = true;
+      this.form['username'] = this.username;
 
-      this.username = user.username;
-      console.log("user: ", user);
-      this.email = user.email;
+      if (this.tokenStorage.getToken()) {
+        this.isLoggedIn = true;
+        this.roles = this.tokenStorage.getUser().roles;
+        const user = this.tokenStorage.getUser();
 
-      if(this.isVerifyEnabled){
-        this.isVerify = true;
-      }else{
-        this.isVerify = false;
+        this.email = user.email;
       }
+
+      if(this.isLoggedIn){
+        this.isVerifyEnabled = false;
+      }
+
+    } else {
+      this.isVerify = false;
     }
   }
 
@@ -60,7 +66,11 @@ export class LoginComponent implements OnInit {
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getUser().roles;
 
-        this.reloadPage();
+        if(this.isLoggedIn){
+          console.log("to /Home");
+          this.authService.sendMessage(this.isLogin);
+          this.goToHome();
+        }
       },
       err => {
         this.errorMessage = err.error.message;
@@ -70,7 +80,7 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  sendVerifyUserEmail(): void{
+  sendVerifyUserEmail(): void {
     this.isVerify = false;
     console.log("this.username: ", this.username);
     this.authService.requestSendVerifyUserEmail(this.email)

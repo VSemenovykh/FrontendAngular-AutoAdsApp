@@ -31,11 +31,12 @@ export class RegisterComponent implements OnInit {
         (res) => {
           const {existUser, message} = res;
           this.existUser = existUser;
-          console.log(res);
+
           if (this.existUser != false) {
             this.isSuccessful = true;
             this.isSignUpFailed = false;
             this.isVerify = true;
+
           } else {
             this.isSuccessful = false;
             this.isSignUpFailed = true;
