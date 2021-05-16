@@ -161,6 +161,7 @@ export class PageAutoadsComponent implements OnInit {
     this.goToListAutoAds();
   }
 
+  /*Get modify date auto ads*/
   getInfoModifyAutoAdsByIdAuto(idAuto: number): void{
     const params = {"idAuto": idAuto};
     console.log("getAllChangeHistoryAutoAdsByIdAuto()");

@@ -48,14 +48,14 @@ export class AutoadsComponent implements OnInit {
       this.isAdmin = this.roles.includes('ROLE_ADMIN');
       this.isModerator = this.roles.includes('ROLE_MODERATOR');
       this.isUser = this.roles.includes('ROLE_USER');
-    }
 
-    this.columns = ['photo', 'brand', 'model', 'year', 'price', 'body style',  'author', 'addingDate'];
+      this.columns = ['photo', 'brand', 'model', 'year', 'price', 'body style',  'author', 'addingDate'];
 
-    if(this.page != 1){
-      this.getIndexPage(this.page, this.pageSize);
-    }else{
-      this.loadAutoByPage();
+      if(this.page != 1){
+        this.getIndexPage(this.page, this.pageSize);
+      }else{
+        this.loadAutoByPage();
+      }
     }
   }
 

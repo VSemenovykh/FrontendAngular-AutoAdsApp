@@ -221,6 +221,9 @@ export class AddAutoadsComponent {
   validateSizeImage: boolean = true;
   trueImage: boolean = true;
   isLoggedIn: boolean = false;
+  isAdmin: boolean = false;
+  isModerator: boolean = false;
+  isUser: boolean = false;
 
   constructor(
               private router: Router,
@@ -251,16 +254,29 @@ export class AddAutoadsComponent {
       Validators.pattern("^\\([0-9]{3}\\)+\\-[0-9]{3}\\-[0-9]{2}-[0-9]{2}$")])
   });
 
-  onSubmit() {
-    console.log("onSubmit()");
-    const auto = this.auto;
-
+  ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
-      auto.username = user.username;
+      this.auto.username = user.username;
     }
+  }
+
+  onSubmit() {
+    console.log("onSubmit()");
+    const auto = this.auto;
+
+    // this.isLoggedIn = !!this.tokenStorageService.getToken();
+    //
+    // if (this.isLoggedIn) {
+    //   const user = this.tokenStorageService.getUser();
+    //   auto.username = user.username;
+    //
+    //   this.isAdmin = this.roles.includes('ROLE_ADMIN');
+    //   this.isModerator = this.roles.includes('ROLE_MODERATOR');
+    //   this.isUser = this.roles.includes('ROLE_USER');
+    // }
 
     const selectedBrand =  this.brandControl.value;
     if(selectedBrand != null){

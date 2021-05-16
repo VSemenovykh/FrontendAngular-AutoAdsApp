@@ -18,7 +18,7 @@ export class AutoAdsService {
   }
 
   public getAutoAdsById(id: number): Observable<any> {
-    return this.http.get(this.autoUrlAll + '/join/' + id);
+    return this.http.get(this.autoUrlAll + '/autoads/join/' + id);
   }
 
   public deleteAutoAds(car: AutoJoin): Observable<any> {

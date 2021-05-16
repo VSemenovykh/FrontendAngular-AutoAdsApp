@@ -12,8 +12,10 @@ export class RegisterComponent implements OnInit {
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
-  messageVerify: string;
-  isVerify: boolean = false;
+  message: string;
+  stringCode: string;
+  isVerify: boolean;
+  existUser: boolean;
 
   constructor(private authService: AuthService) {
   }
@@ -23,14 +25,21 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void {
     console.log("onSubmit()");
-    this.authService.register(this.form)
+    this.stringCode = this.getRandomString(64);
+    this.authService.register(this.form, this.stringCode)
       .subscribe(
-        data => {
-          console.log(data);
-          this.isSuccessful = true;
-          this.isSignUpFailed = false;
-          if(data == null){
+        (res) => {
+          const {existUser, message} = res;
+          this.existUser = existUser;
+          console.log(res);
+          if (this.existUser != false) {
+            this.isSuccessful = true;
+            this.isSignUpFailed = false;
+            this.isVerify = true;
+          } else {
             this.isSuccessful = false;
+            this.isSignUpFailed = true;
+            this.isVerify = false;
           }
         },
         err => {
@@ -42,18 +51,25 @@ export class RegisterComponent implements OnInit {
       );
   }
 
-  verify(): void{
-    this.authService.verify()
+  /*Send request verification email*/
+  sendVerifyUserEmail(): void {
+    this.isVerify = false;
+    this.authService.requestSendVerifyUserEmail(this.form['email'])
       .subscribe(
         message => {
-          this.messageVerify = message;
-          this.isVerify = true
-        },
-        // err => {
-        //   this.isVerify = false;
-        //   this.errorMessage = err.error.message;
-        //   console.log("errorMessage: ", this.errorMessage);
-        // }
+          this.message = message;
+          console.log("this.message: ", this.message);
+        }
       );
+  }
+
+  /*Generation string code for verification email*/
+  getRandomString(length: number): any {
+    const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      result += randomChars.charAt(Math.floor(Math.random() * length));
+    }
+    return result;
   }
 }

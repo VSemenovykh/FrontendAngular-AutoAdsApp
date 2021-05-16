@@ -1,9 +1,3 @@
-/*body{*/
-/*  position: relative;*/
-/*  margin: 0 auto;*/
-/*  max-width: 1200px;*/
-/*  padding-right: 310px; */
-/*}*/
 h1 {
   font-size: 2.0em;
   margin: 20px 0 0 0;
@@ -139,3 +133,17 @@ img {
   display: flex;
   justify-content: center;
 }
+
+.access-is-denied {
+  font-size: 72px;
+  align-items: center;
+  box-sizing: border-box;
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  margin-top: 98px;
+  margin-left: 25%;
+  color: blue;
+}
+
+
