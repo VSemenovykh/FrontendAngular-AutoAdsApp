@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import { TokenStorageService } from './_services/token-storage.service';
 import {CompareAutoAdsService} from "./_services/compare-auto-ads.service";
+import {ResponsiveService} from './_services/responsive.service'
 import {DOCUMENT} from "@angular/common";
 
 @Component({
@@ -12,6 +13,7 @@ import {DOCUMENT} from "@angular/common";
 export class AppComponent implements OnInit{
   private roles: string[];
   username: string;
+  token: string;
 
   isLoggedIn: boolean = false;
   isAdmin: boolean =  false;
@@ -22,10 +24,22 @@ export class AppComponent implements OnInit{
   constructor(private tokenStorageService: TokenStorageService,
               private compare: CompareAutoAdsService,
               private compareAutoService: CompareAutoAdsService,
+              private responsiveService: ResponsiveService,
               @Inject(DOCUMENT) private _document: Document) { }
 
   ngOnInit(): void {
+    this.responsiveService.getMobileStatus().subscribe( isMobile =>{
+      if(isMobile){
+        console.log('Mobile device detected')
+      }
+      else{
+        console.log('Desktop detected')
+      }
+    });
+    this.onResize();
+
     this.isLoggedIn = !!this.tokenStorageService.getToken();
+    this.token = this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
@@ -47,15 +61,19 @@ export class AppComponent implements OnInit{
     }
   }
 
+  onResize(){
+    this.responsiveService.checkWidth();
+  }
+
   logout(): void {
-    this.tokenStorageService.signOut();
-    window.location.reload();
+    const params = {"token": this.token};
+    this.tokenStorageService.signOut(params);
+    this.refreshPage();
   }
 
   checkIsListCompareAuto(): void {
     console.log("checkIsListCompareAuto():");
     if(this.tokenStorageService.getUser() != null){
-      console.log("this.tokenStorageService.getUser().id: ", this.tokenStorageService.getUser().id);
       const params = {"page": 0, "size": 1, "idUser": this.tokenStorageService.getUser().id};
       this.compare.getAllAutoToComparePage(params)
         .subscribe(

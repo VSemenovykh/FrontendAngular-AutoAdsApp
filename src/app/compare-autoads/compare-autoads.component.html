@@ -1,4 +1,4 @@
-<div *ngIf="isUser || isAdmin || isModerator">
+<div *ngIf="isLoggedIn">
   <ng-template [ngIf]="!isListCompareAuto">
     <div class="empty-list-compare">
       Click "Add to Compare" &nbsp;on the ads page

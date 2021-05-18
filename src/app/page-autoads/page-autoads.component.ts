@@ -7,6 +7,8 @@ import {AutoJoin} from "../models/autojoin.model";
 import {CompareAutoAdsService} from "../_services/compare-auto-ads.service";
 import {DOCUMENT} from "@angular/common";
 import {TokenStorageService} from "../_services/token-storage.service";
+import {InfoModifyAutoAdsService} from "../_services/info-modify-auto-ads.service";
+import {ChangeHistoryAutoAdsModel} from "../models/change.history.auto.ads.model";
 
 @Component({
   selector: 'app-page-auto',
@@ -18,6 +20,7 @@ export class PageAutoadsComponent implements OnInit {
   dataAuto: AutoJoin = new AutoJoin();
   dataAutoToCompare: AutoJoin = new AutoJoin();
   pictureAuto: AutoPicture = new AutoPicture();
+  changeHistoryAutoAds: ChangeHistoryAutoAdsModel = new ChangeHistoryAutoAdsModel();
   retrievedImage: any;
   price: string;
   private roles: string[];
@@ -29,6 +32,7 @@ export class PageAutoadsComponent implements OnInit {
   isPicture: boolean = true;
   isAddCompare: boolean = false;
   isDelete: boolean = false;
+  isInfoModify: boolean = false;
   notNegativeId: boolean = true;
 
   constructor(
@@ -39,6 +43,7 @@ export class PageAutoadsComponent implements OnInit {
              private imageAutoService: PictureAutoService,
              private compareAutoService: CompareAutoAdsService,
              private token: TokenStorageService,
+             private changeHistoryAutoAdsService: InfoModifyAutoAdsService,
              @Inject(DOCUMENT) private _document: Document
             ) {
   }
@@ -58,6 +63,7 @@ export class PageAutoadsComponent implements OnInit {
     if (this.dataAuto.id > -1) {
       this.getAutoAdsById();
       this.getImage(this.dataAuto.id);
+      this.getInfoModifyAutoAdsByIdAuto(this.dataAuto.id);
 
       if (!this.isAddCompare) {
         this.checkIsAddedCompareAutoAds();
@@ -155,11 +161,34 @@ export class PageAutoadsComponent implements OnInit {
     this.goToListAutoAds();
   }
 
+  /*Get modify date auto ads*/
+  getInfoModifyAutoAdsByIdAuto(idAuto: number): void{
+    const params = {"idAuto": idAuto};
+    console.log("getAllChangeHistoryAutoAdsByIdAuto()");
+    console.log("params: ", params);
+    this.changeHistoryAutoAdsService.getAllChangeHistoryAutoAds(params).subscribe(
+      (response) => {
+        if(response != null){
+          this.changeHistoryAutoAds = response;
+          this.isInfoModify = true;
+        }else{
+          this.isInfoModify = false;
+        }
+      },
+      error => {
+        console.log("Error: ",error);
+      });
+  }
+
   goToListAutoAds(): void {
     this.router.navigate(['/auto-ads']);
   }
 
   goToEdit(id: number): void {
     this.router.navigate(['/edit', id]);
+  }
+
+  goToListChangeHistoryAutoAds(idAuto: number): void{
+    this.router.navigate(['/change-history-auto-ads', idAuto]);
   }
 }

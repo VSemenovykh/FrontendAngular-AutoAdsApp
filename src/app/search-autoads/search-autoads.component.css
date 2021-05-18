@@ -56,4 +56,15 @@ section {
   padding-top: 3%;
 }
 
+.access-is-denied {
+  font-size: 72px;
+  align-items: center;
+  box-sizing: border-box;
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  margin-top: 98px;
+  margin-left: 25%;
+  color: blue;
+}
 

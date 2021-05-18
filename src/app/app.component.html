@@ -1,48 +1,57 @@
-<div id="app">
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a href="#" class="navbar-brand">Auto Ads</a>
-    <ul class="navbar-nav mr-auto" routerLinkActive="active">
-      <li class="nav-item">
-        <a style="margin-left:10px" href="/home" class="nav-link" routerLink="home" (click)="checkIsListCompareAuto()">Home </a>
-      </li>
-      <li class="nav-item">
-        <a style="margin-left:15px" href="/auto-ads" class="nav-link" routerLink="auto-ads"
-           (click)="checkIsListCompareAuto()">List
-          auto ads</a>
-      </li>
-      <li class="nav-item">
-        <a style="margin-left:20px" href="/add" class="nav-link" *ngIf="isAdmin || isModerator || isUser"
-           routerLink="add"
-           (click)="checkIsListCompareAuto()">Add auto ads</a>
-      </li>
-      <li class="nav-item">
-        <a style="margin-left:30px" href="/search-auto-ads" class="nav-link" routerLink="search-auto-ads"
-           (click)="checkIsListCompareAuto()">Search auto ads</a>
-      </li>
-      <li class="nav-item">
-        <a style="margin-left:40px" href="/compare-auto-ads" class="nav-link" routerLink="compare-auto-ads"
-           *ngIf="isListCompareAuto && (isAdmin || isUser || isModerator)">Compare</a>
-      </li>
-    </ul>
-    <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
-      <li class="nav-item">
-        <a style="margin-right:15px" href="/register" class="nav-link" routerLink="register">Log up</a>
-      </li>
-      <li class="nav-item">
-        <a style="margin-right:5px" href="/login" class="nav-link" routerLink="login">Login</a>
-      </li>
-    </ul>
+<div class="app-body" (window:resize)="onResize()">
+  <div id="app">
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+      <a href="#" class="navbar-brand">Auto Ads</a>
+      <ul class="navbar-nav mr-auto" routerLinkActive="active">
+        <li class="nav-item">
+          <a style="margin-left:10px" href="/home" class="nav-link" routerLink="home"
+             (click)="checkIsListCompareAuto()">Home </a>
+        </li>
+        <li class="nav-item">
+          <a style="margin-left:15px" href="/auto-ads" class="nav-link" routerLink="auto-ads"
+             (click)="checkIsListCompareAuto()" *ngIf="isLoggedIn && ( isAdmin || isModerator || isUser)">List auto
+            ads</a>
+        </li>
+        <li class="nav-item">
+          <a style="margin-left:20px" href="/add" class="nav-link"
+             *ngIf="isLoggedIn && ( isAdmin || isModerator || isUser)"
+             routerLink="add"
+             (click)="checkIsListCompareAuto()">Add auto ads</a>
+        </li>
+        <li class="nav-item">
+          <a style="margin-left:30px" href="/search-auto-ads" class="nav-link" routerLink="search-auto-ads"
+             (click)="checkIsListCompareAuto()" *ngIf="isLoggedIn && ( isAdmin || isModerator || isUser)">Search auto
+            ads</a>
+        </li>
+        <li class="nav-item">
+          <a style="margin-left:40px" href="/compare-auto-ads" class="nav-link" routerLink="compare-auto-ads"
+             *ngIf="isListCompareAuto && (isLoggedIn && (isAdmin || isUser || isModerator))">Compare</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+        <li class="nav-item">
+          <a style="margin-right:15px" href="/register" class="nav-link" routerLink="register">Logup</a>
+        </li>
+        <li class="nav-item">
+          <a style="margin-right:5px" href="/login" class="nav-link" routerLink="login">Login</a>
+        </li>
+      </ul>
 
-    <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
-      <li class="nav-item">
-        <a style="margin-right:20px" href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
-      </li>
-      <li class="nav-item">
-        <a style="margin-right:5px" href class="nav-link" (click)="logout()">LogOut</a>
-      </li>
-    </ul>
-  </nav>
-  <div class="container">
-    <router-outlet></router-outlet>
+      <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+        <li class="nav-item">
+          <a style="margin-right:20px" href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
+        </li>
+        <div style="margin-right:5px" class="logout" (click)="logout()">
+          <li class="nav-item">
+            <!--        <a style="margin-right:5px" href class="nav-link" (click)="logout()">LogOut</a>-->
+            <p>LogOut</p>
+          </li>
+        </div>
+      </ul>
+    </nav>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>
+

@@ -1,18 +1,34 @@
 import {Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
 
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
+
+const API_URL = 'http://localhost:8080/api/logout';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenStorageService {
 
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
-  signOut(): void {
+  signOut(params: any):  void {
+    console.log("params: ", params);
+    this.requestPostOnAddNotActiveToken(params)
+      .subscribe((res)=>{
+        console.log(res);
+      },
+        error => {
+        console.log(error);
+      });
     window.sessionStorage.clear();
+  }
+
+  requestPostOnAddNotActiveToken(params): Observable<any> {
+    return this.http.post(API_URL, {},{params});
   }
 
   public saveToken(token: string): void {

@@ -80,6 +80,7 @@
           </div>
         </div>
       </div>
+
       <div class="form-group">
         <button class="btn btn-primary btn-block">Sign Up</button>
       </div>
@@ -88,9 +89,10 @@
         Signup failed!<br />{{ errorMessage }}
       </div>
     </form>
-
-    <div class="alert alert-success" *ngIf="isSuccessful">
-      Your registration is successful!
+    <div class="alert alert-warning" *ngIf="isSuccessful">
+      Сonfirm your email
+      <div class="message" (click)="sendVerifyUserEmail()">Please check your email to verify your account</div>
     </div>
   </div>
 </div>
+<!--  Congratulations, your account has been verified -->

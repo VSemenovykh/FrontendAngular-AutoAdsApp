@@ -1,0 +1,20 @@
+.message:hover {
+  text-decoration: none;
+  background: #c8cff6;
+  display: inline-block;
+  cursor: pointer;
+  /*margin-top: 95px;*/
+  height: 40px;
+}
+
+.access-is-denied {
+  font-size: 45px;
+  align-items: center;
+  box-sizing: border-box;
+  width: 50%;
+  height: 40px;
+  text-align: center;
+  margin-top: 98px;
+  margin-left: 25%;
+  color: blue;
+}

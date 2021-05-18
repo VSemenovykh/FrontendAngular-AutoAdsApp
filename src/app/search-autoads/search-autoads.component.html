@@ -1,244 +1,247 @@
-<h1 class="header-center">Search auto ads</h1>
-<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
-  <table width="400" height="150" align=center>
-    <tr>
-      <td>Brand:</td>
-      <td>
-        <div class="example-wrapper">
-          <kendo-multiselect
-            [data]="brandList"
-            [(ngModel)]="brands"
-            [ngModelOptions]="{standalone: true}">
-          </kendo-multiselect>
-        </div>
-      </td>
-      <td>Model:</td>
-      <td>
-        <div class="example-wrapper">
-          <kendo-multiselect
-            [data]="groupedModel"
-            [textField]="'name'"
-            [valueField]="'name'"
-            formControlName="model">
-          </kendo-multiselect>
-        </div>
-      </td>
-      <td> Year &nbsp; &nbsp; &nbsp; from:</td>
-      <td>
-        <select formControlName="startYear">
-          <option [ngValue]="null" disabled>Select year</option>
-          <option *ngFor="let startYear of startYears"
-                  [ngValue]="startYear.name">{{startYear.name}}</option>
-        </select>
-      </td>
-      <td>&nbsp; &nbsp; &nbsp; to:</td>
-      <td>
-        <select formControlName="endYear">
-          <option [ngValue]="null" disabled>Select year</option>
-          <option *ngFor="let endYear of endYears"
-                  [ngValue]="endYear.name">{{endYear.name}}</option>
-        </select>
-      </td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>Color:</td>
-      <td>
-        <div class="example-wrapper">
-          <kendo-multiselect
-            [data]="colorList"
-            [(ngModel)]="colors"
-            [ngModelOptions]="{standalone: true}">
-          </kendo-multiselect>
-        </div>
-      </td>
-      <td>Drive:</td>
-      <td>
-        <div class="example-wrapper">
-          <kendo-multiselect
-            [data]="driveList"
-            [(ngModel)]="drives"
-            [ngModelOptions]="{standalone: true}">
-          </kendo-multiselect>
-        </div>
-      </td>
-      <td>Transmission:</td>
-      <td>
-        <div class="example-wrapper">
-          <kendo-multiselect
-            [data]="transmissionList"
-            [(ngModel)]="transmissions"
-            [ngModelOptions]="{standalone: true}">
-          </kendo-multiselect>
-        </div>
-      </td>
-      <td>Body style:</td>
-      <td>
-        <div class="example-wrapper">
-          <kendo-multiselect
-            [data]="bodyStyleList"
-            [(ngModel)]="bodyStyles"
-            [ngModelOptions]="{standalone: true}">
-          </kendo-multiselect>
-        </div>
-      </td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>Motor:</td>
-      <td>
-        <div class="example-wrapper">
-          <kendo-multiselect
-            [data]="motorList"
-            [(ngModel)]="motors"
-            [ngModelOptions]="{standalone: true}">
-          </kendo-multiselect>
-        </div>
-      </td>
-      <td>Volume &nbsp; &nbsp; &nbsp; from:</td>
-      <td>
-        <select formControlName="startVolume">
-          <option [ngValue]="null" disabled>Select year</option>
-          <option *ngFor="let startVolume of startVolumes"
-                  [ngValue]="startVolume.name">{{startVolume.name}}</option>
-        </select>
-      </td>
-      <td>&nbsp; &nbsp; &nbsp; to:</td>
-      <td>
-        <select formControlName="endVolume">
-          <option [ngValue]="null" disabled>Select year</option>
-          <option *ngFor="let endVolume of endVolumes"
-                  [ngValue]="endVolume.name">{{endVolume.name}}</option>
-        </select>
-      </td>
-      <td>Price &nbsp; &nbsp; &nbsp; from:</td>
-      <td><input [(ngModel)]="startPrice"
-                 [ngModelOptions]="{standalone: true}"
-                 class="mat-form-field"
-                 size="10"
-                 placeholder="start"
-                 name="startPrice"
-                 ng-pattern="/^-?[0-9][^\.]*$/"/>
-      </td>
-      <td>&nbsp; &nbsp; &nbsp; to:</td>
-      <td><input [(ngModel)]="endPrice"
-                 [ngModelOptions]="{standalone: true}"
-                 class="mat-form-field"
-                 size="10"
-                 placeholder="end"
-                 name="endPrice"
-                 ng-pattern="/^-?[0-9][^\.]*$/"/>
-      </td>
-    </tr>
-  </table>
-  <div class="buttons">
+<ng-template [ngIf]="isLoggedIn">
+  <div>
+    <h1 class="header-center">Search auto ads</h1>
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+      <table width="400" height="150" align=center>
+        <tr>
+          <td>BrandModel:</td>
+          <td>
+            <div class="example-wrapper">
+              <kendo-multiselect
+                [data]="nameBrandList"
+                [(ngModel)]="brands"
+                [ngModelOptions]="{standalone: true}">
+              </kendo-multiselect>
+            </div>
+          </td>
+          <td>Model:</td>
+          <td>
+            <div class="example-wrapper">
+              <kendo-multiselect
+                [data]="groupedModel"
+                [textField]="'name'"
+                [valueField]="'name'"
+                formControlName="model">
+              </kendo-multiselect>
+            </div>
+          </td>
+          <td> Year &nbsp; &nbsp; &nbsp; from:</td>
+          <td>
+            <select formControlName="startYear">
+              <option [ngValue]="null" disabled>Select year</option>
+              <option *ngFor="let startYear of startYears"
+                      [ngValue]="startYear">{{startYear}}</option>
+            </select>
+          </td>
+          <td>&nbsp; &nbsp; &nbsp; to:</td>
+          <td>
+            <select formControlName="endYear">
+              <option [ngValue]="null" disabled>Select year</option>
+              <option *ngFor="let endYear of endYears"
+                      [ngValue]="endYear">{{endYear}}</option>
+            </select>
+          </td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Color:</td>
+          <td>
+            <div class="example-wrapper">
+              <kendo-multiselect
+                [data]="colorList"
+                [(ngModel)]="colors"
+                [ngModelOptions]="{standalone: true}">
+              </kendo-multiselect>
+            </div>
+          </td>
+          <td>Drive:</td>
+          <td>
+            <div class="example-wrapper">
+              <kendo-multiselect
+                [data]="driveList"
+                [(ngModel)]="drives"
+                [ngModelOptions]="{standalone: true}">
+              </kendo-multiselect>
+            </div>
+          </td>
+          <td>Transmission:</td>
+          <td>
+            <div class="example-wrapper">
+              <kendo-multiselect
+                [data]="transmissionList"
+                [(ngModel)]="transmissions"
+                [ngModelOptions]="{standalone: true}">
+              </kendo-multiselect>
+            </div>
+          </td>
+          <td>Body style:</td>
+          <td>
+            <div class="example-wrapper">
+              <kendo-multiselect
+                [data]="bodyStyleList"
+                [(ngModel)]="bodyStyles"
+                [ngModelOptions]="{standalone: true}">
+              </kendo-multiselect>
+            </div>
+          </td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Motor:</td>
+          <td>
+            <div class="example-wrapper">
+              <kendo-multiselect
+                [data]="motorTypeList"
+                [(ngModel)]="motors"
+                [ngModelOptions]="{standalone: true}">
+              </kendo-multiselect>
+            </div>
+          </td>
+          <td>Volume &nbsp; &nbsp; &nbsp; from:</td>
+          <td>
+            <select formControlName="startVolume">
+              <option [ngValue]="null" disabled>Select year</option>
+              <option *ngFor="let startVolume of startVolumes"
+                      [ngValue]="startVolume">{{startVolume}}</option>
+            </select>
+          </td>
+          <td>&nbsp; &nbsp; &nbsp; to:</td>
+          <td>
+            <select formControlName="endVolume">
+              <option [ngValue]="null" disabled>Select year</option>
+              <option *ngFor="let endVolume of endVolumes"
+                      [ngValue]="endVolume">{{endVolume}}</option>
+            </select>
+          </td>
+          <td>Price &nbsp; &nbsp; &nbsp; from:</td>
+          <td><input [(ngModel)]="startPrice"
+                     [ngModelOptions]="{standalone: true}"
+                     class="mat-form-field"
+                     size="10"
+                     placeholder="start"
+                     name="startPrice"
+                     ng-pattern="/^-?[0-9][^\.]*$/"/>
+          </td>
+          <td>&nbsp; &nbsp; &nbsp; to:</td>
+          <td><input [(ngModel)]="endPrice"
+                     [ngModelOptions]="{standalone: true}"
+                     class="mat-form-field"
+                     size="10"
+                     placeholder="end"
+                     name="endPrice"
+                     ng-pattern="/^-?[0-9][^\.]*$/"/>
+          </td>
+        </tr>
+      </table>
+      <div class="buttons">
+        <ng-template [ngIf]="isUser || isAdmin || isModerator">
+          <section>
+            <div class="button-find-and-reset">
+              <button mat-stroked-button>find</button>
+              <button style="margin-left:20px" mat-stroked-button (click)="reset()">reset</button>
+              <strong style="margin-left:20px">Total auto: </strong>{{count}}
+            </div>
+          </section>
+        </ng-template>
+      </div>
+    </form>
+    <br>
+    <br>
     <ng-template [ngIf]="isUser || isAdmin || isModerator">
-      <section>
-        <div class="button-find-and-reset">
-          <button mat-stroked-button>find</button>
-          <button style="margin-left:20px" mat-stroked-button (click)="reset()">reset</button>
-          <strong style="margin-left:20px">Total auto: </strong>{{count}}
-        </div>
-      </section>
-    </ng-template>
-  </div>
-</form>
-<br>
-<br>
-<ng-template [ngIf]="isUser || isAdmin || isModerator">
-  <form>
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th>Photo</th>
-        <th>Brand</th>
-        <th>Model</th>
-        <th>Year</th>
-        <th>Color</th>
-        <th>Price</th>
-        <th>Motor</th>
-        <th>Volume</th>
-        <th>Drive</th>
-        <th>Transmission</th>
-        <th>Body style</th>
-      </tr>
-      </thead>
-      <tbody>
-      <ng-template [ngIf]="isResponse">
-        <tr *ngFor="let car of auto| paginate : {
+      <form>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Photo</th>
+            <th>BrandModel</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Color</th>
+            <th>Price</th>
+            <th>Motor</th>
+            <th>Volume</th>
+            <th>Drive</th>
+            <th>Transmission</th>
+            <th>Body style</th>
+          </tr>
+          </thead>
+          <tbody>
+          <ng-template [ngIf]="isResponse">
+            <tr *ngFor="let car of auto| paginate : {
                                     itemsPerPage: pageSize,
                                     currentPage: page,
                                     totalItems: count
                                   };
                  let i = index"
-            [class.active]="i == currentIndex"
-            (click)="setActiveTutorial(car, i)">
-          <td>
-            <div>
-              <ng-template [ngIf]="isImage">
-                <img width="100" height="50" alt={{car.nameModel}} [src]="getImageAuto(car.raster)">
-              </ng-template>
-              <ng-template [ngIf]="!isImage">
-                <p>No photo</p>
-              </ng-template>
-            </div>
-          </td>
-          <td>
-            <div><a href="/page-auto" class="nav-link" routerLink="page-auto" (click)="goToPageAutoAds(car.idPicture)">
-              {{car.nameBrand}}
-            </a></div>
-          </td>
-          <td>
-            <div><a href="/page-auto" class="nav-link" routerLink="page-auto" (click)="goToPageAutoAds(car.idPicture)">
-              {{car.nameModel}} </a></div>
-          </td>
-          <td>
-            <div>{{car.year}}</div>
-          </td>
-          <td>
-            <div>{{car.color}}</div>
-          </td>
-          <td>
-            <div class="td-price">{{formatPrice(car.price)}}&nbsp;₽</div>
-          </td>
-          <td>
-            <div>{{car.motorType}}</div>
-          </td>
-          <td>
-            <div>{{car.volume}}</div>
-          </td>
-          <td>
-            <div>{{car.driveType}}</div>
-          </td>
-          <td>
-            <div>{{car.transmissionType}}</div>
-          </td>
-          <td>
-            <div>{{car.bodyStyleType}}</div>
-          </td>
-        </tr>
+                [class.active]="i == currentIndex"
+                (click)="setActiveTutorial(car, i)">
+              <td>
+                <div>
+                  <ng-template [ngIf]="isImage">
+                    <img width="100" height="50" alt={{car.nameModel}} [src]="getImageAuto(car.raster)">
+                  </ng-template>
+                  <ng-template [ngIf]="!isImage">
+                    <p>No photo</p>
+                  </ng-template>
+                </div>
+              </td>
+              <td>
+                <div><a href="/page-auto" class="nav-link" routerLink="page-auto"
+                        (click)="goToPageAutoAds(car.idPicture)">
+                  {{car.nameBrand}}
+                </a></div>
+              </td>
+              <td>
+                <div><a href="/page-auto" class="nav-link" routerLink="page-auto"
+                        (click)="goToPageAutoAds(car.idPicture)">
+                  {{car.nameModel}} </a></div>
+              </td>
+              <td>
+                <div>{{car.year}}</div>
+              </td>
+              <td>
+                <div>{{car.color}}</div>
+              </td>
+              <td>
+                <div class="td-price">{{formatPrice(car.price)}}&nbsp;₽</div>
+              </td>
+              <td>
+                <div>{{car.motorType}}</div>
+              </td>
+              <td>
+                <div>{{car.volume}}</div>
+              </td>
+              <td>
+                <div>{{car.driveType}}</div>
+              </td>
+              <td>
+                <div>{{car.transmissionType}}</div>
+              </td>
+              <td>
+                <div>{{car.bodyStyleType}}</div>
+              </td>
+            </tr>
+          </ng-template>
+          </tbody>
+        </table>
+      </form>
+      <ng-template [ngIf]="!isResponse">
+        <div style="text-align: center">
+          <p>Not found</p>
+        </div>
       </ng-template>
-      </tbody>
-    </table>
-  </form>
-  <ng-template [ngIf]="!isResponse">
-    <div style="text-align: center">
-      <p>Not found</p>
-    </div>
-  </ng-template>
-  <div class="col-md-12" style="text-align: center">
-    <pagination-controls
-      previousLabel="Prev"
-      nextLabel="Next"
-      responsive="true"
-      (pageChange)="handlePageChange($event)"
-    ></pagination-controls>
+      <div class="col-md-12" style="text-align: center">
+        <pagination-controls
+          previousLabel="Prev"
+          nextLabel="Next"
+          responsive="true"
+          (pageChange)="handlePageChange($event)"
+        ></pagination-controls>
+      </div>
+    </ng-template>
   </div>
-</ng-template>
-<ng-template [ngIf]="!isUser && !isAdmin && !isModerator">
-  <p>Please, log in or Sign Up </p>
 </ng-template>
 
 

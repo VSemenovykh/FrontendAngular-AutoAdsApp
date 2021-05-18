@@ -9,6 +9,7 @@ import {AutoPicture} from "../models/autopicture.model";
 import {ErrorStateMatcher} from "@angular/material/core";
 import {DOCUMENT} from "@angular/common";
 import {defined} from "@progress/kendo-angular-inputs/dist/es2015/numerictextbox/utils";
+import {TokenStorageService} from "../_services/token-storage.service";
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -211,12 +212,18 @@ export class EditAutoadsComponent implements OnInit {
   ];
 
   auto: AutoJoin = new AutoJoin();
-
   autoPicture: AutoPicture = new AutoPicture();
   matcher = new MyErrorStateMatcher();
   selectedFile: File;
   message: string;
   retrievedImage: any;
+  username: string;
+
+  isAdmin: boolean = false;
+  isModerator: boolean = false;
+  isUser: boolean = false;
+  isImage: boolean = true;
+  isLoggedIn: boolean = false;
   isPicture: boolean = true;
   notNegativeId: boolean = true;
   validateFormatImage: boolean = true;
@@ -228,7 +235,8 @@ export class EditAutoadsComponent implements OnInit {
     private imageAutoService: PictureAutoService,
     private autoAdsService: AutoAdsService,
     public fb: FormBuilder,
-    @Inject(DOCUMENT) private _document: Document
+    @Inject(DOCUMENT) private _document: Document,
+    private tokenStorageService: TokenStorageService
   ) {
   }
 
@@ -244,6 +252,13 @@ export class EditAutoadsComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+
+    if (this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      this.username = user.username;
+    }
+
     this.auto.id = Number(this.route.snapshot.params.id);
     if (this.auto.id > -1) {
       this.getAuto();
@@ -255,6 +270,7 @@ export class EditAutoadsComponent implements OnInit {
   onSubmit() {
     console.log("onSubmit()");
     this.getAuto();
+
     const auto = this.auto;
 
     const selectedBrand = this.brandControl.value;
@@ -406,6 +422,7 @@ export class EditAutoadsComponent implements OnInit {
   editAutoAds(auto: any, idImage: any): void {
     console.log("editAuto()");
     console.log("edit auto: ", auto);
+    this.auto.username = this.username;
     this.autoAdsService.editAutoAds(auto, auto.id, idImage)
       .subscribe(
         data => {

@@ -1,11 +1,15 @@
-import {Component} from '@angular/core';
+import {Component, Pipe, PipeTransform} from '@angular/core';
 import {Router} from '@angular/router';
 import {AutoAdsService} from '../_services/auto-ads.service';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from "@angular/forms";
 import {PictureAutoService} from "../_services/picture-auto.sevice";
 import {AutoJoin} from "../models/autojoin.model";
 import {ModelGroup} from '../interfaces/ModelGroup';
-import { ErrorStateMatcher } from '@angular/material/core';
+import {ErrorStateMatcher} from '@angular/material/core';
+import {TokenStorageService} from "../_services/token-storage.service";
+import {BrandModel} from "../models/brand.model";
+import {MotorModel} from "../models/motor.model";
+import * as _ from 'lodash';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -20,198 +24,42 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['add-autoads.component.css']
 })
 
-export class AddAutoadsComponent {
+export class AddAutoadsComponent implements PipeTransform {
 
   brandControl = new FormControl('', Validators.required);
-  brands = [
-    {id: 1, name: "AUDI"},
-    {id: 2, name: "FORD"},
-    {id: 3, name: "HONDA"},
-    {id: 4, name: "HYUNDAI"},
-    {id: 5, name: "BMW"},
-    {id: 6, name: "MERCEDES-BENZ"},
-    {id: 7, name: "KIA"}
-  ];
+  brands = [];
 
   modelControl = new FormControl();
-  modelGroups: ModelGroup[] = [
-    {
-      name: 'AUDI',
-      model: [
-        {id: 1, name: 'A3'},
-        {id: 2, name: 'A4'},
-        {id: 3, name: 'A8'}
-      ]
-    },
-    {
-      name: 'FORD',
-      model: [
-        {id: 1, name: 'FIESTA'},
-        {id: 2, name: 'FOCUS'},
-        {id: 3, name: 'MONDEO'}
-      ]
-    },
-    {
-      name: 'HONDA',
-      model: [
-        {id: 1, name: 'ACCORD'},
-        {id: 2, name: 'CROSSTOUR'},
-        {id: 3, name: 'JAZZ'}
-      ]
-    },
-    {
-      name: 'HYUNDAI',
-      model: [
-        {id: 1, name: 'SOLARIS'},
-        {id: 2, name: 'ELANTRA'},
-        {id: 3, name: 'SONATA'}
-      ]
-    },
-    {
-      name: 'BMW',
-      model: [
-        {id: 1, name: 'M8'},
-        {id: 2, name: 'M6'},
-        {id: 3, name: 'M5'}
-      ]
-    },
-    {
-      name: 'MERCEDES-BENZ',
-      model: [
-        {id: 1, name: 'GLE AMG'},
-        {id: 2, name: 'MAYBACH GLS'},
-        {id: 3, name: 'AMG GT'}
-      ]
-    },
-    {
-      name: 'KIA',
-      model: [
-        {id: 1, name: 'CERATO'},
-        {id: 2, name: 'K5'},
-        {id: 3, name: 'RIO X'}
-      ]
-    }
-  ];
+  modelGroups: ModelGroup[] = [];
 
   yearControl = new FormControl('', Validators.required);
-  years = [
-    {id: 1, name: "2000"},
-    {id: 2, name: "2001"},
-    {id: 3, name: "2002"},
-    {id: 4, name: "2003"},
-    {id: 5, name: "2004"},
-    {id: 6, name: "2005"},
-    {id: 7, name: "2006"},
-    {id: 8, name: "2007"},
-    {id: 9, name: "2008"},
-    {id: 10, name: "2009"},
-    {id: 11, name: "2010"},
-    {id: 12, name: "2011"},
-    {id: 13, name: "2012"},
-    {id: 14, name: "2013"},
-    {id: 15, name: "2014"},
-    {id: 16, name: "2015"},
-    {id: 17, name: "2016"},
-    {id: 18, name: "2017"},
-    {id: 29, name: "2018"},
-    {id: 20, name: "2019"},
-    {id: 21, name: "2020"},
-    {id: 22, name: "2021"}
-  ];
+  years = [];
 
   colorControl = new FormControl('', Validators.required);
-  colors = [
-    {id: 1, name: "WHITE"},
-    {id: 2, name: "SILVER"},
-    {id: 3, name: "GRAY"},
-    {id: 4, name: "BLACK"},
-    {id: 5, name: "BROWN"},
-    {id: 6, name: "RED"},
-    {id: 7, name: "MAROON"},
-    {id: 8, name: "NAVY"},
-    {id: 9, name: "YELLOW"},
-    {id: 10, name: "OLIVE"},
-    {id: 11, name: "LIME"},
-    {id: 12, name: "GREEN"},
-    {id: 13, name: "AQUA"},
-    {id: 14, name: "TEAL"},
-    {id: 15, name: "BLUE"},
-    {id: 16, name: "FUCHSIA"},
-    {id: 17, name: "PURPLE"},
-    {id: 18, name: "BROWN"}
-  ];
+  colors = [];
 
   driveControl = new FormControl('', Validators.required);
-  drives = [
-    {id: 1, name: "AWD"},
-    {id: 2, name: "FWD"},
-    {id: 3, name: "RWD"}
-  ];
+  drives = [];
 
   transmissionControl = new FormControl('', Validators.required);
-  transmissions = [
-    {id: 1, name: "HYBRID"},
-    {id: 2, name: "AUTOMATIC"},
-    {id: 3, name: "MANUAL"},
-    {id: 4, name: "CVT"},
-    {id: 4, name: "DSG"}
-  ];
+  transmissions = [];
 
   bodyStyleControl = new FormControl('', Validators.required);
-  bodyStyles = [
-    {id: 1, name: "COUPE"},
-    {id: 2, name: "HATCHBACK"},
-    {id: 3, name: "MINIVAN"},
-    {id: 4, name: "SUV"},
-    {id: 5, name: "SEDAN"},
-    {id: 6, name: "STATION WAGON"},
-    {id: 7, name: "LIFTBACK"},
-    {id: 8, name: "LANDAU"},
-    {id: 9, name: "PICKUP TRUCK"},
-    {id: 10, name: "PICKUP"},
-    {id: 11, name: "SPORTS CAR"},
-    {id: 12, name: "CABRIOLET"},
-    {id: 13, name: "CONVERTIBLE"},
-    {id: 14, name: "TWO-DOOR SEDAN"},
-    {id: 15, name: "LIMOUSINE"},
-    {id: 16, name: "CROSSOVER"}
-  ];
+  bodyStyles = [];
 
   motorControl = new FormControl('', Validators.required);
-  motors = [
-    {id: 1, name: "DIESEL"},
-    {id: 2, name: "ELECTRIC"},
-    {id: 3, name: "GASOLINE"}
-  ];
+  motors = [];
 
   volumeControl = new FormControl('', Validators.required);
-  volumes = [
-    {id: 1, name: "0.2"},
-    {id: 2, name: "0.4"},
-    {id: 3, name: "0.6"},
-    {id: 4, name: "0.8"},
-    {id: 5, name: "1.0"},
-    {id: 6, name: "1.2"},
-    {id: 7, name: "1.4"},
-    {id: 8, name: "1.6"},
-    {id: 9, name: "1.8"},
-    {id: 10, name: "2.0"},
-    {id: 11, name: "2.2"},
-    {id: 12, name: "2.4"},
-    {id: 13, name: "2.6"},
-    {id: 14, name: "2.7"},
-    {id: 15, name: "2.8"},
-    {id: 16, name: "3.0"},
-    {id: 17, name: "3.2"},
-    {id: 18, name: "4.0"},
-    {id: 19, name: "5.0"},
-    {id: 20, name: "5.5"}
-  ];
+  volumes = [];
+
 
   auto: AutoJoin = new AutoJoin();
+  brandList: BrandModel[];
+  motorList: Array<MotorModel>;
+  autoList: Array<AutoJoin>;
   selectedFile: File;
   matcher = new MyErrorStateMatcher();
-
   message: string;
 
   isPicture: boolean = true;
@@ -219,13 +67,18 @@ export class AddAutoadsComponent {
   validateFormatImage: boolean = true;
   validateSizeImage: boolean = true;
   trueImage: boolean = true;
+  isLoggedIn: boolean = false;
+  isAdmin: boolean = false;
+  isModerator: boolean = false;
+  isUser: boolean = false;
 
   constructor(
-              private router: Router,
-              private autoAdsService: AutoAdsService,
-              private imageAutoService: PictureAutoService,
-              public fb: FormBuilder
-             ){
+    private router: Router,
+    private autoAdsService: AutoAdsService,
+    private imageAutoService: PictureAutoService,
+    public fb: FormBuilder,
+    private tokenStorageService: TokenStorageService
+  ) {
   }
 
   /*Form for create auto ads*/
@@ -248,50 +101,64 @@ export class AddAutoadsComponent {
       Validators.pattern("^\\([0-9]{3}\\)+\\-[0-9]{3}\\-[0-9]{2}-[0-9]{2}$")])
   });
 
+  ngOnInit(): void {
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+
+    if (this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      this.auto.username = user.username;
+
+      this.getAllListBrand();
+      this.getAllListMotor();
+      this.getAllListAuto();
+    }
+  }
+
   onSubmit() {
     console.log("onSubmit()");
     const auto = this.auto;
 
-    const selectedBrand =  this.brandControl.value;
-    if(selectedBrand != null){
-      auto.nameBrand = selectedBrand['name'];
+    const selectedBrand = this.brandControl.value;
+    if (selectedBrand != null) {
+      console.log("name brand: ", selectedBrand);
+      auto.nameBrand = selectedBrand;
     }
 
     auto.nameModel = this.modelControl.value;
 
-    const selectedYear =  this.yearControl.value;
-    if(selectedYear != null){
-      auto.year = selectedYear['name'];
+    const selectedYear = this.yearControl.value;
+    if (selectedYear != null) {
+      auto.year = selectedYear;
     }
     auto.price = this.createForm.controls["price"].value;
 
-    const selectedMotor =  this.motorControl.value;
-    if(selectedMotor != null){
-      auto.motorType = selectedMotor['name'];
+    const selectedMotor = this.motorControl.value;
+    if (selectedMotor != null) {
+      auto.motorType = selectedMotor;
     }
 
-    const selectedVolume =  this.volumeControl.value;
-    if(selectedVolume != null){
-      auto.volume = selectedVolume['name'];
+    const selectedVolume = this.volumeControl.value;
+    if (selectedVolume != null) {
+      auto.volume = selectedVolume;
     }
 
-    const selectedColor =  this.colorControl.value;
-    if(selectedColor != null){
-      auto.color = selectedColor['name'];
+    const selectedColor = this.colorControl.value;
+    if (selectedColor != null) {
+      auto.color = selectedColor;
     }
 
-    const selectedDrive =  this.driveControl.value;
-    if(selectedDrive != null){
-      auto.driveType = selectedDrive['name'];
+    const selectedDrive = this.driveControl.value;
+    if (selectedDrive != null) {
+      auto.driveType = selectedDrive;
     }
-    const selectedTransmission =  this.transmissionControl.value;
-    if(selectedTransmission != null){
-      auto.transmissionType = selectedTransmission['name'];
+    const selectedTransmission = this.transmissionControl.value;
+    if (selectedTransmission != null) {
+      auto.transmissionType = selectedTransmission;
     }
 
-    const selectedBodyStyle =  this.bodyStyleControl.value;
-    if(selectedBodyStyle != null){
-      auto.bodyStyleType = selectedBodyStyle['name'];
+    const selectedBodyStyle = this.bodyStyleControl.value;
+    if (selectedBodyStyle != null) {
+      auto.bodyStyleType = selectedBodyStyle;
     }
 
     auto.email = this.inputForm.controls["emailBrand"].value;
@@ -307,6 +174,7 @@ export class AddAutoadsComponent {
       || (auto.driveType == null)
       || (auto.transmissionType == null)
       || (auto.bodyStyleType == null)) {
+      console.log("auto.nameBrand: ", auto.nameBrand);
 
       this.isData = false;
     } else {
@@ -372,6 +240,8 @@ export class AddAutoadsComponent {
   addAutoAds(auto: any, idImage: any): void {
     console.log("createAuto()");
     console.log("Auto: ", auto);
+    auto.idPicture = idImage;
+    console.log("trueImage: ", this.trueImage);
     if (this.trueImage) {
       this.autoAdsService.addAutoAds(auto, idImage)
         .subscribe(
@@ -390,15 +260,94 @@ export class AddAutoadsComponent {
     console.log("Auto ads successfully to the list");
   }
 
-  get emailBrand(){
+  /*Get list brand*/
+  getAllListBrand(): void {
+    this.autoAdsService.getAllBrand()
+      .subscribe(
+        (res) => {
+          this.brandList = res;
+          this.brands = this.transform(res, "nameBrand").map(name => name.nameBrand);
+          this.years = this.transform(res, "year").map(name => name.year);
+
+          const brands = this.brands;
+          const brandsFromListModels = this.transform(res, "nameModel").map(name => name.nameBrand);
+          const models = this.transform(res, "nameModel").map(name => name.nameModel);
+
+          let massiv = [];
+
+          for (let i = 0; i < brands.length; i++) {
+            let newModelGroup: ModelGroup = {name: '', model: []};
+            // newModelGroup.name = brands[i];
+            for (let j = 0; j < brandsFromListModels.length; j++) {
+              if (brands[i] === brandsFromListModels[j]) {
+                massiv.push(models[j]);
+              }
+            }
+
+            // newModelGroup.model = massiv;
+            this.modelGroups.push({name: brands[i], model: massiv});
+
+            massiv = [];
+            // newModelGroup = null;
+          }
+          console.log("out cycle this.modelGroups: ", this.modelGroups);
+        });
+  }
+
+  /*Get list model*/
+  getAllListMotor(): void {
+    this.autoAdsService.getAllMotor()
+      .subscribe(
+        (res) => {
+          this.motorList = res;
+          this.motors = this.transform(res, "motorType").map(name => name.motorType);
+          this.volumes = this.transformForNumberValues(res, "volume").map(name => name.volume).sort();
+        });
+  }
+
+  /*Get list auto*/
+  getAllListAuto(): void {
+    this.autoAdsService.getAllAuto()
+      .subscribe(
+        (res) => {
+          this.autoList = res;
+          const listColor = this.transform(res, "color");
+          this.colors = listColor.map(name => name.color);
+          const listDrive = this.transform(res, "driveType");
+          this.drives = listDrive.map(name => name.driveType);
+          const listTransmission = this.transform(res, "transmissionType");
+          this.transmissions =  listTransmission.map(name => name.transmissionType);
+          console.log("this.transmissions: ", this.transmissions);
+          this.bodyStyles =  this.transform(res, "bodyStyleType").map(name => name.bodyStyleType);
+        });
+  }
+
+  /*Get unique values from array string values*/
+  transform(value: any[], nameColum: string): any {
+    if (value !== undefined && value !== null) {
+      value.sort((a, b) => a[nameColum].toLowerCase() !== b[nameColum].toLowerCase() ? a[nameColum].toLowerCase() < b[nameColum].toLowerCase() ? -1 : 1 : 0);
+      return _.uniqBy(value, nameColum);
+    }
+    return value;
+  }
+
+  /*Get unique values from array number values*/
+  transformForNumberValues(value: any[], nameColum: string): any {
+    if (value !== undefined && value !== null) {
+      return _.uniqBy(value, nameColum);
+    }
+    return value;
+  }
+
+  get emailBrand() {
     return this.inputForm.get('emailBrand');
   }
 
-  get phone(){
+  get phone() {
     return this.inputForm.get('emailBrand');
   }
 
-  get price(){
+  get price() {
     return this.createForm.get('price');
   }
 }

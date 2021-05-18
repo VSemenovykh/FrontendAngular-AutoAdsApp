@@ -30,3 +30,11 @@ label {
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
+
+.message:hover {
+  text-decoration: none;
+  color: black;
+  background: #f19e00;
+  display: inline-block;
+  cursor: pointer;
+}

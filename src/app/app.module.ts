@@ -31,7 +31,10 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import {MatInputModule} from "@angular/material/input";
-import {NotFoundComponent} from "./erros/not-found.component"
+import {NotFoundComponent} from "./errors/not-found.component"
+import {NotVerifyComponent} from "./errors/not-verify.component"
+import {InfoModifyAutoAdsService} from "./_services/info-modify-auto-ads.service";
+import {ResponsiveService} from "./_services/responsive.service";
 
 @NgModule({
   declarations: [
@@ -46,8 +49,10 @@ import {NotFoundComponent} from "./erros/not-found.component"
     LoginComponent,
     ProfileComponent,
     CompareAutoadsComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    NotVerifyComponent
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -67,7 +72,13 @@ import {NotFoundComponent} from "./erros/not-found.component"
     MatSelectModule,
     MatInputModule
   ],
-  providers: [AutoAdsService, SearchAutoAdsService, PictureAutoService, authInterceptorProviders, CompareAutoAdsService],
+  providers: [AutoAdsService,
+              SearchAutoAdsService,
+              PictureAutoService,
+              authInterceptorProviders,
+              ResponsiveService,
+              CompareAutoAdsService,
+              InfoModifyAutoAdsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

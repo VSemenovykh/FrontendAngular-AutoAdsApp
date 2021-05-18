@@ -1,115 +1,130 @@
-<ng-template [ngIf]="notNegativeId">
-  <div class="content" *ngIf="!isDelete">
-    <div class="image-auto">
-      <div class="container row">
-        <div class="col-md-12">
-          <ng-template [ngIf]="isPicture">
-            <img class="border-image-auto" alt={{dataAuto.nameModel}} [src]="retrievedImage">
-          </ng-template>
-          <ng-template [ngIf]="!isPicture">
-            <h2> No photo </h2>
-          </ng-template>
-          <div>
-            <p>
-              <strong>Email: </strong> {{dataAuto.email}}
-            </p>
-            <p>
-              <strong>Phone number: </strong>{{dataAuto.phone}}
-            </p>
-            <div class="div-compare" *ngIf="isAdmin || isUser || isModerator">
-              <section>
-                <div class="button-compare-auto">
-                  <button mat-stroked-button (click)="addAutoAdsToListCompare(dataAuto.id)" *ngIf="!isAddCompare">add to compare
-                  </button>
-                  <button mat-stroked-button (click)="addAutoAdsToListCompare(dataAuto.id)" *ngIf="isAddCompare" disabled>add to
-                    compare
-                  </button>
-                  <button mat-stroked-button style="margin-left:10px" (click)="goToCompare()" *ngIf="isAddCompare">go to
-                    compare
-                  </button>
+<ng-template [ngIf]="isLoggedIn">
+  <ng-template [ngIf]="notNegativeId">
+    <div class="content" *ngIf="!isDelete">
+      <div class="image-auto">
+        <div class="container row">
+          <div class="col-md-12">
+            <ng-template [ngIf]="isPicture">
+              <img class="border-image-auto" alt={{dataAuto.nameModel}} [src]="retrievedImage">
+            </ng-template>
+            <ng-template [ngIf]="!isPicture">
+              <h2> No photo </h2>
+            </ng-template>
+            <div>
+              <p>
+                <strong>Email: </strong> {{dataAuto.email}}
+              </p>
+              <p>
+                <strong>Phone number: </strong>{{dataAuto.phone}}
+              </p>
+              <div class="div-compare" *ngIf="isAdmin || isUser || isModerator">
+                <section>
+                  <div class="button-compare-auto">
+                    <button mat-stroked-button (click)="addAutoAdsToListCompare(dataAuto.id)" *ngIf="!isAddCompare">add
+                      to compare
+                    </button>
+                    <button mat-stroked-button (click)="addAutoAdsToListCompare(dataAuto.id)" *ngIf="isAddCompare"
+                            disabled>add to
+                      compare
+                    </button>
+                    <button mat-stroked-button style="margin-left:10px" (click)="goToCompare()" *ngIf="isAddCompare">go
+                      to
+                      compare
+                    </button>
+                  </div>
+                </section>
+                <div *ngIf="isAddCompare">
+                  <p>Added in list compare auto</p>
                 </div>
-              </section>
-              <div *ngIf="isAddCompare">
-                <p>Added in list compare auto</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="specifications-auto">
-      <h1>{{dataAuto.nameBrand}} - {{dataAuto.nameModel}}</h1>
-      <h2> Сar specifications: </h2>
-      <table>
-        <tr>
-          <strong>
-            <td>Year:</td>
-          </strong>
-          <td>{{dataAuto.year}}</td>
-        </tr>
-        <tr>
-          <strong>
-            <td>Color:</td>
-          </strong>
-          <td>{{dataAuto.color}}</td>
-        </tr>
-        <tr>
-          <strong>
-            <td>Price:</td>
-          </strong>
-          <td>
-            <div class="price">{{price}}&nbsp;₽</div>
-          </td>
-        </tr>
-        <tr>
-          <strong>
-            <td>Motor:</td>
-          </strong>
-          <td>{{dataAuto.motorType}}</td>
-        </tr>
-        <tr>
-          <strong>
-            <td>Volume:</td>
-          </strong>
-          <td>{{dataAuto.volume}}</td>
-        </tr>
-        <tr>
-          <strong>
-            <td>Drive:</td>
-          </strong>
-          <td>{{dataAuto.driveType}}</td>
-        </tr>
-        <tr>
-          <strong>
-            <td>Transmission:</td>
-          </strong>
-          <td>{{dataAuto.transmissionType}}</td>
-        </tr>
-        <tr>
-          <strong>
-            <td>Body style:</td>
-          </strong>
-          <td>{{dataAuto.bodyStyleType}}</td>
-        </tr>
-      </table>
-    </div>
-    <div class="buttons-control">
-      <div class="button-delete" *ngIf="isAdmin">
-        <button mat-stroked-button class="buttons blue" (click)="deleteAutoAds(dataAuto)">
-          <span class="material-icons"> delete </span>
-        </button>
+      <div class="specifications-auto">
+        <h1>{{dataAuto.nameBrand}} - {{dataAuto.nameModel}}</h1>
+        <h2> Сar specifications: </h2>
+        <table>
+          <tr>
+            <strong>
+              <td>Year:</td>
+            </strong>
+            <td>{{dataAuto.year}}</td>
+          </tr>
+          <tr>
+            <strong>
+              <td>Color:</td>
+            </strong>
+            <td>{{dataAuto.color}}</td>
+          </tr>
+          <tr>
+            <strong>
+              <td>Price:</td>
+            </strong>
+            <td>
+              <div class="price">{{price}}&nbsp;₽</div>
+            </td>
+          </tr>
+          <tr>
+            <strong>
+              <td>Motor:</td>
+            </strong>
+            <td>{{dataAuto.motorType}}</td>
+          </tr>
+          <tr>
+            <strong>
+              <td>Volume:</td>
+            </strong>
+            <td>{{dataAuto.volume}}</td>
+          </tr>
+          <tr>
+            <strong>
+              <td>Drive:</td>
+            </strong>
+            <td>{{dataAuto.driveType}}</td>
+          </tr>
+          <tr>
+            <strong>
+              <td>Transmission:</td>
+            </strong>
+            <td>{{dataAuto.transmissionType}}</td>
+          </tr>
+          <tr>
+            <strong>
+              <td>Body style:</td>
+            </strong>
+            <td>{{dataAuto.bodyStyleType}}</td>
+          </tr>
+        </table>
+        <div class="info-create-moddify">
+          <p>
+            <strong>Creator by: </strong> {{dataAuto.username}}&nbsp; <strong>Date: </strong> {{dataAuto.addingDate}}
+          </p>
+          <p *ngIf="isInfoModify">
+            <strong>Modify by: </strong>{{changeHistoryAutoAds.username}}&nbsp;
+            <strong>Date: </strong>  {{changeHistoryAutoAds.modifyData}}
+          </p>
+        </div>
       </div>
-      <div class="button-edit" *ngIf="isAdmin || isModerator">
-        <button mat-stroked-button class="buttons blue" (click)="goToEdit(dataAuto.id)">
-          <mat-icon> edit</mat-icon>
-        </button>
+      <div class="buttons-control">
+        <div class="button-edit-info" *ngIf="isAdmin">
+          <button mat-stroked-button class="buttons blue" (click)="deleteAutoAds(dataAuto)">
+            <span class="material-icons"> delete </span>
+          </button>
+        </div>
+        <div class="button-edit" *ngIf="isAdmin || isModerator">
+          <button mat-stroked-button class="buttons blue" (click)="goToEdit(dataAuto.id)">
+            <mat-icon> edit</mat-icon>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="text-deleted-auto-ads" *ngIf="isDelete">
-    <p>Successfully removed</p>
-  </div>
+    <div class="text-deleted-auto-ads" *ngIf="isDelete">
+      <p>Successfully removed</p>
+    </div>
+  </ng-template>
 </ng-template>
+
 
 
 

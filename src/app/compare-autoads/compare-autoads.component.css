@@ -147,3 +147,17 @@ h1, h2 {
 .mat-form-field {
   margin-right: 8px;
 }
+
+.access-is-denied {
+  font-size: 72px;
+  align-items: center;
+  box-sizing: border-box;
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  margin-top: 98px;
+  margin-left: 25%;
+  color: blue;
+}
+
+

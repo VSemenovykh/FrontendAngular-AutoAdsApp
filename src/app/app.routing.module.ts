@@ -10,7 +10,8 @@ import {RegisterComponent} from "./register/register.component";
 import {ProfileComponent} from "./profile/profile.component";
 import {SearchAutoadsComponent} from "./search-autoads/search-autoads.component";
 import {CompareAutoadsComponent} from "./compare-autoads/compare-autoads.component";
-import {NotFoundComponent} from "./erros/not-found.component";
+import {NotFoundComponent} from "./errors/not-found.component";
+import {NotVerifyComponent} from "./errors/not-verify.component";
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -46,6 +47,8 @@ const routes: Routes = [
   {path: 'page-auto-ads/:id', component: PageAutoadsComponent},
 
   {path: '404', component: NotFoundComponent},
+
+  {path: 'not-verify', component: NotVerifyComponent},
 
   {path: '', redirectTo: 'home', pathMatch: 'full'},
 
