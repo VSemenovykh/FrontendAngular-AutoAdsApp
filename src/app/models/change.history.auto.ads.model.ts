@@ -1,6 +1,6 @@
-export class ChangeHistoryAutoAds {
+export class ChangeHistoryAutoAdsModel {
   id: number = null;
   idAuto: number = null;
   username: string = null;
-  changeData: String = null;
+  modifyData: String = null;
 }

@@ -5,6 +5,7 @@ import {AutoJoin} from '../models/autojoin.model';
 import {AutoAdsService} from '../_services/auto-ads.service';
 import {PictureAutoService} from "../_services/picture-auto.sevice";
 import {TokenStorageService} from "../_services/token-storage.service";
+import {ResponsiveService} from "../_services/responsive.service";
 
 @Component({
   selector: 'app-auto',
@@ -28,17 +29,22 @@ export class AutoadsComponent implements OnInit {
   isUser: boolean = false;
   isImage: boolean = true;
   isLoggedIn: boolean = false;
+  isMobile: boolean;
 
   constructor(
               private router: Router,
               private autoAdsService: AutoAdsService,
               private tokenStorageService: TokenStorageService,
               private imageAutoService: PictureAutoService,
+              private responsiveService: ResponsiveService,
               @Inject(DOCUMENT) private _document: Document
              ){
   }
 
   ngOnInit(): void {
+    this.onResize();
+    this.responsiveService.checkWidth();
+
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {
@@ -57,6 +63,12 @@ export class AutoadsComponent implements OnInit {
         this.loadAutoByPage();
       }
     }
+  }
+
+  onResize() {
+    this.responsiveService.getMobileStatus().subscribe(isMobile => {
+      this.isMobile = isMobile;
+    });
   }
 
   getRequestParams(page, pageSize): any {

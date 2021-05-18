@@ -8,7 +8,7 @@ import {CompareAutoAdsService} from "../_services/compare-auto-ads.service";
 import {DOCUMENT} from "@angular/common";
 import {TokenStorageService} from "../_services/token-storage.service";
 import {InfoModifyAutoAdsService} from "../_services/info-modify-auto-ads.service";
-import {ChangeHistoryAutoAds} from "../models/ChangeHistoryAutoAds";
+import {ChangeHistoryAutoAdsModel} from "../models/change.history.auto.ads.model";
 
 @Component({
   selector: 'app-page-auto',
@@ -20,7 +20,7 @@ export class PageAutoadsComponent implements OnInit {
   dataAuto: AutoJoin = new AutoJoin();
   dataAutoToCompare: AutoJoin = new AutoJoin();
   pictureAuto: AutoPicture = new AutoPicture();
-  changeHistoryAutoAds: ChangeHistoryAutoAds = new ChangeHistoryAutoAds();
+  changeHistoryAutoAds: ChangeHistoryAutoAdsModel = new ChangeHistoryAutoAdsModel();
   retrievedImage: any;
   price: string;
   private roles: string[];

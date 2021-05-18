@@ -20,7 +20,7 @@
       </ng-container>
 
       <ng-container matColumnDef="brand">
-        <th class="head-table" mat-header-cell cdkDrag *matHeaderCellDef> Brand</th>
+        <th class="head-table" mat-header-cell cdkDrag *matHeaderCellDef> BrandModel</th>
         <td mat-cell *matCellDef="let element">
           <div class="div-ceil-tbody">
             <a href="/page-auto"
@@ -105,9 +105,3 @@
     </mat-paginator>
   </div>
 </ng-template>
-<ng-template [ngIf]="!isLoggedIn" ]>
-  <div class="access-is-denied">
-    <p>Access is denied</p>
-  </div>
-</ng-template>
-

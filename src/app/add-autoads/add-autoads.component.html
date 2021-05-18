@@ -29,11 +29,11 @@
           <tr>
             <td>
               <mat-form-field appearance="fill">
-                <mat-label>Brand</mat-label>
+                <mat-label>BrandModel</mat-label>
                 <mat-select [formControl]="brandControl" required>
                   <mat-option>--</mat-option>
                   <mat-option *ngFor="let brand of brands" [value]="brand">
-                    {{brand.name}}
+                    {{brand}}
                   </mat-option>
                 </mat-select>
                 <mat-error *ngIf="brandControl.hasError('required')">Please choose an brand</mat-error>
@@ -45,7 +45,7 @@
                 <mat-select [formControl]="motorControl" required>
                   <mat-option>--</mat-option>
                   <mat-option *ngFor="let motor of motors" [value]="motor">
-                    {{motor.name}}
+                    {{motor}}
                   </mat-option>
                 </mat-select>
                 <mat-error *ngIf="motorControl.hasError('required')">Please choose an motor</mat-error>
@@ -60,8 +60,8 @@
                   <mat-option>-- None --</mat-option>
                   <mat-optgroup *ngFor="let modelGroup of modelGroups" [label]="modelGroup.name"
                                 [disabled]="modelGroup.disabled">
-                    <mat-option *ngFor="let model of modelGroup.model" [value]="model.name">
-                      {{model.name}}
+                    <mat-option *ngFor="let model of modelGroup.model" [value]="model">
+                      {{model}}
                     </mat-option>
                   </mat-optgroup>
                 </mat-select>
@@ -74,7 +74,7 @@
                 <mat-select [formControl]="volumeControl" required>
                   <mat-option>--</mat-option>
                   <mat-option *ngFor="let volume of volumes" [value]="volume">
-                    {{volume.name}}
+                    {{volume}}
                   </mat-option>
                 </mat-select>
                 <mat-error *ngIf="volumeControl.hasError('required')">Please choose an volume</mat-error>
@@ -87,8 +87,8 @@
                 <mat-label>Year</mat-label>
                 <mat-select [formControl]="yearControl" required>
                   <mat-option>--</mat-option>
-                  <mat-option *ngFor="let year of years" [value]="year">
-                    {{year.name}}
+                  <mat-option *ngFor="let year of years " [value]="year">
+                    {{year}}
                   </mat-option>
                 </mat-select>
                 <mat-error *ngIf="yearControl.hasError('required')">Please choose an year</mat-error>
@@ -100,7 +100,7 @@
                 <mat-select [formControl]="driveControl" required>
                   <mat-option>--</mat-option>
                   <mat-option *ngFor="let drive of drives" [value]="drive">
-                    {{drive.name}}
+                    {{drive}}
                   </mat-option>
                 </mat-select>
                 <mat-error *ngIf="driveControl.hasError('required')">Please choose an drive</mat-error>
@@ -114,7 +114,7 @@
                 <mat-select [formControl]="colorControl" required>
                   <mat-option>--</mat-option>
                   <mat-option *ngFor="let color of colors" [value]="color">
-                    {{color.name}}
+                    {{color}}
                   </mat-option>
                 </mat-select>
                 <mat-error *ngIf="colorControl.hasError('required')">Please choose an color</mat-error>
@@ -126,7 +126,7 @@
                 <mat-select [formControl]="transmissionControl" required>
                   <mat-option>--</mat-option>
                   <mat-option *ngFor="let transmission of transmissions" [value]="transmission">
-                    {{transmission.name}}
+                    {{transmission}}
                   </mat-option>
                 </mat-select>
                 <mat-error *ngIf="transmissionControl.hasError('required')">Please choose an transmission</mat-error>
@@ -155,7 +155,7 @@
                 <mat-select [formControl]="bodyStyleControl" required>
                   <mat-option>--</mat-option>
                   <mat-option *ngFor="let bodyStyle of bodyStyles" [value]="bodyStyle">
-                    {{bodyStyle.name}}
+                    {{bodyStyle}}
                   </mat-option>
                 </mat-select>
                 <mat-error *ngIf="bodyStyleControl.hasError('required')">Please choose an bodyStyle</mat-error>
@@ -218,9 +218,3 @@
     </div>
   </div>
 </ng-template>
-<ng-template [ngIf]="!isLoggedIn">
-  <div class="access-is-denied">
-    <p>Access is denied</p>
-  </div>
-</ng-template>
-

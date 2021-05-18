@@ -4,11 +4,11 @@
     <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
       <table width="400" height="150" align=center>
         <tr>
-          <td>Brand:</td>
+          <td>BrandModel:</td>
           <td>
             <div class="example-wrapper">
               <kendo-multiselect
-                [data]="brandList"
+                [data]="nameBrandList"
                 [(ngModel)]="brands"
                 [ngModelOptions]="{standalone: true}">
               </kendo-multiselect>
@@ -30,7 +30,7 @@
             <select formControlName="startYear">
               <option [ngValue]="null" disabled>Select year</option>
               <option *ngFor="let startYear of startYears"
-                      [ngValue]="startYear.name">{{startYear.name}}</option>
+                      [ngValue]="startYear">{{startYear}}</option>
             </select>
           </td>
           <td>&nbsp; &nbsp; &nbsp; to:</td>
@@ -38,7 +38,7 @@
             <select formControlName="endYear">
               <option [ngValue]="null" disabled>Select year</option>
               <option *ngFor="let endYear of endYears"
-                      [ngValue]="endYear.name">{{endYear.name}}</option>
+                      [ngValue]="endYear">{{endYear}}</option>
             </select>
           </td>
           <td></td>
@@ -93,7 +93,7 @@
           <td>
             <div class="example-wrapper">
               <kendo-multiselect
-                [data]="motorList"
+                [data]="motorTypeList"
                 [(ngModel)]="motors"
                 [ngModelOptions]="{standalone: true}">
               </kendo-multiselect>
@@ -104,7 +104,7 @@
             <select formControlName="startVolume">
               <option [ngValue]="null" disabled>Select year</option>
               <option *ngFor="let startVolume of startVolumes"
-                      [ngValue]="startVolume.name">{{startVolume.name}}</option>
+                      [ngValue]="startVolume">{{startVolume}}</option>
             </select>
           </td>
           <td>&nbsp; &nbsp; &nbsp; to:</td>
@@ -112,7 +112,7 @@
             <select formControlName="endVolume">
               <option [ngValue]="null" disabled>Select year</option>
               <option *ngFor="let endVolume of endVolumes"
-                      [ngValue]="endVolume.name">{{endVolume.name}}</option>
+                      [ngValue]="endVolume">{{endVolume}}</option>
             </select>
           </td>
           <td>Price &nbsp; &nbsp; &nbsp; from:</td>
@@ -155,7 +155,7 @@
           <thead>
           <tr>
             <th>Photo</th>
-            <th>Brand</th>
+            <th>BrandModel</th>
             <th>Model</th>
             <th>Year</th>
             <th>Color</th>
@@ -188,12 +188,14 @@
                 </div>
               </td>
               <td>
-                <div><a href="/page-auto" class="nav-link" routerLink="page-auto" (click)="goToPageAutoAds(car.idPicture)">
+                <div><a href="/page-auto" class="nav-link" routerLink="page-auto"
+                        (click)="goToPageAutoAds(car.idPicture)">
                   {{car.nameBrand}}
                 </a></div>
               </td>
               <td>
-                <div><a href="/page-auto" class="nav-link" routerLink="page-auto" (click)="goToPageAutoAds(car.idPicture)">
+                <div><a href="/page-auto" class="nav-link" routerLink="page-auto"
+                        (click)="goToPageAutoAds(car.idPicture)">
                   {{car.nameModel}} </a></div>
               </td>
               <td>
@@ -239,11 +241,6 @@
         ></pagination-controls>
       </div>
     </ng-template>
-  </div>
-</ng-template>
-<ng-template [ngIf]="!isLoggedIn">
-  <div class="access-is-denied">
-    <p>Access is denied</p>
   </div>
 </ng-template>
 

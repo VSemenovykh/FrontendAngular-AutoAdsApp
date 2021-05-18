@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {AutoJoin} from '../models/autojoin.model';
 import {Observable} from 'rxjs';
+import {BrandModel} from "../models/brand.model";
 
 @Injectable()
 export class AutoAdsService {
@@ -19,6 +20,18 @@ export class AutoAdsService {
 
   public getAutoAdsById(id: number): Observable<any> {
     return this.http.get(this.autoUrlAll + '/autoads/join/' + id);
+  }
+
+  public getAllBrand(): Observable<any>{
+    return this.http.get(this.autoUrlAll + '/brand');
+  }
+
+  public getAllMotor(): Observable<any>{
+    return this.http.get(this.autoUrlAll + '/motor');
+  }
+
+  public getAllAuto(): Observable<any>{
+    return this.http.get(this.autoUrlAll + '/auto');
   }
 
   public deleteAutoAds(car: AutoJoin): Observable<any> {

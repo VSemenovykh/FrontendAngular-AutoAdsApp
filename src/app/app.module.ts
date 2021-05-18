@@ -34,6 +34,7 @@ import {MatInputModule} from "@angular/material/input";
 import {NotFoundComponent} from "./errors/not-found.component"
 import {NotVerifyComponent} from "./errors/not-verify.component"
 import {InfoModifyAutoAdsService} from "./_services/info-modify-auto-ads.service";
+import {ResponsiveService} from "./_services/responsive.service";
 
 @NgModule({
   declarations: [
@@ -71,7 +72,13 @@ import {InfoModifyAutoAdsService} from "./_services/info-modify-auto-ads.service
     MatSelectModule,
     MatInputModule
   ],
-  providers: [AutoAdsService, SearchAutoAdsService, PictureAutoService, authInterceptorProviders, CompareAutoAdsService, InfoModifyAutoAdsService],
+  providers: [AutoAdsService,
+              SearchAutoAdsService,
+              PictureAutoService,
+              authInterceptorProviders,
+              ResponsiveService,
+              CompareAutoAdsService,
+              InfoModifyAutoAdsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
